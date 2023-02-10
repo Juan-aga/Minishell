@@ -18,6 +18,7 @@ INCLUDES = -Iinc -L ${LIBFT_DIR} -lft
 ${NAME}: ${OBJ}
 	@echo "Compiling $(NAME)..."
 	@echo "Compiling dependencies..."
+	@git submodule update --init
 	@$(MAKE) -s all -C $(LIBFT_DIR)
 	@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(INCLUDES)
 	@echo "$(NAME) compiled!"
@@ -25,7 +26,7 @@ ${NAME}: ${OBJ}
 %.o: %.c
 	@${CC} ${FLAGS} -c $^ -o $@ -g3
 
-all: ${NAME} ${LIBFT}
+all:	${LIBFT} ${NAME}
 
 clean:
 	@echo "Removing files..."
