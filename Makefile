@@ -1,43 +1,48 @@
-NAME = minishell
+NAME 		= minishell
 
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
-RM = rm -rf
+CC 		= gcc
+FLAGS 		= -Wall -Wextra -Werror
+RM 		= rm -rf
 
-SRC_DIR = src/
-_SRC = main.c
+ifdef DEBUG
+		FLAGS += -g
+endif
 
-SRC = ${addprefix ${SRC_DIR}, ${_SRC}}
-OBJ = ${SRC:.c=.o}
+SRC_DIR 	= src/
+_SRC 		= main.c /
+		ft_cmdlst.c
 
-LIBFT = lib/libft-juan-aga/libft.a
-LIBFT_DIR = lib/libft-juan-aga
+SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
+OBJ		= ${SRC:.c=.o}
 
-INCLUDES = -Iinc -L ${LIBFT_DIR} -lft
+LIBFT		= lib/libft-juan-aga/libft.a
+LIBFT_DIR	= lib/libft-juan-aga
 
-${NAME}: ${OBJ}
-	@echo "Compiling $(NAME)..."
-	@echo "Compiling dependencies..."
-	@git submodule update --init
-	@$(MAKE) -s all -C $(LIBFT_DIR)
-	@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(INCLUDES)
-	@echo "$(NAME) compiled!"
+INCLUDES	= -Iinc -L ${LIBFT_DIR} -lft
+
+${NAME}:	 ${OBJ}
+		@echo "Compiling $(NAME)..."
+		@echo "Compiling dependencies..."
+		@git submodule update --init
+		@$(MAKE) -s all -C $(LIBFT_DIR)
+		@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(INCLUDES)
+		@echo "$(NAME) compiled!"
 
 %.o: %.c
-	@${CC} ${FLAGS} -c $^ -o $@ -g3
+		@${CC} ${FLAGS} -c $^ -o $@ -g3
 
 all:	${LIBFT} ${NAME}
 
 clean:
-	@echo "Removing files..."
-	@echo "Removing dependencies..."
-	@$(MAKE) -s clean -C $(LIBFT_DIR)
-	@${RM} ${OBJ}
+		@echo "Removing files..."
+		@echo "Removing dependencies..."
+		@$(MAKE) -s clean -C $(LIBFT_DIR)
+		@${RM} ${OBJ}
 
-fclean: clean
-	@${RM} ${NAME}
-	@$(MAKE) -s fclean -C  $(LIBFT_DIR)
+fclean: 	clean
+		@${RM} ${NAME}
+		@$(MAKE) -s fclean -C  $(LIBFT_DIR)
 
-re:	fclean all
+re:		fclean all
 
 .PHONY:	all clean fclean re bonus
