@@ -9,7 +9,7 @@ ifdef DEBUG
 endif
 
 SRC_DIR 	= src/
-_SRC 		= main.c /
+_SRC 		= main.c \
 		ft_cmdlst.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
@@ -18,7 +18,7 @@ OBJ		= ${SRC:.c=.o}
 LIBFT		= lib/libft-juan-aga/libft.a
 LIBFT_DIR	= lib/libft-juan-aga
 
-INCLUDES	= -Iinc -L ${LIBFT_DIR} -lft
+INCLUDES	= -Iinc -L ${LIBFT_DIR} -lft -I ./include -I ./${LIBFT_DIR}/include
 
 ${NAME}:	 ${OBJ}
 		@echo "Compiling $(NAME)..."
@@ -29,9 +29,9 @@ ${NAME}:	 ${OBJ}
 		@echo "$(NAME) compiled!"
 
 %.o: %.c
-		@${CC} ${FLAGS} -c $^ -o $@ -g3
+		@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
-all:	${LIBFT} ${NAME}
+all:		${NAME} ${LIBFT}
 
 clean:
 		@echo "Removing files..."

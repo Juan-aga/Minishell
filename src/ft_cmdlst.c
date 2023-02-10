@@ -11,9 +11,10 @@ t_cmdlst	*ft_cmdlstnew(void)
 	cmdlst->path = NULL;
 	cmdlst->arg = NULL;
 	cmdlst->next = NULL;
+	return (cmdlst);
 }
 
-void	ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlsdt *add)
+void	ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlst *add)
 {
 	t_cmdlst	*last;
 
