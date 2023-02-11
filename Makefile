@@ -15,17 +15,17 @@ _SRC 		= main.c \
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ		= ${SRC:.c=.o}
 
-LIBFT		= lib/libft-juan-aga/libft.a
+LIBS		= lib/libft-juan-aga/libft.a -lreadline
 LIBFT_DIR	= lib/libft-juan-aga
 
-INCLUDES	= -Iinc -L ${LIBFT_DIR} -lft -I ./include -I ./${LIBFT_DIR}/include
+INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
 
 ${NAME}:	 ${OBJ}
 		@echo "Compiling $(NAME)..."
 		@echo "Compiling dependencies..."
 		@git submodule update --init
 		@$(MAKE) -s all -C $(LIBFT_DIR)
-		@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(INCLUDES)
+		@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 		@echo "$(NAME) compiled!"
 
 %.o: %.c
