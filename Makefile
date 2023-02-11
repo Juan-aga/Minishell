@@ -18,14 +18,14 @@ OBJ		= ${SRC:.c=.o}
 LIBFT		= lib/libft-juan-aga/libft.a
 LIBFT_DIR	= lib/libft-juan-aga
 
-INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include ${LIBFT}
+INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include 
 
 ${NAME}:	 ${OBJ}
 		@echo "Compiling $(NAME)..."
 		@echo "Compiling dependencies..."
 		@git submodule update --init
 		@$(MAKE) -s all -C $(LIBFT_DIR)
-		@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(INCLUDES)
+		@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBFT)
 		@echo "$(NAME) compiled!"
 
 %.o: %.c
