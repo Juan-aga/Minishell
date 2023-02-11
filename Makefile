@@ -18,7 +18,7 @@ OBJ		= ${SRC:.c=.o}
 LIBFT		= lib/libft-juan-aga/libft.a
 LIBFT_DIR	= lib/libft-juan-aga
 
-INCLUDES	= -Iinc -L ${LIBFT_DIR} -lft -I ./include -I ./${LIBFT_DIR}/include
+INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include ${LIBFT}
 
 ${NAME}:	 ${OBJ}
 		@echo "Compiling $(NAME)..."
