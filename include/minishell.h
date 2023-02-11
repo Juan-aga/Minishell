@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 
 typedef struct s_cmdlst
 {
@@ -16,6 +16,7 @@ typedef struct s_ms
 	int				num_com;
 	int				fd_in;
 	int				fd_out;
+	char			*prompt;
 	pid_t			pid;
 }	t_ms;
 
