@@ -10,7 +10,8 @@ endif
 
 SRC_DIR 	= src/
 _SRC 		= main.c \
-		ft_cmdlst.c
+		ft_cmdlst.c	\
+		enviroment.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ		= ${SRC:.c=.o}
