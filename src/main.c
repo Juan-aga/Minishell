@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **env)
 	while (ms.exit)
 	{
 		prompt = readline (ms.prompt);
-		printf("a puesto: %s\n", prompt);
+		ft_pruebas(prompt, &ms);
 		if (!prompt || !*prompt)
 			ms.exit = 0;
 		free(prompt);

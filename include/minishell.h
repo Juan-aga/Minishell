@@ -42,5 +42,10 @@ void		ft_free_cmdlst(t_cmdlst	*cmdlst);
 
 /*		enviroment functions						*/
 void		ft_get_env(t_ms *ms, char **env);
+void		ft_export(char *str, t_ms *ms);
+void		ft_env(t_ms *ms);
+
+/*		pruebas, para borar			*/
+void		ft_pruebas(char *str, t_ms *ms);
 
 #endif
