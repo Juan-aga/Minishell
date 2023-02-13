@@ -3,6 +3,13 @@
 
 # include <fcntl.h>
 
+/*		define colors letters		*/
+# define CGREEN "\033[1;34;42m"
+# define CRED "\033[1;37;41m"
+# define CBLUE "\033[1;33;44m"
+# define CWHITE "\033[30;47m"
+# define CRESET "\x1B[0m"
+
 typedef struct s_cmdlst
 {
 	struct s_cmdlst	*next;
@@ -16,6 +23,7 @@ typedef struct s_ms
 	int				num_com;
 	int				fd_in;
 	int				fd_out;
+	int				exit_status;
 	char			*prompt;
 	pid_t			pid;
 }	t_ms;
