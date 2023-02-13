@@ -8,7 +8,7 @@ void	ft_export(char *str, t_ms *ms)
 	char	**tmp;
 
 	i = 0;
-	i = ft_check_env(str, ms);
+	i = ft_check_env(str, ms, 'E');
 	if (i)
 	{
 		free(ms->env[i]);
@@ -26,6 +26,24 @@ void	ft_export(char *str, t_ms *ms)
 	ms->env = tmp;
 }
 
+void	ft_unset(char *str, t_ms *ms)
+{
+	int	i;
+
+	i = (ft_check_env(str, ms, 'u'));
+	if (!i)
+		return ;
+	while (ms->env[i + 1])
+	{
+		free(ms->env[i]);
+		ms->env[i] = ft_strdup(ms->env[i + 1]);
+		i++;
+	}
+	free(ms->env[i]);
+	ms->env[i] = ms->env[i + 1];
+	free(ms->env[i + 1]);
+}
+
 void	ft_env(t_ms *ms)
 {
 	int	i;
@@ -38,7 +56,7 @@ void	ft_env(t_ms *ms)
 	}
 }
 
-int	ft_check_env(char *str, t_ms *ms)
+int	ft_check_env(char *str, t_ms *ms, char c)
 {
 	int	i;
 	int	j;
@@ -47,7 +65,7 @@ int	ft_check_env(char *str, t_ms *ms)
 	j = 0;
 	while (str[j] && str[j] != '=')
 		j++;
-	if (!str[j])
+	if (str[j] != '=' && c == 'E')
 		return (0);
 	while (ms->env[i])
 	{
