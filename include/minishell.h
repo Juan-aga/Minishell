@@ -41,9 +41,22 @@ t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst);
 void		ft_free_cmdlst(t_cmdlst	*cmdlst);
 
 /*		enviroment functions						*/
-void		ft_get_env(t_ms *ms, char **env);
 void		ft_export(char *str, t_ms *ms);
 void		ft_env(t_ms *ms);
+/*
+ * 		check if a variable is in the env.
+ * 		if it exist it returns the position in env[ ]
+ * 		else it returns  0;						*/
+int			ft_check_env(char *str, t_ms *ms);
+
+/*		enviroment utils				*/
+void		ft_free_array(char **str, int i);
+/*
+ * 		do a copy of the array with extra space
+ * 		if add is 0 it only do a copy.		*/
+char		**ft_copy_array(char **src, int add);
+
+
 
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);

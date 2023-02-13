@@ -48,7 +48,7 @@ static t_ms	ft_init(char **env)
 	ms.exit = 1;
 	ms.exit_status = 0;
 	ft_prompt(&ms);
-	ft_get_env(&ms, env);
+	ms.env = ft_copy_array(env, 0);
 	return (ms);
 }
 
