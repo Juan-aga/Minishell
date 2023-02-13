@@ -19,6 +19,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_ms	ms;
 	char	*prompt;
+	int		stat;
 
 	atexit(ft_leaks);
 	(void) ac;
@@ -28,14 +29,15 @@ int	main(int ac, char **av, char **env)
 	{
 		prompt = readline (ms.prompt);
 		ft_pruebas(prompt, &ms);
-		if (!prompt || !*prompt)
-			ms.exit = 0;
+		if (!(!prompt || !*prompt))
+			add_history(prompt);
 		free(prompt);
 		free(ms.prompt);
 		ft_prompt(&ms);
 	}
+	stat = ms.exit_status;
 	ft_free(ms);
-	return (0);
+	return (stat);
 }
 
 static t_ms	ft_init(char **env)

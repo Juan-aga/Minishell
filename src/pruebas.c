@@ -18,6 +18,8 @@ void	ft_pruebas(char *str, t_ms *ms)
 		ft_unset(&str[6], ms);
 		ms->exit_status = 0;
 	}
+	else if (!ft_strncmp("exit", str, 4))
+		ms->exit = 0;
 	else
 		ms->exit_status = 1;
 }
