@@ -8,6 +8,7 @@
 
 static t_ms	ft_init(void);
 static void	ft_free(t_ms ms);
+static void	ft_prompt(t_ms *ms);
 
 static void	ft_leaks(void)
 {
@@ -30,6 +31,8 @@ int	main(void)
 		if (!prompt || !*prompt)
 			exit = 0;
 		free(prompt);
+		free(ms.prompt);
+		ft_prompt(&ms);
 	}
 	ft_free(ms);
 	return (0);
@@ -37,17 +40,30 @@ int	main(void)
 
 static t_ms	ft_init(void)
 {
-	char	*user;
 	t_ms	ms;
 
 	ms.num_com = 0;
 	ms.fd_in = 0;
 	ms.fd_out = 0;
-	user = getenv("USER");
-	if (!user)
-		user = "guest";
-	ms.prompt = ft_strjoin_va("%s $ ", user);
+	ms.exit_status = 0;
+	ft_prompt(&ms);
 	return (ms);
+}
+
+static void	ft_prompt(t_ms *ms)
+{
+	char	*dir;
+
+	dir = NULL;
+	dir = getcwd(dir, 1000);
+	if (ms->exit_status)
+		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
+				CRESET, CWHITE, ft_strrchr(dir, '/') + 1, CRESET, CRED, CRESET);
+	else
+		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
+				CRESET, CWHITE, ft_strrchr(dir, '/') + 1,
+				CRESET, CGREEN, CRESET);
+	free(dir);
 }
 
 static void	ft_free(t_ms ms)
