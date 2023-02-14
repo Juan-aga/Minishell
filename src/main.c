@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include "fractol_utils.h"
 #include <unistd.h>
 //char *readline (char *prompt); 
