@@ -73,7 +73,7 @@ int	ft_check_env(char *str, t_ms *ms, char c)
 		return (-1);
 	while (ms->env[i - 1])
 	{
-		if (!ft_strncmp(str, ms->env[i - 1], j))
+		if (!ft_strncmp(str, ms->env[i - 1], j) && ms->env[i - 1][j] == '=')
 			return (i);
 		i++;
 	}

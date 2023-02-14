@@ -36,3 +36,22 @@ void	ft_free_array(char **str, int i)
 	}
 	free(str);
 }
+
+char	*ft_getenv(char *str, t_ms *ms)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	i = ft_check_env(str, ms, 'G');
+	if (i < 0)
+		return (NULL);
+	if (i)
+	{
+		i -= 1;
+		tmp = ft_strchr(ms->env[i], '=') + 1;
+	}
+	else
+		return (NULL);
+	return (tmp);
+}
