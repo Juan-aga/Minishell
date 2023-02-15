@@ -22,7 +22,7 @@ void	ft_pruebas(char *str, t_ms *ms)
 		ms->exit_status = 0;
 	}
 	else if (!ft_strncmp("exit", str, 4))
-		ms->exit = 0;
+		ft_exit(ms);
 	else if (!ft_strncmp("getenv", str, 6))
 	{
 		tmp = ft_getenv(&str[7], ms);
