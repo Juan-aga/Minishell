@@ -42,7 +42,7 @@ void		ft_free_cmdlst(t_cmdlst	*cmdlst);
 /*		exit builtin				*/
 /*		it change exit to 0			*/
 void		ft_exit(t_ms *ms);
-
+void		ft_pwd(t_ms *ms);
 /*		enviroment builtin functions						*/
 void		ft_export(char *str, t_ms *ms);
 void		ft_env(t_ms *ms);

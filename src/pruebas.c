@@ -34,6 +34,8 @@ void	ft_pruebas(char *str, t_ms *ms)
 			ms->exit_status = 0;
 		}
 	}
+	else if (!ft_strncmp("pwd", str, 3))
+		ft_pwd(ms);
 	else
 		ms->exit_status = 1;
 }
