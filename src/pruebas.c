@@ -22,7 +22,7 @@ void	ft_pruebas(char *str, t_ms *ms)
 		ms->exit_status = 0;
 	}
 	else if (!ft_strncmp("exit", str, 4))
-		ms->exit = 0;
+		ft_exit(ms);
 	else if (!ft_strncmp("getenv", str, 6))
 	{
 		tmp = ft_getenv(&str[7], ms);
@@ -34,6 +34,10 @@ void	ft_pruebas(char *str, t_ms *ms)
 			ms->exit_status = 0;
 		}
 	}
+	else if (!ft_strncmp("pwd", str, 3))
+		ft_pwd(ms);
+	else if (!ft_strncmp("cd ", str, 3))
+		ft_cd(&str[3], ms);
 	else
 		ms->exit_status = 1;
 }
