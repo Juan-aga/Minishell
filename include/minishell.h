@@ -59,7 +59,9 @@ void		ft_free_array(char **str, int i);
 char		**ft_copy_array(char **src, int add);
 /*
 		duplicates functionality of getenv()
-		but works with the env of minishell.	*/
+		but works with the env of minishell.
+		it returns a ponter after '=' if exist
+		else return NULL			*/
 char		*ft_getenv(char *str, t_ms *ms);
 void		ft_shlvl_update(t_ms *ms);
 
