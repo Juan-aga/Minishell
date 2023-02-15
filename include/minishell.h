@@ -57,6 +57,13 @@ void		ft_free_array(char **str, int i);
  * 		do a copy of the array with extra space
  * 		if add is 0 it only do a copy.		*/
 char		**ft_copy_array(char **src, int add);
+/*
+		duplicates functionality of getenv()
+		but works with the env of minishell.
+		it returns a ponter after '=' if exist
+		else return NULL			*/
+char		*ft_getenv(char *str, t_ms *ms);
+void		ft_shlvl_update(t_ms *ms);
 
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);

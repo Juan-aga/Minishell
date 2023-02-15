@@ -52,6 +52,8 @@ static t_ms	ft_init(char **env)
 	ms.exit_status = 0;
 	ft_prompt(&ms);
 	ms.env = ft_copy_array(env, 0);
+	if (ms.env[0])
+		ft_shlvl_update(&ms);
 	return (ms);
 }
 
