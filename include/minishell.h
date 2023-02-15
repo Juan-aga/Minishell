@@ -61,6 +61,8 @@ char		**ft_copy_array(char **src, int add);
 		duplicates functionality of getenv()
 		but works with the env of minishell.	*/
 char		*ft_getenv(char *str, t_ms *ms);
+void		ft_shlvl_update(t_ms *ms);
+
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
 

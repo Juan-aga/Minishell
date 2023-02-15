@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "minishell.h"
+#include "fractol_utils.h"
 
 char	**ft_copy_array(char **src, int add)
 {
@@ -54,4 +55,16 @@ char	*ft_getenv(char *str, t_ms *ms)
 	else
 		return (NULL);
 	return (tmp);
+}
+
+void	ft_shlvl_update(t_ms *ms)
+{
+	char	*tmp;
+	int		lvl;
+
+	tmp = ft_getenv("SHLVL", ms);
+	lvl = ft_atoi(tmp) + 1;
+	tmp = ft_strjoin_va("SHLVL=%i", lvl);
+	ft_export(tmp, ms);
+	free (tmp);
 }
