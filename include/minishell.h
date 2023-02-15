@@ -23,7 +23,7 @@ typedef struct s_cmdlst
 
 typedef struct s_ms
 {
-	struct s_cmdlst	*command;
+	struct s_cmdlst	*cmdlst;
 	int				num_com;
 	int				exit;
 	int				exit_status;
@@ -63,6 +63,10 @@ void		ft_free_array(char **str, int i);
  * 		do a copy of the array with extra space
  * 		if add is 0 it only do a copy.		*/
 char		**ft_copy_array(char **src, int add);
+/*
+		delete 'del' items from an array.
+		if del is < 1 don't do anything.		*/
+void		ft_del_items_array(char **str, int del);
 /*
 		duplicates functionality of getenv()
 		but works with the env of minishell.
