@@ -10,6 +10,10 @@ t_cmdlst	*ft_cmdlstnew(void)
 		return (NULL);
 	cmdlst->path = NULL;
 	cmdlst->arg = NULL;
+	cmdlst->fd_in_file = NULL;
+	cmdlst->fd_out_file = NULL;
+	cmdlst->fd_in = 0;
+	cmdlst->fd_out = 1;
 	cmdlst->next = NULL;
 	return (cmdlst);
 }

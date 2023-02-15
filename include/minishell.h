@@ -15,14 +15,16 @@ typedef struct s_cmdlst
 	struct s_cmdlst	*next;
 	char			*path;
 	char			**arg;
+	char			*fd_in_file;
+	char			*fd_out_file;
+	int				fd_in;
+	int				fd_out;
 }	t_cmdlst;
 
 typedef struct s_ms
 {
 	struct s_cmdlst	*command;
 	int				num_com;
-	int				fd_in;
-	int				fd_out;
 	int				exit;
 	int				exit_status;
 	char			*prompt;

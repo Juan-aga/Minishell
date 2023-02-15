@@ -46,8 +46,6 @@ static t_ms	ft_init(char **env)
 	t_ms	ms;
 
 	ms.num_com = 0;
-	ms.fd_in = 0;
-	ms.fd_out = 0;
 	ms.exit = 1;
 	ms.exit_status = 0;
 	ft_prompt(&ms);
