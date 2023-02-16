@@ -11,6 +11,8 @@ void	ft_run_builtin(t_ms *ns);
 
 void	ft_pruebas(char *str, t_ms *ms)
 {
+	if (!str)
+		return ;
 	ft_simpleparser(str, ms);
 	if (!ms->num_com)
 	{
@@ -73,8 +75,15 @@ void	ft_run_builtin(t_ms *ms)
 		else if (!ft_strncmp("pwd", tmp->arg[0], 4))
 			ft_pwd(ms);
 		else if (!ft_strncmp("cd", tmp->arg[0], 3))
+		{
+			if (tmp->arg[2] && tmp->arg[1])
+			{
+				ft_putstr_fd("minishell: cd: too many argumets\n", 2);
+				ms->exit_status = 1;
+			}
+			else
 			ft_cd(tmp->arg[1], ms);
-	
+		}	
 		tmp = tmp->next;
 	}
 }
