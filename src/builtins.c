@@ -54,7 +54,7 @@ static void	ft_cd_error(char *str, t_ms *ms)
 	char	*tmp;
 
 	tmp = ft_strjoin_va(
-		"minishell: cd: %s: No such file or directory\n", str);
+			"minishell: cd: %s: No such file or directory\n", str);
 	ft_putstr_fd(tmp, 2);
 	ms->exit_status = 1;
 	free(tmp);
