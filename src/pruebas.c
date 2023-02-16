@@ -13,7 +13,10 @@ void	ft_pruebas(char *str, t_ms *ms)
 {
 	ft_simpleparser(str, ms);
 	if (!ms->num_com)
+	{
 		ms->exit_status = 1;
+		return ;
+	}
 	ft_check_builtin(ms, ms->cmdlst);
 	ft_run_builtin(ms);
 }
@@ -46,6 +49,7 @@ void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
 void	ft_run_builtin(t_ms *ms)
 {
 	t_cmdlst	*tmp;
+	char		*env;
 
 	tmp = ms->cmdlst;
 	while (tmp)
@@ -55,8 +59,22 @@ void	ft_run_builtin(t_ms *ms)
 			ft_env(ms);
 			ms->exit_status = 0;
 		}
+		else if (!ft_strncmp("export", tmp->arg[0], 7))
+			ft_export(tmp->arg[1], ms);
+		else if (!ft_strncmp("unset", tmp->arg[0], 6))
+			ft_unset(tmp->arg[1], ms);
 		else if (!ft_strncmp("exit", tmp->arg[0], 5))
-			ms->exit = 0;
+			ft_exit(ms);
+		else if (!ft_strncmp("getenv", tmp->arg[0], 7))
+		{
+			env = ft_getenv(tmp->arg[1], ms);
+			printf("%s value is: %s\n", tmp->arg[1], env);
+		}
+		else if (!ft_strncmp("pwd", tmp->arg[0], 4))
+			ft_pwd(ms);
+		else if (!ft_strncmp("cd", tmp->arg[0], 3))
+			ft_cd(tmp->arg[1], ms);
+	
 		tmp = tmp->next;
 	}
 }
