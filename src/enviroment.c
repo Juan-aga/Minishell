@@ -46,6 +46,7 @@ void	ft_unset(char *str, t_ms *ms)
 	free(ms->env[i]);
 	ms->env[i] = ms->env[i + 1];
 	free(ms->env[i + 1]);
+	return ;
 }
 
 void	ft_env(t_ms *ms)
@@ -58,6 +59,7 @@ void	ft_env(t_ms *ms)
 		printf("%s\n", ms->env[i]);
 		i++;
 	}
+	exit(0);
 }
 
 int	ft_check_env(char *str, t_ms *ms, char c)

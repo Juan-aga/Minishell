@@ -20,7 +20,7 @@ void	ft_pruebas(char *str, t_ms *ms)
 //	ft_check_builtin(ms, ms->cmdlst);
 //	ft_run_builtin(ms);
 	ft_exec(ms);
-	printf("status %i\n", ms->exit_status);
+//	printf("status %i\n", ms->exit_status);
 }
 
 void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
@@ -141,7 +141,7 @@ int	ft_fill_cmd(char *str, t_cmdlst *lst)
 		}
 		else if (tmp[i][0] == '>')
 		{
-			lst->fd_out = open(tmp[i + 1], O_TRUNC);
+			lst->fd_out = open(tmp[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 			if (lst->fd_out < 0)
 			{
 				ft_putstr_fd("error out file", 2);

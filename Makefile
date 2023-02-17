@@ -14,6 +14,7 @@ _SRC 		= main.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
 			builtins.c			\
+			builtins_utils.c	\
 			array_utils.c		\
 			exec.c				\
 			exec_utils.c		\

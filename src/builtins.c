@@ -8,6 +8,7 @@ static void	ft_cd_error(char *str, t_ms *ms);
 
 void	ft_exit(t_ms *ms)
 {
+	ft_putstr_fd("exit\n", 2);
 	ms->exit = 0;
 }
 
@@ -15,11 +16,12 @@ void	ft_pwd(t_ms *ms)
 {
 	char	*dir;
 
+	(void) ms;
 	dir = NULL;
 	dir = getcwd(dir, 1000);
 	printf("%s\n", dir);
 	free(dir);
-	ms->exit_status = 0;
+	exit(0);
 }
 
 void	ft_cd(char *str, t_ms *ms)
