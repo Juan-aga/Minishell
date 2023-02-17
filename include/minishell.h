@@ -79,11 +79,11 @@ void		ft_del_items_array(char **str, int del);
 char		*ft_getenv(char *str, t_ms *ms);
 void		ft_shlvl_update(t_ms *ms);
 /*		redirections				*/
-void	ft_exec(t_ms *ms);
+void		ft_exec(t_ms *ms);
 /*		redirections utils			*/
-void	ft_dup(int in, int out);
-void	ft_close_pipe(t_ms *ms);
-void	ft_get_path(t_ms *ms, t_cmdlst *tmp);
+void		ft_dup(int in, int out);
+void		ft_close_pipe(t_ms *ms);
+void		ft_get_path(t_ms *ms, t_cmdlst *tmp);
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
 
