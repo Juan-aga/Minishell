@@ -13,19 +13,25 @@
 typedef struct s_cmdlst
 {
 	struct s_cmdlst	*next;
+	struct s_cmdlst	*prev;
 	char			*path;
 	char			**arg;
+	char			*fd_in_file;
+	char			*fd_out_file;
+	int				fd_in;
+	int				fd_out;
 }	t_cmdlst;
 
 typedef struct s_ms
 {
-	struct s_cmdlst	*command;
+	struct s_cmdlst	*cmdlst;
 	int				num_com;
-	int				fd_in;
-	int				fd_out;
+	int				exe;
 	int				exit;
 	int				exit_status;
+	int				*pipe;
 	char			*prompt;
+	char			**path;
 	char			**env;
 	pid_t			pid;
 }	t_ms;
@@ -42,7 +48,8 @@ void		ft_free_cmdlst(t_cmdlst	*cmdlst);
 /*		exit builtin				*/
 /*		it change exit to 0			*/
 void		ft_exit(t_ms *ms);
-
+void		ft_pwd(t_ms *ms);
+void		ft_cd(char *str, t_ms *ms);
 /*		enviroment builtin functions						*/
 void		ft_export(char *str, t_ms *ms);
 void		ft_env(t_ms *ms);
@@ -61,13 +68,22 @@ void		ft_free_array(char **str, int i);
  * 		if add is 0 it only do a copy.		*/
 char		**ft_copy_array(char **src, int add);
 /*
+		delete 'del' items from an array.
+		if del is < 1 don't do anything.		*/
+void		ft_del_items_array(char **str, int del);
+/*
 		duplicates functionality of getenv()
 		but works with the env of minishell.
 		it returns a ponter after '=' if exist
 		else return NULL			*/
 char		*ft_getenv(char *str, t_ms *ms);
 void		ft_shlvl_update(t_ms *ms);
-
+/*		redirections				*/
+void	ft_exec(t_ms *ms);
+/*		redirections utils			*/
+void	ft_dup(int in, int out);
+void	ft_close_pipe(t_ms *ms);
+void	ft_get_path(t_ms *ms, t_cmdlst *tmp);
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
 

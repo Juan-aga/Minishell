@@ -34,7 +34,7 @@ void	ft_unset(char *str, t_ms *ms)
 	int	i;
 
 	i = (ft_check_env(str, ms, 'u'));
-	if (!i)
+	if (i <= 0)
 		return ;
 	i -= 1;
 	while (ms->env[i + 1])
@@ -67,6 +67,8 @@ int	ft_check_env(char *str, t_ms *ms, char c)
 
 	i = 1;
 	j = 0;
+	if (!str)
+		return (-1);
 	while (str[j] && str[j] != '=')
 		j++;
 	if (str[j] != '=' && c == 'E')
