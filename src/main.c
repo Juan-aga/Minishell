@@ -41,6 +41,7 @@ int	main(int ac, char **av, char **env)
 	}
 	stat = ms.exit_status;
 	ft_free(ms);
+	rl_clear_history();
 	return (stat);
 }
 

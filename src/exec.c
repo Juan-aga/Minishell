@@ -17,7 +17,7 @@ void	ft_exec(t_ms *ms)
 	ms->path = ft_split(path, ':');
 	ms->exe = 0;
 	tmp = ms->cmdlst;
-	ms->pipe = ft_calloc(sizeof(int), ms->num_com + 1);
+	ms->pipe = ft_calloc(sizeof(int), ms->num_com * 2 + 1);
 	while (ms->exe < ms->num_com)
 	{
 		pipe(ms->pipe + 2 * ms->exe);
