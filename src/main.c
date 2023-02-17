@@ -29,6 +29,7 @@ int	main(int ac, char **av, char **env)
 	ms = ft_init(env);
 	while (ms.exit)
 	{
+//		prompt = ft_calloc(sizeof(char), 100);
 		prompt = readline (ms.prompt);
 		debug_tokenize(prompt);
 		ft_pruebas(prompt, &ms);
@@ -40,6 +41,7 @@ int	main(int ac, char **av, char **env)
 	}
 	stat = ms.exit_status;
 	ft_free(ms);
+	rl_clear_history();
 	return (stat);
 }
 

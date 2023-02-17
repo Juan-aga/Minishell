@@ -20,6 +20,7 @@ void	ft_pruebas(char *str, t_ms *ms)
 //	ft_check_builtin(ms, ms->cmdlst);
 //	ft_run_builtin(ms);
 	ft_exec(ms);
+	ft_free_cmdlst(ms->cmdlst);
 //	printf("status %i\n", ms->exit_status);
 }
 
