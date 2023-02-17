@@ -3,18 +3,6 @@
 #include "../lib/libft-juan-aga/include/libft.h"
 #include "../lib/libft-juan-aga/include/ft_printf.h"
 
-int	check_quote_status(t_token *token, int type, int *j)
-{
-	if (type == CHAR_SQUOTE || type == CHAR_DQUOTE)
-	{
-		token->status = type;
-		token->str[*j] = type;
-		*j += 1;
-		return (1);
-	}
-	return (0);
-}
-
 int	close_quotes(t_token *token, char quote_char)
 {
 	int	flag;
@@ -46,8 +34,13 @@ t_token	*other_tokens(t_token *token, int type, int *j, int len)
 {
 	if (type == CHAR_SPACE && *j == 0)
 		return (token);
-	else if (check_quote_status(token, type, j))
+	else if (type == CHAR_DQUOTE || type == CHAR_SQUOTE)
+	{
+		token->str[*j] = type;
+		token->status = type;
+		*j += 1;
 		return (token);
+	}
 	else if (*j > 0)
 	{
 		token = token_init(token, 2);

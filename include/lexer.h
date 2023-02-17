@@ -19,8 +19,6 @@ enum e_tokens {
 
 enum e_status {
 	NORMAL,
-	DOUBLE_QUOTE,
-	SINGLE_QUOTE,
 	ESCAPED,
 };
 
