@@ -5,6 +5,7 @@
 #include <readline/history.h>
 #include "fractol_utils.h"
 #include <unistd.h>
+#include "lexer.h"
 //char *readline (char *prompt); 
 
 static t_ms	ft_init(char **env);
@@ -29,6 +30,7 @@ int	main(int ac, char **av, char **env)
 	while (ms.exit)
 	{
 		prompt = readline (ms.prompt);
+		debug_tokenize(prompt);
 		ft_pruebas(prompt, &ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
