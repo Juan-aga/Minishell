@@ -29,6 +29,7 @@ int	main(int ac, char **av, char **env)
 	ms = ft_init(env);
 	while (ms.exit)
 	{
+//		prompt = ft_calloc(sizeof(char), 100);
 		prompt = readline (ms.prompt);
 		debug_tokenize(prompt);
 		ft_pruebas(prompt, &ms);

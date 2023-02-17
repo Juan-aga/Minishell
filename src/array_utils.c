@@ -47,7 +47,7 @@ void	ft_del_items_array(char **str, int del)
 		free (str[i + del]);
 		i++;
 	}
-	str[i] = str[i + del];
+	str[i] = NULL;
 	free (str[i + del]);
 }
 
