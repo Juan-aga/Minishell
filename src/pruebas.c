@@ -15,12 +15,12 @@ void	ft_pruebas(char *str, t_ms *ms)
 		return ;
 	ft_simpleparser(str, ms);
 	if (!ms->num_com)
-	{
-		ms->exit_status = 1;
 		return ;
-	}
-	ft_check_builtin(ms, ms->cmdlst);
-	ft_run_builtin(ms);
+
+//	ft_check_builtin(ms, ms->cmdlst);
+//	ft_run_builtin(ms);
+	ft_exec(ms);
+	printf("status %i\n", ms->exit_status);
 }
 
 void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
@@ -136,6 +136,7 @@ int	ft_fill_cmd(char *str, t_cmdlst *lst)
 		if (tmp[i][0] == '<')
 		{
 			lst->fd_in_file = tmp[i + 1];
+			lst->fd_in = open(tmp[i + 1], O_RDONLY);
 			ft_del_items_array(&tmp[i], 2);
 		}
 		else if (tmp[i][0] == '>')

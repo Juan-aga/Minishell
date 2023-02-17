@@ -9,12 +9,14 @@ ifdef DEBUG
 endif
 
 SRC_DIR 	= src/
-_SRC 		= main.c		\
-			ft_cmdlst.c		\
+_SRC 		= main.c			\
+			ft_cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
 			builtins.c			\
 			array_utils.c		\
+			exec.c				\
+			exec_utils.c		\
 			pruebas.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}

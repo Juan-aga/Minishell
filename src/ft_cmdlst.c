@@ -15,6 +15,7 @@ t_cmdlst	*ft_cmdlstnew(void)
 	cmdlst->fd_in = 0;
 	cmdlst->fd_out = 1;
 	cmdlst->next = NULL;
+	cmdlst->prev = NULL;
 	return (cmdlst);
 }
 
@@ -31,6 +32,7 @@ void	ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlst *add)
 	}
 	last = ft_cmdlstlast(*cmdlst);
 	last->next = add;
+	add->prev = last;
 }
 
 t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst)
