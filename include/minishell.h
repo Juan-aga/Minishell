@@ -60,6 +60,8 @@ void		ft_unset(char *str, t_ms *ms);
  * 		if it exist it returns the position in env[ ]
  * 		else it returns  0;						*/
 int			ft_check_env(char *str, t_ms *ms, char c);
+/*		builtin utils				*/
+int			ft_is_builtin(t_ms *ms, t_cmdlst *tmp);
 
 /*		enviroment utils				*/
 void		ft_free_array(char **str, int i);
