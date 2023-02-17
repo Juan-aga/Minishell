@@ -45,5 +45,6 @@ t_token	*token_init(t_token *token, int size);
 void	token_free(t_token *token);
 void	lexer_free(t_lexer *lexer);
 void	debug_tokenize(char *input);
+void	clean_tokens(t_token *token);
 
 #endif

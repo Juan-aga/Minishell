@@ -67,3 +67,25 @@ void	lexer_free(t_lexer *lexer)
 		token = next;
 	}
 }
+
+void	clean_tokens(t_token *token)
+{
+	char	*tmp;
+
+	while (token)
+	{
+		if (token->status == CHAR_SQUOTE)
+		{
+			tmp = ft_strtrim(token->str, "\'");
+			free(token->str);
+			token->str = tmp;
+		}
+		else if (token->status == CHAR_DQUOTE)
+		{
+			tmp = ft_strtrim(token->str, "\"");
+			free(token->str);
+			token->str = tmp;
+		}
+		token = token->next;
+	}
+}
