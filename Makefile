@@ -11,7 +11,7 @@ endif
 SRC_DIR 	= src/
 _SRC 		= lexer.c \
 			lexer_utils.c		\
-			ft_cmdlst.c			\
+			cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
 			builtins.c			\
@@ -19,6 +19,8 @@ _SRC 		= lexer.c \
 			array_utils.c		\
 			exec.c				\
 			exec_utils.c		\
+			envlst.c			\
+			envlst_utils.c		\
 			pruebas.c			\
 			main.c
 

@@ -16,7 +16,6 @@ void	ft_pruebas(char *str, t_ms *ms)
 	ft_simpleparser(str, ms);
 	if (!ms->num_com)
 		return ;
-
 //	ft_check_builtin(ms, ms->cmdlst);
 //	ft_run_builtin(ms);
 	ft_exec(ms);

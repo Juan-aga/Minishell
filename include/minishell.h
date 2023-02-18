@@ -22,9 +22,18 @@ typedef struct s_cmdlst
 	int				fd_out;
 }	t_cmdlst;
 
+typedef struct s_envlst
+{
+	struct s_envlst	*next;
+	char			*var;
+	char			*value;
+}	t_envlst;
+
 typedef struct s_ms
 {
 	struct s_cmdlst	*cmdlst;
+	struct s_envlst	*envlst;
+	struct s_envlst	*exp;
 	int				num_com;
 	int				exe;
 	int				exit;
@@ -36,15 +45,25 @@ typedef struct s_ms
 	pid_t			pid;
 }	t_ms;
 
-/*	cmdlst functions				*/
-/*	create a new cmd list				*/
+/*	cmdlst functions								*/
+/*	create a new cmd list							*/
 t_cmdlst	*ft_cmdlstnew(void);
-/*	add a new nodo at the end of tje list		*/
+/*	add a new nodo at the end of tje list			*/
 void		ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlst *add);
 /*	return a pointer to the last nodo of the list	*/
 t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst);
-/*	free the list					*/
+/*	free the list									*/
 void		ft_free_cmdlst(t_cmdlst	*cmdlst);
+
+/*		envlst functions							*/
+t_envlst	*ft_envlstnew(char *str);
+void		ft_envlstadd_back(t_envlst **envlst, t_envlst *add);
+t_envlst	*ft_envlstlast(t_envlst *envlst);
+void		ft_free_envlst(t_envlst *envlst);
+t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str);
+/*		envlst utils								*/
+t_envlst	*ft_copy_env(char **env);
+
 /*		exit builtin				*/
 /*		it change exit to 0			*/
 void		ft_exit(t_ms *ms);

@@ -51,6 +51,8 @@ static t_ms	ft_init(char **env)
 	ms.exit_status = 0;
 	ft_prompt(&ms);
 	ms.env = ft_copy_array(env, 0);
+	ms.envlst = ft_copy_env(env);
+	ms.exp = ft_copy_env(env);
 	if (ms.env[0])
 		ft_shlvl_update(&ms);
 	return (ms);
@@ -79,4 +81,6 @@ static void	ft_free(t_ms ms)
 	i = 0;
 	free(ms.prompt);
 	ft_free_array(ms.env, 0);
+	ft_free_envlst(ms.envlst);
+	ft_free_envlst(ms.exp);
 }
