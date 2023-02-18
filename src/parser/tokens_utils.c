@@ -54,3 +54,20 @@ void	token_free(t_token *token)
 	free(token);
 }
 
+void	remove_empty_tokens(t_token	*token)
+{
+	t_token	*next;
+	t_token	*prev;
+
+	while (token != NULL && token->next != NULL)
+	{
+		prev = token;
+		token = token->next;
+		next = token->next;
+		if (token->str[0] == '\0')
+		{
+			token_free(token);
+			prev->next = next;
+		}
+	}
+}

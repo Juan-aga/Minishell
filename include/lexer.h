@@ -54,5 +54,6 @@ t_token	*other_tokens(t_token *token, int type, int *j, int len);
 int		get_token_type(char c);
 t_token	*token_init(t_token *token, int size);
 void	token_free(t_token *token);
+void	remove_empty_tokens(t_token	*token);
 
 #endif
