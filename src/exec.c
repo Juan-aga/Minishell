@@ -34,7 +34,7 @@ void	ft_exec(t_ms *ms)
 	}
 	ft_close_pipe(ms);
 	free(ms->pipe);
-	free(ms->path);
+	ft_free_array(ms->path, 0);
 }
 
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)

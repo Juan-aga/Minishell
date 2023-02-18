@@ -57,10 +57,8 @@ void	ft_free_cmdlst(t_cmdlst	*cmdlst)
 		tmp = cmdlst->next;
 		if (cmdlst->path)
 			free(cmdlst->path);
-		if (cmdlst->fd_in_file)
-			free(cmdlst->fd_in_file);
-		if (cmdlst->fd_out_file)
-			free(cmdlst->fd_out_file);
+		if (cmdlst->arg)
+			ft_free_array(cmdlst->arg, 0);
 		free(cmdlst);
 		cmdlst = tmp;
 	}
