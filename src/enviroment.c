@@ -51,13 +51,13 @@ void	ft_unset(char *str, t_ms *ms)
 
 void	ft_env(t_ms *ms)
 {
-	int	i;
+	t_envlst	*tmp;
 
-	i = 0;
-	while (ms->env[i])
+	tmp = ms->envlst;
+	while (tmp)
 	{
-		printf("%s\n", ms->env[i]);
-		i++;
+		printf("%s=%s\n", tmp->var, tmp->value);
+		tmp = tmp->next;
 	}
 	exit(0);
 }
