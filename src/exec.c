@@ -114,8 +114,10 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	}
 	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
 	{
+		if (!tmp->arg[1])
+			exit (0);
 		get = ft_getenv(tmp->arg[1], ms);
-		if (tmp)
+		if (get)
 			printf("%s", get);
 		exit (0);
 	}
