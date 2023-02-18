@@ -12,7 +12,10 @@ enum e_tokens {
 	CHAR_NL = '\n',
 	CHAR_TAB = '\t',
 	CHAR_GREAT = '>',
-	CHAR_LESS = '<',
+	CH_LESS = '<',
+	CHAR_GREATGREAT,
+	CHAR_LESSLESS,
+	CHAR_DELIMITER,
 	CHAR_NORMAL = -1,
 	CHAR_NULL = 0,
 };
@@ -49,6 +52,7 @@ void	lexer_free(t_lexer *lexer);
 void	trim_quotes_token(t_token *token);
 int		close_quotes(t_token *token, char quote_char);
 t_token	*other_tokens(t_token *token, int type, int *j, int len);
+void	compund_tokens(t_token *token);
 
 /* parser/tokens_utils.c */
 int		get_token_type(char c);

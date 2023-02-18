@@ -74,3 +74,32 @@ t_token	*other_tokens(t_token *token, int type, int *j, int len)
 	token = token_init(token, len);
 	return (token);
 }
+
+void	compund_tokens(t_token *tk)
+{
+	t_token	*tmp;
+
+	while (tk)
+	{
+		if (tk->type == CHAR_GREAT && tk->next && tk->next->type == CHAR_GREAT)
+		{
+			tmp = tk->next;
+			free(tk->str);
+			tk->str = ft_strdup(">>");
+			tk->type = CHAR_GREATGREAT;
+			tk->next = tk->next->next;
+			token_free(tmp);
+		}
+		else if (tk->type == CH_LESS && tk->next && tk->next->type == CH_LESS)
+		{
+			tmp = tk->next;
+			free(tk->str);
+			tk->str = ft_strdup("<<");
+			tk->type = CHAR_LESSLESS;
+			tk->next = tk->next->next;
+			tk->next->type = CHAR_DELIMITER;
+			token_free(tmp);
+		}
+		tk = tk->next;
+	}
+}

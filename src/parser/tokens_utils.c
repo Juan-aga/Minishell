@@ -25,7 +25,7 @@ int	get_token_type(char c)
 	if (c == '>')
 		return (CHAR_GREAT);
 	if (c == '<')
-		return (CHAR_LESS);
+		return (CH_LESS);
 	if (c == 0)
 		return (CHAR_NULL);
 	return (CHAR_NORMAL);
