@@ -25,6 +25,7 @@ typedef struct s_cmdlst
 typedef struct s_envlst
 {
 	struct s_envlst	*next;
+	struct s_envlst	*prev;
 	char			*var;
 	char			*value;
 }	t_envlst;
@@ -63,6 +64,7 @@ void		ft_free_envlst(t_envlst *envlst);
 t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str);
 /*		envlst utils								*/
 t_envlst	*ft_copy_env(char **env);
+void		ft_envlst_short(t_envlst **lst);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
@@ -70,9 +72,11 @@ void		ft_exit(t_ms *ms);
 void		ft_pwd(t_ms *ms);
 void		ft_cd(char *str, t_ms *ms);
 /*		enviroment builtin functions						*/
-void		ft_export(char *str, t_ms *ms);
+void		ft_export(char **str, t_ms *ms);
 void		ft_env(t_ms *ms);
 void		ft_unset(char *str, t_ms *ms);
+void		ft_export_to_env(char *str, t_envlst *envlst);
+
 /*
  * 		check if a variable is in the env.
  * 		with c=E is for export use, it return 0 if there is no '='

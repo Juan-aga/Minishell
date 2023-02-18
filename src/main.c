@@ -54,7 +54,10 @@ static t_ms	ft_init(char **env)
 	ms.envlst = ft_copy_env(env);
 	ms.exp = ft_copy_env(env);
 	if (ms.env[0])
+	{
+		printf("update shlev");
 		ft_shlvl_update(&ms);
+	}
 	return (ms);
 }
 

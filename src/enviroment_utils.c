@@ -26,6 +26,7 @@ void	ft_shlvl_update(t_ms *ms)
 	tmp = ft_getenv("SHLVL", ms);
 	lvl = ft_atoi(tmp) + 1;
 	tmp = ft_strjoin_va("SHLVL=%i", lvl);
-	ft_export(tmp, ms);
+	ft_export_to_env(tmp, ms->envlst);
+	ft_export_to_env(tmp, ms->exp);
 	free (tmp);
 }

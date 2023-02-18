@@ -12,6 +12,7 @@ t_envlst	*ft_envlstnew(char *str)
 	envlst->var = NULL;
 	envlst->value = NULL;
 	envlst->next = NULL;
+	envlst->prev = NULL;
 	ft_envlst_fill(envlst, str);
 	return (envlst);
 }
@@ -29,6 +30,7 @@ void	ft_envlstadd_back(t_envlst **envlst, t_envlst *add)
 	}
 	last = ft_envlstlast(*envlst);
 	last->next = add;
+	add->prev = last;
 }
 
 t_envlst	*ft_envlstlast(t_envlst *envlst)

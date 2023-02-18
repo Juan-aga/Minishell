@@ -62,7 +62,7 @@ void	ft_run_builtin(t_ms *ms)
 			ms->exit_status = 0;
 		}
 		else if (!ft_strncmp("export", tmp->arg[0], 7))
-			ft_export(tmp->arg[1], ms);
+			ft_export(&tmp->arg[1], ms);
 		else if (!ft_strncmp("unset", tmp->arg[0], 6))
 			ft_unset(tmp->arg[1], ms);
 		else if (!ft_strncmp("exit", tmp->arg[0], 5))

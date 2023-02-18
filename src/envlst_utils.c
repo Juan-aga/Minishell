@@ -18,3 +18,28 @@ t_envlst	*ft_copy_env(char **env)
 	}
 	return (new);
 }
+
+void	ft_envlst_short(t_envlst **lst)
+{
+	int			diff;
+	char		*change;
+	t_envlst	*tmp;
+
+	tmp = *lst;
+	while (tmp->next)
+	{
+		diff = ft_strncmp(tmp->var, tmp->next->var, 100);
+		if (diff > 0)
+		{
+			change = tmp->var;
+			tmp->var = tmp->next->var;
+			tmp->next->var = change;
+			change = tmp->value;
+			tmp->value = tmp->next->value;
+			tmp->next->value = change;
+			tmp = *lst;
+		}
+		else
+			tmp = tmp->next;
+	}
+}

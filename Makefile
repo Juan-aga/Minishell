@@ -21,6 +21,7 @@ _SRC 		= lexer.c \
 			exec_utils.c		\
 			envlst.c			\
 			envlst_utils.c		\
+			export.c			\
 			pruebas.c			\
 			main.c
 
