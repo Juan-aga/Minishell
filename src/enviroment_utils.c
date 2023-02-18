@@ -4,21 +4,18 @@
 
 char	*ft_getenv(char *str, t_ms *ms)
 {
-	int		i;
-	char	*tmp;
+	t_envlst	*tmp;
 
-	i = 0;
-	i = ft_check_env(str, ms, 'G');
-	if (i < 0)
-		return (NULL);
-	if (i)
+	tmp = ms->exp;
+	while (tmp)
 	{
-		i -= 1;
-		tmp = ft_strchr(ms->env[i], '=') + 1;
+		if (!ft_strncmp(str, tmp->var, 100))
+			break ;
+		tmp = tmp->next;
 	}
-	else
-		return (NULL);
-	return (tmp);
+	if (tmp)
+		return (&tmp->value[0]);
+	return (NULL);
 }
 
 void	ft_shlvl_update(t_ms *ms)

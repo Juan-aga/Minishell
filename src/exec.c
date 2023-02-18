@@ -96,6 +96,8 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 
 static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 {
+	char	*get;
+
 	if (!ft_strncmp("env", tmp->arg[0], 4))
 	{
 		ft_env(ms);
@@ -108,6 +110,13 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	}
 	else if (!ft_strncmp("echo", tmp->arg[0], 5))
 	{	
+		exit (0);
+	}
+	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
+	{
+		get = ft_getenv(tmp->arg[1], ms);
+		if (tmp)
+			printf("%s", get);
 		exit (0);
 	}
 }
