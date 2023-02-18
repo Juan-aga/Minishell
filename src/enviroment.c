@@ -13,6 +13,7 @@ void	ft_export(char *str, t_ms *ms)
 		return ;
 	if (i)
 	{
+		i -= 1;
 		free(ms->env[i]);
 		ms->env[i] = ft_strdup(str);
 		return ;
@@ -33,8 +34,9 @@ void	ft_unset(char *str, t_ms *ms)
 	int	i;
 
 	i = (ft_check_env(str, ms, 'u'));
-	if (!i)
+	if (i <= 0)
 		return ;
+	i -= 1;
 	while (ms->env[i + 1])
 	{
 		free(ms->env[i]);
@@ -44,6 +46,7 @@ void	ft_unset(char *str, t_ms *ms)
 	free(ms->env[i]);
 	ms->env[i] = ms->env[i + 1];
 	free(ms->env[i + 1]);
+	return ;
 }
 
 void	ft_env(t_ms *ms)
@@ -56,6 +59,7 @@ void	ft_env(t_ms *ms)
 		printf("%s\n", ms->env[i]);
 		i++;
 	}
+	exit(0);
 }
 
 int	ft_check_env(char *str, t_ms *ms, char c)
@@ -63,15 +67,17 @@ int	ft_check_env(char *str, t_ms *ms, char c)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	j = 0;
+	if (!str)
+		return (-1);
 	while (str[j] && str[j] != '=')
 		j++;
 	if (str[j] != '=' && c == 'E')
 		return (-1);
-	while (ms->env[i])
+	while (ms->env[i - 1])
 	{
-		if (!ft_strncmp(str, ms->env[i], j))
+		if (!ft_strncmp(str, ms->env[i - 1], j) && ms->env[i - 1][j] == '=')
 			return (i);
 		i++;
 	}
