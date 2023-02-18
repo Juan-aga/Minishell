@@ -9,8 +9,10 @@ ifdef DEBUG
 endif
 
 SRC_DIR 	= src/
-_SRC 		= lexer.c \
-			lexer_utils.c		\
+_SRC 		= parser/lexer.c 	\
+			parser/lexer_utils.c\
+			parser/tokens.c		\
+			parser/tokens_utils.c\
 			ft_cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\

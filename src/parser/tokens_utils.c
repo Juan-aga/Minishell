@@ -1,8 +1,8 @@
-#include "../include/lexer.h"
-#include "../include/minishell.h"
-#include "../lib/libft-juan-aga/include/libft.h"
+#include "lexer.h"
+#include "minishell.h"
+#include "libft.h"
 
-int	ft_get_token_type(char c)
+int	get_token_type(char c)
 {
 	if (c == '|')
 		return (CHAR_PIPE);
@@ -54,38 +54,3 @@ void	token_free(t_token *token)
 	free(token);
 }
 
-void	lexer_free(t_lexer *lexer)
-{
-	t_token	*token;
-	t_token	*next;
-
-	token = lexer->token_list;
-	while (token != NULL)
-	{
-		next = token->next;
-		token_free(token);
-		token = next;
-	}
-}
-
-void	clean_tokens(t_token *token)
-{
-	char	*tmp;
-
-	while (token)
-	{
-		if (token->status == CHAR_SQUOTE)
-		{
-			tmp = ft_strtrim(token->str, "\'");
-			free(token->str);
-			token->str = tmp;
-		}
-		else if (token->status == CHAR_DQUOTE)
-		{
-			tmp = ft_strtrim(token->str, "\"");
-			free(token->str);
-			token->str = tmp;
-		}
-		token = token->next;
-	}
-}
