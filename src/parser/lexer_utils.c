@@ -44,4 +44,3 @@ void	lexer_free(t_lexer *lexer)
 		token = next;
 	}
 }
-
