@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 static void	ft_export_check(char **str, t_ms *ms, int i, int j);
-static void	ft_export_add(char *str, t_ms *ms, int dif);
+static void	ft_export_add(char *str, t_ms *ms, int diff);
 
 void	ft_export(char **str, t_ms *ms)
 {
@@ -33,35 +33,43 @@ void	ft_export(char **str, t_ms *ms)
 static void	ft_export_check(char **str, t_ms *ms, int i, int j)
 {
 	t_envlst	*tmp;
+	char		*var;
 
-	tmp = ms->exp;
 	while (str[i])
 	{
 		j = 0;
 		while (str[i][j] && str[i][j] != '=')
 			j++;
-		while (tmp)
-		{
-			if (!ft_strncmp(str[i], tmp->var, j) && !tmp->var[j])
-			{
-				tmp = ft_envlst_fill(tmp, str[i]);
-				ft_export_to_env(str[i], ms->envlst);
-				break ;
-			}
-			tmp = tmp->next;
-		}
+		var = ft_calloc(sizeof(char), j + 2);
+		ft_strlcpy(var, str[i], j + 1);
+		tmp = ft_getenv(var, ms->exp);
 		if (!tmp)
 			ft_export_add(str[i], ms, str[i][j] - '=');
-		tmp = ms->exp;
+		else
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(&str[i][j + 1]);
+			ft_export_to_env(str[i], ms->envlst);
+		}
+		free(var);
 		i++;
 	}
 }
 
-static void	ft_export_add(char *str, t_ms *ms, int dif)
+static void	ft_export_add(char *str, t_ms *ms, int diff)
 {
-	ft_envlstadd_back(&ms->exp, ft_envlstnew(str));
-	if (!dif)
-		ft_envlstadd_back(&ms->envlst, ft_envlstnew(str));
+	if (!ms->exp && !ms->envlst)
+	{
+		ms->exp = ft_envlstnew(str);
+		if (!diff)
+			ms->envlst = ft_envlstnew(str);
+	}
+	else
+	{
+		ft_envlstadd_back(&ms->exp, ft_envlstnew(str));
+		if (!diff)
+			ft_envlstadd_back(&ms->envlst, ft_envlstnew(str));
+	}
 }
 
 void	ft_export_to_env(char *str, t_envlst *envlst)

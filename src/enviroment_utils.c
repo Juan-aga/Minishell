@@ -1,32 +1,36 @@
 #include "libft.h"
 #include "minishell.h"
 #include "fractol_utils.h"
+#include <stdio.h>
 
-char	*ft_getenv(char *str, t_ms *ms)
+t_envlst	*ft_getenv(char *str, t_envlst *lst)
 {
 	t_envlst	*tmp;
 
-	tmp = ms->exp;
-	while (tmp)
+	if (!lst)
+		return (NULL);
+	tmp = lst;
+	while (tmp != NULL)
 	{
 		if (!ft_strncmp(str, tmp->var, 100))
 			break ;
 		tmp = tmp->next;
 	}
 	if (tmp)
-		return (&tmp->value[0]);
+		return (tmp);
 	return (NULL);
 }
 
 void	ft_shlvl_update(t_ms *ms)
 {
-	char	*tmp;
-	int		lvl;
+	t_envlst	*tmp;
+	int			lvl;
 
-	tmp = ft_getenv("SHLVL", ms);
-	lvl = ft_atoi(tmp) + 1;
-	tmp = ft_strjoin_va("SHLVL=%i", lvl);
-	ft_export_to_env(tmp, ms->envlst);
-	ft_export_to_env(tmp, ms->exp);
-	free (tmp);
+	tmp = ft_getenv("SHLVL", ms->exp);
+	lvl = ft_atoi(tmp->value) + 1;
+	free(tmp->value);
+	tmp->value = ft_itoa(lvl);
+	tmp = ft_getenv("SHLVL", ms->envlst);
+	free(tmp->value);
+	tmp->value = ft_itoa(lvl);
 }

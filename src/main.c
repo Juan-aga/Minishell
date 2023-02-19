@@ -49,15 +49,15 @@ static t_ms	ft_init(char **env)
 	ms.num_com = 0;
 	ms.exit = 1;
 	ms.exit_status = 0;
+	ms.path = NULL;
+	ms.exp = NULL;
+	ms.envlst = NULL;
 	ft_prompt(&ms);
 	ms.env = ft_copy_array(env, 0);
 	ms.envlst = ft_copy_env(env);
 	ms.exp = ft_copy_env(env);
 	if (ms.env[0])
-	{
-		printf("update shlev");
 		ft_shlvl_update(&ms);
-	}
 	return (ms);
 }
 

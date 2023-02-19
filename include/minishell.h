@@ -62,6 +62,8 @@ void		ft_envlstadd_back(t_envlst **envlst, t_envlst *add);
 t_envlst	*ft_envlstlast(t_envlst *envlst);
 void		ft_free_envlst(t_envlst *envlst);
 t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str);
+void		ft_envlst_delete(char *str, t_envlst *lst);
+
 /*		envlst utils								*/
 t_envlst	*ft_copy_env(char **env);
 void		ft_envlst_short(t_envlst **lst);
@@ -98,10 +100,10 @@ char		**ft_copy_array(char **src, int add);
 void		ft_del_items_array(char **str, int del);
 /*
 		duplicates functionality of getenv()
-		but works with the env of minishell.
-		it returns a ponter after '=' if exist
+		but works with the envlst of minishell.
+		it returns a pionter to the node list if exist
 		else return NULL			*/
-char		*ft_getenv(char *str, t_ms *ms);
+t_envlst	*ft_getenv(char *str, t_envlst *lst);
 void		ft_shlvl_update(t_ms *ms);
 /*		redirections				*/
 void		ft_exec(t_ms *ms);
