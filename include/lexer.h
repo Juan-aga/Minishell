@@ -53,6 +53,7 @@ void	trim_quotes_token(t_token *token);
 int		close_quotes(t_token *token, char quote_char);
 t_token	*other_tokens(t_token *token, int type, int *j, int len);
 void	compund_tokens(t_token *token);
+t_token	*escape_token(t_token *token, char *input, int *j, int *i);
 
 /* parser/tokens_utils.c */
 int		get_token_type(char c);
