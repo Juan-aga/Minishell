@@ -42,7 +42,8 @@ t_token	*token_init(t_token *token, int size)
 	}
 	token->str = ft_calloc(size, sizeof(char));
 	token->type = CHAR_NORMAL;
-	token->status = NORMAL;
+	token->status = NO_QUOTE;
+	token->escaped = NORMAL;
 	token->next = NULL;
 	return (token);
 }

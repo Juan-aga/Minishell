@@ -25,6 +25,12 @@ enum e_status {
 	ESCAPED,
 };
 
+enum e_quote_status {
+	NO_QUOTE,
+	SINGLE_QUOTE = '\'',
+	DOUBLE_QUOTE = '\"',
+};
+
 typedef	struct s_token t_token;
 
 typedef struct s_token
@@ -32,6 +38,7 @@ typedef struct s_token
 	int		type;
 	char	*str;
 	int		status;
+	int		escaped;
 	t_token	*next;
 } t_token;
 

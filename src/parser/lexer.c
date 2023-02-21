@@ -25,6 +25,7 @@ void	debug_tokenize(char *input)
 		ft_printf("str: %s\n", token->str);
 		ft_printf("type: %d\n", token->type);
 		ft_printf("status: %d\n", token->status);
+		ft_printf("escaped: %d\n", token->escaped);
 		ft_printf("next: %p\n", token->next);
 		ft_printf("----------------------------\n");
 		token = token->next;

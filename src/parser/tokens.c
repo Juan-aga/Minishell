@@ -106,8 +106,9 @@ void	compund_tokens(t_token *tk)
 
 t_token	*escape_token(t_token *token, char *input, int *j, int *i)
 {
+	token->str[(*j)++] = input[(*i)];
 	token->str[(*j)++] = input[++(*i)];
-	token->status = ESCAPED;
+	token->escaped = ESCAPED;
 	token = token_init(token, ft_strlen(input) - *i);
 	*j = 0;
 	return (token);
