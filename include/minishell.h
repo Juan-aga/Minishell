@@ -65,6 +65,7 @@ t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str);
 /*		envlst utils								*/
 t_envlst	*ft_copy_env(char **env);
 void		ft_envlst_short(t_envlst **lst);
+void		ft_envlst_to_env(t_ms *ms);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/

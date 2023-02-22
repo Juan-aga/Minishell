@@ -101,5 +101,7 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 		ft_free_array(tmp->arg, 0);
 		exit(-1);
 	}
+	ft_envlst_to_env(ms);
 	execve(tmp->path, tmp->arg, ms->env);
+	ft_free_array(ms->env, 0);
 }

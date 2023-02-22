@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "libft.h"
+#include "fractol_utils.h"
 
 t_envlst	*ft_copy_env(char **env)
 {
@@ -46,4 +47,31 @@ void	ft_envlst_short(t_envlst **lst)
 		else
 			tmp = tmp->next;
 	}
+}
+
+void	ft_envlst_to_env(t_ms *ms)
+{
+	t_envlst	*tmp;
+	int			i;
+	char		**new;
+
+	i = 0;
+	tmp = ms->envlst;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	tmp = ms->envlst;
+	new = ft_calloc(sizeof(char *), i + 1);
+	if (!new)
+		return ;
+	i = 0;
+	while (tmp)
+	{
+		new[i] = ft_strjoin_va("%s=%s", tmp->var, tmp->value);
+		i++;
+		tmp = tmp->next;
+	}
+	ms->env = new;
 }
