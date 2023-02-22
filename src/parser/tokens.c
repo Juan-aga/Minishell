@@ -52,32 +52,31 @@ int	close_quotes(t_token *token, char quote_char)
 	return (0);
 }
 
-t_token	*other_tokens(t_token *token, int type, int *j, int len)
+t_token	*other_tokens(t_token *tok, int type, int *j, int len)
 {
-	if (type == CHAR_SPACE && *j == 0 && token->status == NO_QUOTE)
-		return (token);
-	else if (type == CHAR_DQUOTE || type == CHAR_SQUOTE)
+	if (type == CHAR_SPACE && *j == 0 && tok->status == NO_QUOTE)
+		return (tok);
+	else if (((type == CHAR_DQUOTE || type == CHAR_SQUOTE) && !tok->escaped))
 	{
-		token->str[*j] = type;
-		token->status = type;
-		*j += 1;
-		return (token);
+		tok->str[(*j)++] = type;
+		tok->status = type;
+		return (tok);
 	}
-	else if (*j > 0 && token->status == NO_QUOTE)
+	else if (*j > 0 && tok->status == NO_QUOTE)
 	{
-		token = token_init(token, 2);
+		tok = token_init(tok, 2);
 		*j = 0;
 	}
-	else if (*j > 0 && token->status != NO_QUOTE)
+	else if (*j > 0 && tok->status != NO_QUOTE)
 	{
-		token->str[(*j)++] = type;
-		return (token);
+		tok->str[(*j)++] = type;
+		return (tok);
 	}
-	token->str[0] = type;
-	token->type = type;
+	tok->str[0] = type;
+	tok->type = type;
 	*j = 0;
-	token = token_init(token, len);
-	return (token);
+	tok = token_init(tok, len);
+	return (tok);
 }
 
 void	compund_tokens(t_token *tk)
