@@ -9,8 +9,11 @@ ifdef DEBUG
 endif
 
 SRC_DIR 	= src/
-_SRC 		= lexer.c \
-			lexer_utils.c		\
+
+_SRC 		= parser/lexer.c 	\
+			parser/lexer_utils.c\
+			parser/tokens.c		\
+			parser/tokens_utils.c\
 			cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
@@ -36,12 +39,12 @@ INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
-			@git submodule update --init
 			@$(MAKE) -s all -C $(LIBFT_DIR)
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
 %.o: %.c
+			@git submodule update --init
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
