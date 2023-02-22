@@ -54,7 +54,7 @@ int	close_quotes(t_token *token, char quote_char)
 
 t_token	*other_tokens(t_token *token, int type, int *j, int len)
 {
-	if (type == CHAR_SPACE && *j == 0)
+	if (type == CHAR_SPACE && *j == 0 && token->status == NO_QUOTE)
 		return (token);
 	else if (type == CHAR_DQUOTE || type == CHAR_SQUOTE)
 	{
@@ -63,10 +63,15 @@ t_token	*other_tokens(t_token *token, int type, int *j, int len)
 		*j += 1;
 		return (token);
 	}
-	else if (*j > 0)
+	else if (*j > 0 && token->status == NO_QUOTE)
 	{
 		token = token_init(token, 2);
 		*j = 0;
+	}
+	else if (*j > 0 && token->status != NO_QUOTE)
+	{
+		token->str[(*j)++] = type;
+		return (token);
 	}
 	token->str[0] = type;
 	token->type = type;
