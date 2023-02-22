@@ -99,9 +99,9 @@ void		ft_del_items_array(char **str, int del);
 /*
 		duplicates functionality of getenv()
 		but works with the env of minishell.
-		it returns a ponter after '=' if exist
+		it returns a ponter to the envlst if exist
 		else return NULL			*/
-char		*ft_getenv(char *str, t_ms *ms);
+t_envlst	*ft_getenv(char *str, t_ms *ms);
 void		ft_shlvl_update(t_ms *ms);
 /*		redirections				*/
 void		ft_exec(t_ms *ms);

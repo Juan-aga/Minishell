@@ -26,14 +26,15 @@ void	ft_pwd(t_ms *ms)
 
 void	ft_cd(char *str, t_ms *ms)
 {
-	char	*tmp;
-	char	*dir;
-	int		i;
+	char		*tmp;
+	char		*dir;
+	int			i;
+	t_envlst	*lst;
 
 	if (!str)
 	{
-		i = chdir(ft_getenv("HOME", ms));
-		if (i)
+		lst = ft_getenv("HOM", ms);
+		if (!lst)
 			ft_putstr_fd("minishell: cd: HOME: not set\n", 2);
 		return ;
 	}

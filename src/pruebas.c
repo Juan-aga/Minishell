@@ -6,8 +6,7 @@
 void	ft_simpleparser(char *str, t_ms *ms);
 void	ft_check_builtin(t_ms *ms, t_cmdlst *lst);
 int		ft_fill_cmd(char *str, t_cmdlst *lst);
-void	ft_run_builtin(t_ms *ms);
-void	ft_run_builtin(t_ms *ns);
+//void	ft_run_builtin(t_ms *ms);
 
 void	ft_pruebas(char *str, t_ms *ms)
 {
@@ -47,7 +46,7 @@ void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
 		tmp = tmp->next;
 	}
 }
-
+/*
 void	ft_run_builtin(t_ms *ms)
 {
 	t_cmdlst	*tmp;
@@ -87,7 +86,7 @@ void	ft_run_builtin(t_ms *ms)
 		tmp = tmp->next;
 	}
 }
-
+*/
 void	ft_simpleparser(char *str, t_ms *ms)
 {
 	char		**split;

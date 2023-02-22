@@ -11,10 +11,10 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp);
 void	ft_exec(t_ms *ms)
 {
 	t_cmdlst	*tmp;
-	char		*path;
+	t_envlst	*path;
 
 	path = ft_getenv("PATH", ms);
-	ms->path = ft_split(path, ':');
+	ms->path = ft_split(path->value, ':');
 	ms->exe = 0;
 	tmp = ms->cmdlst;
 	ms->pipe = ft_calloc(sizeof(int), ms->num_com * 2 + 1);
@@ -96,7 +96,7 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 
 static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 {
-	char	*get;
+	t_envlst	*get;
 
 	if (!ft_strncmp("env", tmp->arg[0], 4))
 	{
@@ -118,7 +118,7 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 			exit (0);
 		get = ft_getenv(tmp->arg[1], ms);
 		if (get)
-			printf("%s", get);
+			printf("%s\n", get->value);
 		exit (0);
 	}
 }
