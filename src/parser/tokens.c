@@ -38,6 +38,8 @@ int	close_quotes(t_token *token, char quote_char)
 		i = 0;
 		while (token->str[i] != '\0')
 		{
+			if (token->str[i] == CHAR_ESCAPE && token->str[i + 1] == quote_char)
+				flag--;
 			if (token->str[i] == quote_char)
 				flag++;
 			i++;
