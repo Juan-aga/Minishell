@@ -35,12 +35,12 @@ INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
-			@git submodule update --init
 			@$(MAKE) -s all -C $(LIBFT_DIR)
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
 %.o: %.c
+			@git submodule update --init
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
