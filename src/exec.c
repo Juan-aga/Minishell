@@ -99,19 +99,11 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	t_envlst	*get;
 
 	if (!ft_strncmp("env", tmp->arg[0], 4))
-	{
 		ft_env(ms);
-		exit (0);
-	}
 	else if (!ft_strncmp("pwd", tmp->arg[0], 4))
-	{
 		ft_pwd(ms);
-		exit (0);
-	}
 	else if (!ft_strncmp("echo", tmp->arg[0], 5))
-	{	
-		exit (0);
-	}
+		;
 	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
 	{
 		if (!tmp->arg[1])
@@ -119,6 +111,10 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 		get = ft_getenv(tmp->arg[1], ms);
 		if (get)
 			printf("%s\n", get->value);
-		exit (0);
 	}
+	else if (!ft_strncmp("export", tmp->arg[0], 7))
+		ft_export(&tmp->arg[1], ms);
+	else
+		return ;
+	exit (0);
 }

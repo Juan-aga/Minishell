@@ -8,6 +8,8 @@ t_envlst	*ft_copy_env(char **env)
 
 	i = 0;
 	new = NULL;
+	if (!env)
+		return (NULL);
 	while (env[i])
 	{
 		if (i == 0)
@@ -26,6 +28,8 @@ void	ft_envlst_short(t_envlst **lst)
 	t_envlst	*tmp;
 
 	tmp = *lst;
+	if (!*lst)
+		return ;
 	while (tmp->next)
 	{
 		diff = ft_strncmp(tmp->var, tmp->next->var, 100);

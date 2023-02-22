@@ -25,6 +25,8 @@ static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 {
 	if (!ft_strncmp("export", tmp->arg[0], 7))
 	{
+		if (!tmp->arg[1])
+			return (0);
 		if (ms->num_com == 1)
 			ft_export(&tmp->arg[1], ms);
 		ms->exit_status = 0;
