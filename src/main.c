@@ -6,6 +6,7 @@
 #include "fractol_utils.h"
 #include <unistd.h>
 #include "lexer.h"
+#include "ft_printf.h"
 
 static t_ms	ft_init(char **env);
 static void	ft_free(t_ms ms);

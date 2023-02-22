@@ -31,7 +31,8 @@ void	ft_exec(t_ms *ms)
 	}
 	ft_close_pipe(ms);
 	free(ms->pipe);
-	ft_free_array(ms->path, 0);
+	if (ms->path)
+		ft_free_array(ms->path, 0);
 }
 
 static void	ft_exec_init(t_ms *ms)
@@ -41,6 +42,8 @@ static void	ft_exec_init(t_ms *ms)
 	tmp = ft_getenv("PATH", ms);
 	if (tmp)
 		ms->path = ft_split(tmp->value, ':');
+	else
+		ms->path = NULL;
 	ms->exe = 0;
 }
 

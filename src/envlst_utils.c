@@ -8,7 +8,7 @@ t_envlst	*ft_copy_env(char **env)
 
 	i = 0;
 	new = NULL;
-	if (!env)
+	if (!*env)
 		return (NULL);
 	while (env[i])
 	{
