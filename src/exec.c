@@ -11,28 +11,30 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp);
 void	ft_exec(t_ms *ms)
 {
 	t_cmdlst	*tmp;
-	t_envlst	*path;
+	char		*path;
 
-	path = ft_getenv("PATH", ms->exp);
-	if (path)
-		ms->path = ft_split(path->value, ':');
+	path = ft_getenv("PATH", ms);
+	ms->path = ft_split(path, ':');
 	ms->exe = 0;
 	tmp = ms->cmdlst;
 	ms->pipe = ft_calloc(sizeof(int), ms->num_com * 2 + 1);
-	while (ms->exe++ < ms->num_com)
+	while (ms->exe < ms->num_com)
+	{
 		pipe(ms->pipe + 2 * ms->exe);
+		ms->exe += 1;
+	}
 	ms->exe = 0;
 	while (tmp)
 	{
 		ms->exit_status = ft_childs_pip(ms, tmp);
 		ms->exe += 1;
 		tmp = tmp->next;
+		wait(NULL);
 		close(ms->pipe[2 * ms->exe - 2 + 1]);
 	}
 	ft_close_pipe(ms);
 	free(ms->pipe);
-	if (path)
-		ft_free_array(ms->path, 0);
+	ft_free_array(ms->path, 0);
 }
 
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
@@ -94,7 +96,7 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 
 static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 {
-	t_envlst	*get;
+	char	*get;
 
 	if (!ft_strncmp("env", tmp->arg[0], 4))
 	{
@@ -114,9 +116,9 @@ static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	{
 		if (!tmp->arg[1])
 			exit (0);
-	get = ft_getenv(tmp->arg[1], ms->exp);
+		get = ft_getenv(tmp->arg[1], ms);
 		if (get)
-			printf("%s", get->value);
+			printf("%s", get);
 		exit (0);
 	}
 }

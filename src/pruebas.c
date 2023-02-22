@@ -69,7 +69,7 @@ void	ft_run_builtin(t_ms *ms)
 			ft_exit(ms);
 		else if (!ft_strncmp("getenv", tmp->arg[0], 7))
 		{
-			env = ft_getenv(tmp->arg[1], ms->exp)->value;
+			env = ft_getenv(tmp->arg[1], ms);
 			printf("%s value is: %s\n", tmp->arg[1], env);
 		}
 		else if (!ft_strncmp("pwd", tmp->arg[0], 4))

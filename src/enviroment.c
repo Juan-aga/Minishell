@@ -4,26 +4,8 @@
 
 void	ft_unset(char *str, t_ms *ms)
 {
-	t_envlst	*tmp;
-	int			i;
+	int	i;
 
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	if (str[i] == '=')
-	{
-		printf("minishell: unset: \'%s\': not a valid identifier\n", str);
-		ms->exit_status = 1;
-		return ;
-	}
-	tmp = ft_getenv(str, ms->exp);
-	if (!tmp)
-		return ;
-	ft_envlst_delete(str, ms->exp);
-	ft_envlst_delete(str, ms->envlst);
-/*
 	i = (ft_check_env(str, ms, 'u'));
 	if (i <= 0)
 		return ;
@@ -37,7 +19,7 @@ void	ft_unset(char *str, t_ms *ms)
 	free(ms->env[i]);
 	ms->env[i] = ms->env[i + 1];
 	free(ms->env[i + 1]);
-	return ;*/
+	return ;
 }
 
 void	ft_env(t_ms *ms)

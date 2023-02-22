@@ -12,6 +12,7 @@ t_envlst	*ft_envlstnew(char *str)
 	envlst->var = NULL;
 	envlst->value = NULL;
 	envlst->next = NULL;
+	envlst->prev = NULL;
 	ft_envlst_fill(envlst, str);
 	return (envlst);
 }
@@ -29,6 +30,7 @@ void	ft_envlstadd_back(t_envlst **envlst, t_envlst *add)
 	}
 	last = ft_envlstlast(*envlst);
 	last->next = add;
+	add->prev = last;
 }
 
 t_envlst	*ft_envlstlast(t_envlst *envlst)
@@ -77,35 +79,4 @@ t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str)
 	else
 		envlst->value = NULL;
 	return (envlst);
-}
-
-void	ft_envlst_delete(char *str, t_envlst *lst)
-{
-	t_envlst	*del;
-	t_envlst	*tmp;
-
-	tmp = lst;
-	while (tmp->next && ft_strncmp(tmp->next->var, str, 100))
-		tmp = tmp->next;
-	if (tmp->next || !ft_strncmp(tmp->var, str, 100))
-	{
-		del = tmp->next;
-		tmp->next = tmp->next->next;
-		free(del->var);
-		free(del->value);
-		free(del);
-	}
-	else if (!ft_strncmp(lst->var, str, 100))
-	{
-		del = lst;
-		if (!lst->next)
-			ft_free_envlst(lst);
-		else
-		{
-			lst = lst->next;
-			free(del->var);
-			free(del->value);
-			free(del);
-		}
-	}
 }
