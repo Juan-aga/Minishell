@@ -55,11 +55,15 @@ void	debug_tokenize(char *input);
 void	lexer_init(char *input, t_token *token);
 void	lexer_free(t_lexer *lexer);
 
+/* parser/compound_tokens.c */
+void	compund_tokens(t_token *tk);
+void	check_heredoc(t_token *token);
+void	check_append(t_token *tk);
+
 /* parser/tokens.c */
 void	trim_quotes_token(t_token *token);
 int		close_quotes(t_token *token, char quote_char);
 t_token	*other_tokens(t_token *token, int type, int *j, int len);
-void	compund_tokens(t_token *token);
 t_token	*escape_token(t_token *token, char *input, int *j, int *i);
 
 /* parser/tokens_utils.c */
