@@ -90,7 +90,6 @@ void	ft_export_to_env(char *str, t_envlst *envlst)
 		if (!ft_strncmp(str, tmp->var, i) && !tmp->var[i])
 		{
 			tmp = ft_envlst_fill(tmp, str);
-			printf("es: %s\n", str);
 			break ;
 		}
 		tmp = tmp->next;

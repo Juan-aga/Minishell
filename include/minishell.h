@@ -85,7 +85,7 @@ void		ft_export_to_env(char *str, t_envlst *envlst);
 int			ft_check_env(char *str, t_ms *ms, char c);
 /*		builtin utils				*/
 int			ft_is_builtin(t_ms *ms, t_cmdlst *tmp);
-
+void		ft_accept_redirections(t_ms *ms, t_cmdlst *tmp);
 /*		enviroment utils				*/
 void		ft_free_array(char **str, int i);
 /*

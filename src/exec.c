@@ -6,16 +6,13 @@
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp);
 static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp);
 static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp);
-static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp);
+static void	ft_exec_init(t_ms *ms);
 
 void	ft_exec(t_ms *ms)
 {
 	t_cmdlst	*tmp;
-	t_envlst	*path;
 
-	path = ft_getenv("PATH", ms);
-	ms->path = ft_split(path->value, ':');
-	ms->exe = 0;
+	ft_exec_init(ms);
 	tmp = ms->cmdlst;
 	ms->pipe = ft_calloc(sizeof(int), ms->num_com * 2 + 1);
 	while (ms->exe < ms->num_com)
@@ -35,6 +32,16 @@ void	ft_exec(t_ms *ms)
 	ft_close_pipe(ms);
 	free(ms->pipe);
 	ft_free_array(ms->path, 0);
+}
+
+static void	ft_exec_init(t_ms *ms)
+{
+	t_envlst	*tmp;
+
+	tmp = ft_getenv("PATH", ms);
+	if (tmp)
+		ms->path = ft_split(tmp->value, ':');
+	ms->exe = 0;
 }
 
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
@@ -92,29 +99,4 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 		exit(-1);
 	}
 	execve(tmp->path, tmp->arg, ms->env);
-}
-
-static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
-{
-	t_envlst	*get;
-
-	if (!ft_strncmp("env", tmp->arg[0], 4))
-		ft_env(ms);
-	else if (!ft_strncmp("pwd", tmp->arg[0], 4))
-		ft_pwd(ms);
-	else if (!ft_strncmp("echo", tmp->arg[0], 5))
-		;
-	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
-	{
-		if (!tmp->arg[1])
-			exit (0);
-		get = ft_getenv(tmp->arg[1], ms);
-		if (get)
-			printf("%s\n", get->value);
-	}
-	else if (!ft_strncmp("export", tmp->arg[0], 7))
-		ft_export(&tmp->arg[1], ms);
-	else
-		return ;
-	exit (0);
 }

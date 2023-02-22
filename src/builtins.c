@@ -33,9 +33,10 @@ void	ft_cd(char *str, t_ms *ms)
 
 	if (!str)
 	{
-		lst = ft_getenv("HOM", ms);
+		lst = ft_getenv("HOME", ms);
 		if (!lst)
 			ft_putstr_fd("minishell: cd: HOME: not set\n", 2);
+		chdir(lst->value);
 		return ;
 	}
 	tmp = NULL;
