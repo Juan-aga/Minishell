@@ -1,34 +1,50 @@
 #include "libft.h"
 #include "minishell.h"
 #include "fractol_utils.h"
+#include "ft_printf.h"
+#include "ft_printf.h"
 
-char	*ft_getenv(char *str, t_ms *ms)
+t_envlst	*ft_getenv(char *str, t_ms *ms)
 {
-	int		i;
-	char	*tmp;
+	t_envlst	*tmp;
 
-	i = 0;
-	i = ft_check_env(str, ms, 'G');
-	if (i < 0)
+	if (!ms->exp)
 		return (NULL);
-	if (i)
+	tmp = ms->exp;
+	while (tmp)
 	{
-		i -= 1;
-		tmp = ft_strchr(ms->env[i], '=') + 1;
+		if (!ft_strncmp(str, tmp->var, 100))
+			break ;
+		tmp = tmp->next;
 	}
-	else
-		return (NULL);
-	return (tmp);
+	if (tmp)
+		return (tmp);
+	return (NULL);
 }
 
 void	ft_shlvl_update(t_ms *ms)
 {
-	char	*tmp;
-	int		lvl;
+	t_envlst	*tmp;
+	char		**str;
+	int			lvl;
 
 	tmp = ft_getenv("SHLVL", ms);
-	lvl = ft_atoi(tmp) + 1;
-	tmp = ft_strjoin_va("SHLVL=%i", lvl);
-	ft_export(tmp, ms);
-	free (tmp);
+	str = ft_calloc(sizeof(char *), 4);
+	lvl = 1;
+	if (ms->exp)
+		lvl = ft_atoi(tmp->value) + 1;
+	str[0] = ft_strjoin_va("SHLVL=%i", lvl);
+	ft_export(str, ms);
+	free (str[0]);
+	if (!ms->env)
+	{
+		str[0] = "OLDPWD\0";
+		str[2] = getcwd(str[2], 1000);
+		str[1] = ft_strjoin_va("%s=%s", "PWD", str[2]);
+		free(str[2]);
+		str[2] = NULL;
+		ft_export(str, ms);
+		free(str[1]);
+	}
+	free(str);
 }

@@ -6,7 +6,7 @@
 #include "fractol_utils.h"
 #include <unistd.h>
 #include "lexer.h"
-//char *readline (char *prompt); 
+#include "ft_printf.h"
 
 static t_ms	ft_init(char **env);
 static void	ft_free(t_ms ms);
@@ -29,7 +29,6 @@ int	main(int ac, char **av, char **env)
 	ms = ft_init(env);
 	while (ms.exit)
 	{
-//		prompt = ft_calloc(sizeof(char), 100);
 		prompt = readline (ms.prompt);
 		debug_tokenize(prompt);
 		ft_pruebas(prompt, &ms);
@@ -53,8 +52,9 @@ static t_ms	ft_init(char **env)
 	ms.exit_status = 0;
 	ft_prompt(&ms);
 	ms.env = ft_copy_array(env, 0);
-	if (ms.env[0])
-		ft_shlvl_update(&ms);
+	ms.envlst = ft_copy_env(env);
+	ms.exp = ft_copy_env(env);
+	ft_shlvl_update(&ms);
 	return (ms);
 }
 
@@ -80,11 +80,7 @@ static void	ft_free(t_ms ms)
 
 	i = 0;
 	free(ms.prompt);
-	while (ms.env[i])
-	{
-		free(ms.env[i]);
-		i++;
-	}
-	free(ms.env[i]);
-	free(ms.env);
+	ft_free_array(ms.env, 0);
+	ft_free_envlst(ms.envlst);
+	ft_free_envlst(ms.exp);
 }

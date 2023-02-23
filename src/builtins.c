@@ -26,15 +26,18 @@ void	ft_pwd(t_ms *ms)
 
 void	ft_cd(char *str, t_ms *ms)
 {
-	char	*tmp;
-	char	*dir;
-	int		i;
+	char		*tmp;
+	char		*dir;
+	int			i;
+	t_envlst	*lst;
 
 	if (!str)
 	{
-		i = chdir(ft_getenv("HOME", ms));
-		if (i)
+		lst = ft_getenv("HOME", ms);
+		if (!lst)
 			ft_putstr_fd("minishell: cd: HOME: not set\n", 2);
+		else
+			chdir(lst->value);
 		return ;
 	}
 	tmp = NULL;
@@ -42,9 +45,7 @@ void	ft_cd(char *str, t_ms *ms)
 	dir = ft_strjoin_va("%s/%s", tmp, str);
 	free(tmp);
 	i = chdir(dir);
-	if (i)
-		i = chdir(str);
-	if (i)
+	if (i && chdir(str))
 		ft_cd_error(str, ms);
 	else
 		ms->exit_status = 0;

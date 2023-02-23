@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include "libft.h"
+#include "stdio.h"
 
 static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp);
 
@@ -25,8 +26,10 @@ static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 {
 	if (!ft_strncmp("export", tmp->arg[0], 7))
 	{
+		if (!tmp->arg[1])
+			return (0);
 		if (ms->num_com == 1)
-			ft_export(tmp->arg[1], ms);
+			ft_export(&tmp->arg[1], ms);
 		ms->exit_status = 0;
 		return (1);
 	}
@@ -44,4 +47,29 @@ static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 		return (1);
 	}
 	return (0);
+}
+
+void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
+{
+	t_envlst	*get;
+
+	if (!ft_strncmp("env", tmp->arg[0], 4))
+		ft_env(ms);
+	else if (!ft_strncmp("pwd", tmp->arg[0], 4))
+		ft_pwd(ms);
+	else if (!ft_strncmp("echo", tmp->arg[0], 5))
+		;
+	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
+	{
+		if (!tmp->arg[1])
+			exit (0);
+		get = ft_getenv(tmp->arg[1], ms);
+		if (get)
+			printf("%s\n", get->value);
+	}
+	else if (!ft_strncmp("export", tmp->arg[0], 7))
+		ft_export(&tmp->arg[1], ms);
+	else
+		return ;
+	exit (0);
 }

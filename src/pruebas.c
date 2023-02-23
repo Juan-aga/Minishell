@@ -6,8 +6,7 @@
 void	ft_simpleparser(char *str, t_ms *ms);
 void	ft_check_builtin(t_ms *ms, t_cmdlst *lst);
 int		ft_fill_cmd(char *str, t_cmdlst *lst);
-void	ft_run_builtin(t_ms *ms);
-void	ft_run_builtin(t_ms *ns);
+//void	ft_run_builtin(t_ms *ms);
 
 void	ft_pruebas(char *str, t_ms *ms)
 {
@@ -16,7 +15,6 @@ void	ft_pruebas(char *str, t_ms *ms)
 	ft_simpleparser(str, ms);
 	if (!ms->num_com)
 		return ;
-
 //	ft_check_builtin(ms, ms->cmdlst);
 //	ft_run_builtin(ms);
 	ft_exec(ms);
@@ -48,7 +46,7 @@ void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
 		tmp = tmp->next;
 	}
 }
-
+/*
 void	ft_run_builtin(t_ms *ms)
 {
 	t_cmdlst	*tmp;
@@ -63,7 +61,7 @@ void	ft_run_builtin(t_ms *ms)
 			ms->exit_status = 0;
 		}
 		else if (!ft_strncmp("export", tmp->arg[0], 7))
-			ft_export(tmp->arg[1], ms);
+			ft_export(&tmp->arg[1], ms);
 		else if (!ft_strncmp("unset", tmp->arg[0], 6))
 			ft_unset(tmp->arg[1], ms);
 		else if (!ft_strncmp("exit", tmp->arg[0], 5))
@@ -88,7 +86,7 @@ void	ft_run_builtin(t_ms *ms)
 		tmp = tmp->next;
 	}
 }
-
+*/
 void	ft_simpleparser(char *str, t_ms *ms)
 {
 	char		**split;

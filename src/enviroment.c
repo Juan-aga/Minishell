@@ -2,33 +2,6 @@
 #include "minishell.h"
 #include <stdio.h>
 
-void	ft_export(char *str, t_ms *ms)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	i = ft_check_env(str, ms, 'E');
-	if (i < 0)
-		return ;
-	if (i)
-	{
-		i -= 1;
-		free(ms->env[i]);
-		ms->env[i] = ft_strdup(str);
-		return ;
-	}
-	while (ms->env[i])
-		i++;
-	tmp = ft_copy_array(ms->env, 1);
-	if (!tmp)
-		return ;
-	tmp[i] = ft_strdup(str);
-	tmp[i + 1] = NULL;
-	ft_free_array(ms->env, i - 1);
-	ms->env = tmp;
-}
-
 void	ft_unset(char *str, t_ms *ms)
 {
 	int	i;
@@ -51,13 +24,13 @@ void	ft_unset(char *str, t_ms *ms)
 
 void	ft_env(t_ms *ms)
 {
-	int	i;
+	t_envlst	*tmp;
 
-	i = 0;
-	while (ms->env[i])
+	tmp = ms->envlst;
+	while (tmp)
 	{
-		printf("%s\n", ms->env[i]);
-		i++;
+		printf("%s=%s\n", tmp->var, tmp->value);
+		tmp = tmp->next;
 	}
 	exit(0);
 }
