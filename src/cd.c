@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "fractol_utils.h"
+#include "ft_printf.h"
 
 static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free);
 static void	ft_cd_update(t_ms *ms, char **dir);
@@ -76,7 +77,7 @@ static void	ft_cd_update(t_ms *ms, char **dir)
 	old = ft_getenv("OLDPWD", ms->exp);
 	pwd = ft_getenv("PWD", ms->exp);
 	if (!old)
-		to_export[0] = ft_strdup("OLDPWD\0");
+		to_export[0] = ft_strdup("");
 	else if (pwd)
 		to_export[0] = ft_strjoin_va("OLDPWD=%s", pwd->value);
 	else

@@ -58,6 +58,8 @@ static void	ft_export_check(char **str, t_ms *ms, int i, int j)
 
 static void	ft_export_add(char *str, t_ms *ms, int diff)
 {
+	if (str[0] == '\0')
+		return ;
 	if (!ms->exp && !ms->envlst)
 	{
 		ms->exp = ft_envlstnew(str);
@@ -90,9 +92,9 @@ void	ft_export_to_env(char *str, t_envlst *envlst)
 		if (!ft_strncmp(str, tmp->var, i) && !tmp->var[i])
 		{
 			tmp = ft_envlst_fill(tmp, str);
-			break ;
+			return ;
 		}
 		tmp = tmp->next;
 	}
-	return ;
+	ft_envlstadd_back(&envlst, ft_envlstnew(str));
 }
