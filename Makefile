@@ -26,6 +26,7 @@ _SRC 		= parser/lexer.c 	\
 			envlst.c			\
 			envlst_utils.c		\
 			export.c			\
+			cd.c				\
 			pruebas.c			\
 			main.c
 
