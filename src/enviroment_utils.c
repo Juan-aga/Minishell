@@ -1,70 +1,50 @@
 #include "libft.h"
 #include "minishell.h"
 #include "fractol_utils.h"
+#include "ft_printf.h"
+#include "ft_printf.h"
 
-char	**ft_copy_array(char **src, int add)
+t_envlst	*ft_getenv(char *str, t_ms *ms)
 {
-	int		i;
-	char	**dest;
+	t_envlst	*tmp;
 
-	i = 0;
-	while (src[i])
-		i++;
-	dest = ft_calloc(sizeof(char *), i + 1 + add);
-	if (!dest)
+	if (!ms->exp)
 		return (NULL);
-	i = 0;
-	while (src[i])
+	tmp = ms->exp;
+	while (tmp)
 	{
-		dest[i] = ft_strdup(src[i]);
-		if (!dest[i])
-		{
-			ft_free_array(dest, i);
-			return (NULL);
-		}
-		i++;
+		if (!ft_strncmp(str, tmp->var, 100))
+			break ;
+		tmp = tmp->next;
 	}
-	dest[i] = NULL;
-	return (dest);
-}
-
-void	ft_free_array(char **str, int i)
-{
-	while (i >= 0)
-	{
-		free(str[i]);
-		i--;
-	}
-	free(str);
-}
-
-char	*ft_getenv(char *str, t_ms *ms)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	i = ft_check_env(str, ms, 'G');
-	if (i < 0)
-		return (NULL);
-	if (i)
-	{
-		i -= 1;
-		tmp = ft_strchr(ms->env[i], '=') + 1;
-	}
-	else
-		return (NULL);
-	return (tmp);
+	if (tmp)
+		return (tmp);
+	return (NULL);
 }
 
 void	ft_shlvl_update(t_ms *ms)
 {
-	char	*tmp;
-	int		lvl;
+	t_envlst	*tmp;
+	char		**str;
+	int			lvl;
 
 	tmp = ft_getenv("SHLVL", ms);
-	lvl = ft_atoi(tmp) + 1;
-	tmp = ft_strjoin_va("SHLVL=%i", lvl);
-	ft_export(tmp, ms);
-	free (tmp);
+	str = ft_calloc(sizeof(char *), 4);
+	lvl = 1;
+	if (ms->exp)
+		lvl = ft_atoi(tmp->value) + 1;
+	str[0] = ft_strjoin_va("SHLVL=%i", lvl);
+	ft_export(str, ms);
+	free (str[0]);
+	if (!ms->env)
+	{
+		str[0] = "OLDPWD\0";
+		str[2] = getcwd(str[2], 1000);
+		str[1] = ft_strjoin_va("%s=%s", "PWD", str[2]);
+		free(str[2]);
+		str[2] = NULL;
+		ft_export(str, ms);
+		free(str[1]);
+	}
+	free(str);
 }
