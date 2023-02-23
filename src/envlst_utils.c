@@ -75,3 +75,21 @@ void	ft_envlst_to_env(t_ms *ms)
 	}
 	ms->env = new;
 }
+
+void	ft_envlst_del(t_envlst **lst)
+{
+	if (!*lst)
+		return ;
+	if ((*lst)->next && (*lst)->prev)
+	{
+		(*lst)->prev->next = (*lst)->next;
+		(*lst)->next->prev = (*lst)->prev;
+	}
+	else if ((*lst)->next)
+		(*lst)->next->prev = NULL;
+	else if ((*lst)->prev)
+		(*lst)->prev->next = NULL;
+	(*lst)->prev = NULL;
+	(*lst)->next = NULL;
+	ft_free_envlst(*lst);
+}

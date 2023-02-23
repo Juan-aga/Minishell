@@ -39,7 +39,7 @@ static void	ft_exec_init(t_ms *ms)
 {
 	t_envlst	*tmp;
 
-	tmp = ft_getenv("PATH", ms);
+	tmp = ft_getenv("PATH", ms->exp);
 	if (tmp)
 		ms->path = ft_split(tmp->value, ':');
 	else
