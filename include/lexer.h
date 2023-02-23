@@ -56,16 +56,17 @@ void	lexer_init(char *input, t_token *token);
 void	lexer_free(t_lexer *lexer);
 
 /* parser/tokens.c */
-void	trim_quotes_token(t_token *token);
 int		close_quotes(t_token *token, char quote_char);
 t_token	*other_tokens(t_token *token, int type, int *j, int len);
 t_token	*escape_token(t_token *token, char *input, int *j, int *i);
 t_token	*redirect_token(t_token *token, char *input, int *j, int *i);
+t_token	*quote_token(t_token *token, int type, int *j, int len);
 
 /* parser/tokens_utils.c */
 int		get_token_type(char c);
 t_token	*token_init(t_token *token, int size);
 void	token_free(t_token *token);
 void	remove_empty_tokens(t_token	*token);
+void	trim_quotes_token(t_token *token);
 
 #endif
