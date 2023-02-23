@@ -88,3 +88,34 @@ t_token	*escape_token(t_token *token, char *input, int *j, int *i)
 	token->escaped = ESCAPED;
 	return (token);
 }
+
+/* I have done a little hack in line 103 to determine the kind of double
+token, because on the token types enum, both GREATGREAT(61) and LESSLESS(62) are
+GREAT(59) + 2 or LESS(60) + 2.
+Norminette makes you make things like this >:(
+*/
+t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
+{
+	if (*j > 0 && token->status == NO_QUOTE)
+	{
+		token = token_init(token, ft_strlen(input) - *i);
+		*j = 0;
+	}
+	if ((input[*i] == CHAR_GREAT && input[*i + 1] == CHAR_GREAT) || \
+		(input[*i] == CH_LESS && input[*i + 1] == CH_LESS))
+	{
+		token->type = input[(*i)] + 2;
+		token->str[(*j)++] = input[(*i)++];
+		token->str[(*j)++] = input[(*i)];
+		token->str[*j] = '\0';
+	}
+	else
+	{
+		token->str[(*j)++] = input[(*i)];
+		token->str[*j] = '\0';
+		token->type = input[(*i)];
+		*j = 0;
+	}
+	token = token_init(token, ft_strlen(input) - *i);
+	return (token);
+}

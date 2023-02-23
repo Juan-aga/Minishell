@@ -15,6 +15,9 @@ void	lexer_init(char *input, t_token *token)
 		type = get_token_type(input[i]);
 		if (type == CHAR_ESCAPE)
 			token = escape_token(token, input, &j, &i);
+		else if ((type == CHAR_GREAT || type == CH_LESS) && \
+			token->status == NO_QUOTE)
+			token = redirect_token(token, input, &j, &i);
 		else if (type == CHAR_NORMAL)
 			token->str[j++] = input[i];
 		else if (type == CHAR_SPACE && j > 0 && token->status == NO_QUOTE)
