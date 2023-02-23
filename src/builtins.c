@@ -83,14 +83,15 @@ static void	ft_cd_update(t_ms *ms, char **dir)
 	if (!old)
 		to_export[0] = ft_strdup("OLDPWD\0");
 	else if (pwd)
-		to_export[0] = ft_strjoin("OLDPWD=%s", pwd->value);
+		to_export[0] = ft_strjoin_va("OLDPWD=%s", pwd->value);
 	else
-		to_export[0] = ft_strjoin("OLDPWD=%s", dir[0]);
+		to_export[0] = ft_strjoin_va("OLDPWD=%s", dir[0]);
 	if (pwd)
 	{
-		to_export[4] = getcwd(to_export[4], 100);
-		to_export[1] = ft_strjoin("PWD=%s", to_export[4]);
-		free(to_export[4]);
+		to_export[3] = NULL;
+		to_export[3] = getcwd(to_export[3], 100);
+		to_export[1] = ft_strjoin_va("PWD=%s", to_export[3]);
+		free(to_export[3]);
 	}
 	ft_export(to_export, ms);
 	ft_free_array(to_export, 0);
