@@ -79,15 +79,9 @@ void	trim_quotes_token(t_token *token)
 
 	while (token)
 	{
-		if (token->status == CHAR_SQUOTE)
+		if (token->status == CHAR_SQUOTE || token->status == CHAR_DQUOTE)
 		{
-			tmp = ft_strtrim(token->str, "\'");
-			free(token->str);
-			token->str = tmp;
-		}
-		else if (token->status == CHAR_DQUOTE)
-		{
-			tmp = ft_strtrim(token->str, "\"");
+			tmp = ft_substr(token->str, 1, ft_strlen(token->str) - 2);
 			free(token->str);
 			token->str = tmp;
 		}
