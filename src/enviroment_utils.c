@@ -4,13 +4,13 @@
 #include "ft_printf.h"
 #include "ft_printf.h"
 
-t_envlst	*ft_getenv(char *str, t_ms *ms)
+t_envlst	*ft_getenv(char *str, t_envlst *lst)
 {
 	t_envlst	*tmp;
 
-	if (!ms->exp)
+	if (!lst)
 		return (NULL);
-	tmp = ms->exp;
+	tmp = lst;
 	while (tmp)
 	{
 		if (!ft_strncmp(str, tmp->var, 100))
@@ -28,7 +28,7 @@ void	ft_shlvl_update(t_ms *ms)
 	char		**str;
 	int			lvl;
 
-	tmp = ft_getenv("SHLVL", ms);
+	tmp = ft_getenv("SHLVL", ms->exp);
 	str = ft_calloc(sizeof(char *), 4);
 	lvl = 1;
 	if (ms->exp)

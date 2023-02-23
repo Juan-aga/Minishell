@@ -102,7 +102,7 @@ void		ft_del_items_array(char **str, int del);
 		but works with the env of minishell.
 		it returns a ponter to the envlst if exist
 		else return NULL			*/
-t_envlst	*ft_getenv(char *str, t_ms *ms);
+t_envlst	*ft_getenv(char *str, t_envlst *lst);
 void		ft_shlvl_update(t_ms *ms);
 /*		redirections				*/
 void		ft_exec(t_ms *ms);

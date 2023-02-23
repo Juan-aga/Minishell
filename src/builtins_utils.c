@@ -63,7 +63,7 @@ void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	{
 		if (!tmp->arg[1])
 			exit (0);
-		get = ft_getenv(tmp->arg[1], ms);
+		get = ft_getenv(tmp->arg[1], ms->exp);
 		if (get)
 			printf("%s\n", get->value);
 	}
