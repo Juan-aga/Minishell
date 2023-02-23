@@ -3,28 +3,26 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int	close_quotes(t_token *tok, char quote_char)
+int	close_quotes(t_token *tok)
 {
-	int	flag;
-	int	i;
+	int		flag;
+	int		len;
+	char	open_quote;
 
 	flag = 0;
 	while (tok)
 	{
-		if (flag % 2 != 0)
-			tok->status = quote_char;
-		i = 0;
-		while (tok->str[i] != '\0')
+		if (tok->str[0] == CHAR_SQUOTE || tok->str[0] == CHAR_DQUOTE)
 		{
-			if (tok->str[i] == CHAR_ESCAPE && tok->str[i + 1] == quote_char)
-				flag--;
-			if (tok->str[i] == quote_char)
-				flag++;
-			i++;
+			open_quote = tok->str[0];
+			len = ft_strlen(tok->str);
+			if ((len > 0 && tok->str[len - 1] != open_quote) || len == 1 || \
+				tok->status == DOUBT_QUOTE)
+				flag = 1;
 		}
 		tok = tok->next;
 	}
-	if (flag % 2 != 0)
+	if (flag)
 	{
 		ft_printf("minishell: syntax error: unmatched quotes\n");
 		return (1);
@@ -106,6 +104,7 @@ t_token	*quote_token(t_token *tok, int type, int *j, int len)
 		*j = 0;
 	}
 	tok->str[(*j)++] = type;
+	tok->status = DOUBT_QUOTE;
 	if (*j > 1 && tok->str[0] == type)
 	{
 		tok->status = type;

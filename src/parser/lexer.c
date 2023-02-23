@@ -12,8 +12,7 @@ void	debug_tokenize(char *input)
 		return ;
 	lexer.token_list = token_init(NULL, ft_strlen(input));
 	lexer_init(input, lexer.token_list);
-	if (close_quotes(lexer.token_list, CHAR_SQUOTE) || \
-		close_quotes(lexer.token_list, CHAR_DQUOTE))
+	if (close_quotes(lexer.token_list))
 		return ;
 	trim_quotes_token(lexer.token_list);
 	remove_empty_tokens(lexer.token_list);

@@ -27,6 +27,7 @@ enum e_status {
 
 enum e_quote_status {
 	NO_QUOTE,
+	DOUBT_QUOTE,
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 };
@@ -56,7 +57,7 @@ void	lexer_init(char *input, t_token *token);
 void	lexer_free(t_lexer *lexer);
 
 /* parser/tokens.c */
-int		close_quotes(t_token *token, char quote_char);
+int		close_quotes(t_token *tok);
 t_token	*other_tokens(t_token *token, int type, int *j, int len);
 t_token	*escape_token(t_token *token, char *input, int *j, int *i);
 t_token	*redirect_token(t_token *token, char *input, int *j, int *i);
