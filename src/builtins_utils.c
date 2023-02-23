@@ -36,7 +36,7 @@ static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 	else if (!ft_strncmp("unset", tmp->arg[0], 6))
 	{
 		if (ms->num_com == 1)
-			ft_unset(tmp->arg[1], ms);
+			ft_unset(&tmp->arg[1], ms);
 		ms->exit_status = 0;
 		return (1);
 	}
@@ -63,7 +63,7 @@ void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	{
 		if (!tmp->arg[1])
 			exit (0);
-		get = ft_getenv(tmp->arg[1], ms);
+		get = ft_getenv(tmp->arg[1], ms->exp);
 		if (get)
 			printf("%s\n", get->value);
 	}

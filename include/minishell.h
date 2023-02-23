@@ -66,6 +66,7 @@ t_envlst	*ft_envlst_fill(t_envlst *envlst, char *str);
 t_envlst	*ft_copy_env(char **env);
 void		ft_envlst_short(t_envlst **lst);
 void		ft_envlst_to_env(t_ms *ms);
+void		ft_envlst_del(t_envlst **lst);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
@@ -75,7 +76,7 @@ void		ft_cd(char *str, t_ms *ms);
 /*		enviroment builtin functions						*/
 void		ft_export(char **str, t_ms *ms);
 void		ft_env(t_ms *ms);
-void		ft_unset(char *str, t_ms *ms);
+void		ft_unset(char **str, t_ms *ms);
 void		ft_export_to_env(char *str, t_envlst *envlst);
 
 /*
@@ -102,7 +103,7 @@ void		ft_del_items_array(char **str, int del);
 		but works with the env of minishell.
 		it returns a ponter to the envlst if exist
 		else return NULL			*/
-t_envlst	*ft_getenv(char *str, t_ms *ms);
+t_envlst	*ft_getenv(char *str, t_envlst *lst);
 void		ft_shlvl_update(t_ms *ms);
 /*		redirections				*/
 void		ft_exec(t_ms *ms);

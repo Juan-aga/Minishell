@@ -37,7 +37,7 @@ static int	ft_check_home(char *str, char **tmp, t_ms *ms)
 
 	if (!str)
 	{
-		lst = ft_getenv("HOME", ms);
+		lst = ft_getenv("HOME", ms->exp);
 		if (!lst)
 		{
 			ft_cd_error(str, ms, 0, tmp);
@@ -73,8 +73,8 @@ static void	ft_cd_update(t_ms *ms, char **dir)
 	char		**to_export;
 
 	to_export = ft_calloc(sizeof(char *), 4);
-	old = ft_getenv("OLDPWD", ms);
-	pwd = ft_getenv("PWD", ms);
+	old = ft_getenv("OLDPWD", ms->exp);
+	pwd = ft_getenv("PWD", ms->exp);
 	if (!old)
 		to_export[0] = ft_strdup("OLDPWD\0");
 	else if (pwd)

@@ -2,24 +2,41 @@
 #include "minishell.h"
 #include <stdio.h>
 
-void	ft_unset(char *str, t_ms *ms)
-{
-	int	i;
+static void	ft_error_unset(char *str, int *err);
 
-	i = (ft_check_env(str, ms, 'u'));
-	if (i <= 0)
+void	ft_unset(char **str, t_ms *ms)
+{
+	t_envlst	*tmp;
+	int			i;
+	int			err;
+
+	i = 0;
+	err = 0;
+	if (!str)
 		return ;
-	i -= 1;
-	while (ms->env[i + 1])
+	while (str[i])
 	{
-		free(ms->env[i]);
-		ms->env[i] = ft_strdup(ms->env[i + 1]);
+		if (ft_strchr(str[i], '='))
+			ft_error_unset(str[i], &err);
+		else
+		{
+			tmp = ft_getenv(str[i], ms->exp);
+			ft_envlst_del(&tmp);
+			tmp = ft_getenv(str[i], ms->envlst);
+			ft_envlst_del(&tmp);
+		}
 		i++;
 	}
-	free(ms->env[i]);
-	ms->env[i] = ms->env[i + 1];
-	free(ms->env[i + 1]);
-	return ;
+	ms->exit_status = err;
+}
+
+static void	ft_error_unset(char *str, int *err)
+{
+	char	*msg;
+
+	msg = ft_strjoin("minishell: unset: \"%s\": not a valid identifier", str);
+	ft_putstr_fd(msg, 2);
+	*err = 1;
 }
 
 void	ft_env(t_ms *ms)

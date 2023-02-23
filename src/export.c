@@ -42,7 +42,7 @@ static void	ft_export_check(char **str, t_ms *ms, int i, int j)
 			j++;
 		var = ft_calloc(sizeof(char), j + 2);
 		ft_strlcpy(var, str[i], j + 1);
-		tmp = ft_getenv(var, ms);
+		tmp = ft_getenv(var, ms->exp);
 		if (!tmp)
 			ft_export_add(str[i], ms, str[i][j] - '=');
 		else
