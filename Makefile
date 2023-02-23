@@ -12,7 +12,6 @@ SRC_DIR 	= src/
 
 _SRC 		= parser/lexer.c 	\
 			parser/lexer_utils.c\
-			parser/compound_tokens.c\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
 			cmdlst.c			\
