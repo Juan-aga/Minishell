@@ -16,6 +16,8 @@ void	debug_tokenize(char *input)
 		return ;
 	trim_quotes_token(lexer.token_list);
 	remove_empty_tokens(lexer.token_list);
+	if (lexer_files(lexer.token_list))
+		return ;
 	token = lexer.token_list;
 	lexer.n_tokens = 0;
 	while (token != NULL)

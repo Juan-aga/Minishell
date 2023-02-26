@@ -9,11 +9,14 @@ enum e_tokens {
 	CH_SEMICOL = ';',
 	CH_SPACE = ' ',
 	CH_ESCAPE = '\\',
-	CH_GREAT = '>',
 	CH_LESS = '<',
-	CH_GREATGREAT,
-	CH_LESSLESS,
-	CH_DELIMITER,
+	CH_GREAT = '>',
+	CH_LESSLESS = 63,
+	CH_GREATGREAT = 65,
+	DELIMITER,
+	INFILE,
+	OUTFILE,
+	OUTFILE_APPEND,
 	CH_NORMAL = -1,
 	CH_NULL = 0,
 };
@@ -62,6 +65,7 @@ empty tokens when necessary */
 void	lexer_init(char *input, t_token *token);
 /* frees all tokens in the lexer struct*/
 void	lexer_free(t_lexer *lexer);
+int		lexer_files(t_token *token);
 
 /* parser/tokens.c */
 

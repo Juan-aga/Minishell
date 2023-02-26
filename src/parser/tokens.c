@@ -66,8 +66,8 @@ t_token	*escape_token(t_token *token, char *input, int *j, int *i)
 }
 
 /* I have done a little hack in line 103 to determine the kind of double
-token, because on the token types enum, both GREATGREAT(61) and LESSLESS(62) are
-GREAT(59) + 2 or LESS(60) + 2.
+token, because on the token types enum, both GREATGREAT(65) and LESSLESS(63) are
+GREAT(62) + 3 or LESS(60) + 3.
 Norminette makes you make things like this >:(
 */
 t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
@@ -80,7 +80,7 @@ t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
 	if ((input[*i] == CH_GREAT && input[*i + 1] == CH_GREAT) || \
 		(input[*i] == CH_LESS && input[*i + 1] == CH_LESS))
 	{
-		token->type = input[(*i)] + 2;
+		token->type = input[(*i)] + 3;
 		token->str[(*j)++] = input[(*i)++];
 		token->str[(*j)++] = input[(*i)];
 		token->str[*j] = '\0';
