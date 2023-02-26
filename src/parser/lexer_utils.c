@@ -13,14 +13,14 @@ void	lexer_init(char *input, t_token *token)
 	while (input[++i] != '\0')
 	{
 		type = get_token_type(input[i]);
-		if (type == CHAR_ESCAPE)
+		if (type == CH_ESCAPE)
 			token = escape_token(token, input, &j, &i);
-		else if ((type == CHAR_GREAT || type == CH_LESS) && \
+		else if ((type == CH_GREAT || type == CH_LESS) && \
 			token->status == NO_QUOTE)
 			token = redirect_token(token, input, &j, &i);
-		else if (type == CHAR_NORMAL)
+		else if (type == CH_NORMAL)
 			token->str[j++] = input[i];
-		else if (type == CHAR_SPACE && j > 0 && token->status == NO_QUOTE)
+		else if (type == CH_SPACE && j > 0 && token->status == NO_QUOTE)
 		{
 			token = token_init(token, ft_strlen(input) - i);
 			j = 0;

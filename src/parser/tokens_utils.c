@@ -5,30 +5,26 @@
 int	get_token_type(char c)
 {
 	if (c == '|')
-		return (CHAR_PIPE);
+		return (CH_PIPE);
 	if (c == '&')
-		return (CHAR_AMPERSAND);
+		return (CH_AMPERSAND);
 	if (c == '\'')
-		return (CHAR_SQUOTE);
+		return (CH_SQUOTE);
 	if (c == '\"')
-		return (CHAR_DQUOTE);
+		return (CH_DQUOTE);
 	if (c == ';')
-		return (CHAR_SEMICOL);
+		return (CH_SEMICOL);
 	if (c == ' ')
-		return (CHAR_SPACE);
+		return (CH_SPACE);
 	if (c == '\\')
-		return (CHAR_ESCAPE);
-	if (c == '\n')
-		return (CHAR_NL);
-	if (c == '\t')
-		return (CHAR_TAB);
+		return (CH_ESCAPE);
 	if (c == '>')
-		return (CHAR_GREAT);
+		return (CH_GREAT);
 	if (c == '<')
 		return (CH_LESS);
 	if (c == 0)
-		return (CHAR_NULL);
-	return (CHAR_NORMAL);
+		return (CH_NULL);
+	return (CH_NORMAL);
 }
 
 t_token	*token_init(t_token *token, int size)
@@ -41,7 +37,7 @@ t_token	*token_init(t_token *token, int size)
 		token = token->next;
 	}
 	token->str = ft_calloc(size, sizeof(char));
-	token->type = CHAR_NORMAL;
+	token->type = CH_NORMAL;
 	token->status = NO_QUOTE;
 	token->escaped = NORMAL;
 	token->next = NULL;
@@ -79,7 +75,7 @@ void	trim_quotes_token(t_token *token)
 
 	while (token)
 	{
-		if (token->status == CHAR_SQUOTE || token->status == CHAR_DQUOTE)
+		if (token->status == CH_SQUOTE || token->status == CH_DQUOTE)
 		{
 			tmp = ft_substr(token->str, 1, ft_strlen(token->str) - 2);
 			free(token->str);

@@ -12,7 +12,7 @@ int	close_quotes(t_token *tok)
 	flag = 0;
 	while (tok)
 	{
-		if (tok->str[0] == CHAR_SQUOTE || tok->str[0] == CHAR_DQUOTE)
+		if (tok->str[0] == CH_SQUOTE || tok->str[0] == CH_DQUOTE)
 		{
 			open_quote = tok->str[0];
 			len = ft_strlen(tok->str);
@@ -32,9 +32,9 @@ int	close_quotes(t_token *tok)
 
 t_token	*other_tokens(t_token *tok, int type, int *j, int len)
 {
-	if (type == CHAR_SPACE && *j == 0 && tok->status == NO_QUOTE)
+	if (type == CH_SPACE && *j == 0 && tok->status == NO_QUOTE)
 		return (tok);
-	else if (type == CHAR_DQUOTE || type == CHAR_SQUOTE)
+	else if (type == CH_DQUOTE || type == CH_SQUOTE)
 		return (quote_token(tok, type, j, len));
 	else if (*j > 0 && tok->status == NO_QUOTE)
 	{
@@ -58,7 +58,7 @@ t_token	*escape_token(t_token *token, char *input, int *j, int *i)
 	token->str[(*j)++] = input[(*i)];
 	token->str[(*j)++] = input[++(*i)];
 	token->escaped = ESCAPED;
-	if (token->str[0] == CHAR_DQUOTE || token->str[0] == CHAR_SQUOTE)
+	if (token->str[0] == CH_DQUOTE || token->str[0] == CH_SQUOTE)
 		return (token);
 	*j = 0;
 	token = token_init(token, ft_strlen(input) - *i);
@@ -77,7 +77,7 @@ t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
 		token = token_init(token, ft_strlen(input) - *i);
 		*j = 0;
 	}
-	if ((input[*i] == CHAR_GREAT && input[*i + 1] == CHAR_GREAT) || \
+	if ((input[*i] == CH_GREAT && input[*i + 1] == CH_GREAT) || \
 		(input[*i] == CH_LESS && input[*i + 1] == CH_LESS))
 	{
 		token->type = input[(*i)] + 2;
@@ -98,7 +98,7 @@ t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
 
 t_token	*quote_token(t_token *tok, int type, int *j, int len)
 {
-	if (*j > 0 && (tok->str[0] != CHAR_DQUOTE && tok->str[0] != CHAR_SQUOTE))
+	if (*j > 0 && (tok->str[0] != CH_DQUOTE && tok->str[0] != CH_SQUOTE))
 	{
 		tok = token_init(tok, len);
 		*j = 0;

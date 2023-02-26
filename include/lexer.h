@@ -2,22 +2,20 @@
 # define LEXER_H
 
 enum e_tokens {
-	CHAR_PIPE = '|',
-	CHAR_AMPERSAND = '&',
-	CHAR_SQUOTE = '\'',
-	CHAR_DQUOTE = '\"',
-	CHAR_SEMICOL = ';',
-	CHAR_SPACE = ' ',
-	CHAR_ESCAPE = '\\',
-	CHAR_NL = '\n',
-	CHAR_TAB = '\t',
-	CHAR_GREAT = '>',
+	CH_PIPE = '|',
+	CH_AMPERSAND = '&',
+	CH_SQUOTE = '\'',
+	CH_DQUOTE = '\"',
+	CH_SEMICOL = ';',
+	CH_SPACE = ' ',
+	CH_ESCAPE = '\\',
+	CH_GREAT = '>',
 	CH_LESS = '<',
-	CHAR_GREATGREAT,
-	CHAR_LESSLESS,
-	CHAR_DELIMITER,
-	CHAR_NORMAL = -1,
-	CHAR_NULL = 0,
+	CH_GREATGREAT,
+	CH_LESSLESS,
+	CH_DELIMITER,
+	CH_NORMAL = -1,
+	CH_NULL = 0,
 };
 
 enum e_status {
