@@ -1,6 +1,8 @@
 #ifndef LEXER_H
 # define LEXER_H
 
+# include "minishell.h"
+
 enum e_tokens {
 	CH_PIPE = '|',
 	CH_AMPERSAND = '&',
@@ -55,7 +57,7 @@ typedef struct s_lexer
 /* temporary tokenize function, it should be reworked later.
 It receives the readline, creates a token list, checks if quotes
 are correct and removes empty tokens if any */
-void	debug_tokenize(char *input);
+t_lexer	*debug_tokenize(char *input, t_ms *ms);
 
 /* parser/lexer_utils.c */
 
@@ -93,5 +95,8 @@ t_token	*token_init(t_token *token, int size);
 void	token_free(t_token *token);
 void	remove_empty_tokens(t_token	*token);
 void	trim_quotes_token(t_token *token);
+
+/* parser/expander.c */
+char	*get_variable_value(char *str, t_envlst *env);
 
 #endif
