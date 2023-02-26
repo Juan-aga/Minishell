@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include "minishell.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 void	lexer_init(char *input, t_token *token)
 {
@@ -48,16 +49,16 @@ void	lexer_free(t_lexer *lexer)
 int	lexer_files(t_token *token)
 {
 	t_token	*tok;
-	int		next_ok;
 
 	tok = token;
 	while (tok)
 	{
-		next_ok = 0;
-		if (tok->next)
-			next_ok = 1;
-		if (tok->type > 59 && tok->type < 66 && !next_ok)
+		if (tok->type > 59 && tok->type < 66 && \
+			(!tok->next || tok->next->type != -1))
+		{
+			ft_printf("No filename given\n");
 			return (1);
+		}
 		if (tok->type == CH_LESS)
 			tok->next->type = INFILE;
 		if (tok->type == CH_GREAT)
