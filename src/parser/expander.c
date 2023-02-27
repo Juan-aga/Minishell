@@ -12,7 +12,7 @@ void	expand_tokens(t_lexer *lexer, t_ms *ms)
 	token = lexer->token_list;
 	while (token)
 	{
-		if (token->status != SINGLE_QUOTE)
+		if (token->status != SINGLE_QUOTE && token->type != DELIMITER)
 		{
 			env_var = get_variable_value(token->str, ms->envlst);
 			while (env_var)
