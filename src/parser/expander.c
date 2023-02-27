@@ -14,12 +14,14 @@ void	expand_tokens(t_lexer *lexer, t_ms *ms)
 	{
 		if (token->status != SINGLE_QUOTE && token->type != DELIMITER)
 		{
-			env_var = get_variable_value(token->str, ms->envlst);
+			env_var = get_variable_value(token->str, ms);
 			while (env_var)
 			{
 				token->str = replace_env_var(token->str, \
 					ft_strjoin("$", env_var->var), env_var->value);
-				env_var = get_variable_value(token->str, ms->envlst);
+				if (env_var->var[0] == '?')
+					ft_free_envlst(env_var);
+				env_var = get_variable_value(token->str, ms);
 			}
 			if (!env_var && ft_strchr(token->str, '$'))
 				token->str = replace_env_var(token->str, \
@@ -29,7 +31,7 @@ void	expand_tokens(t_lexer *lexer, t_ms *ms)
 	}
 }
 
-t_envlst	*get_variable_value(char *str, t_envlst *env)
+t_envlst	*get_variable_value(char *str, t_ms *ms)
 {
 	int			i;
 	char		*word;
@@ -41,13 +43,18 @@ t_envlst	*get_variable_value(char *str, t_envlst *env)
 	if (word)
 	{
 		i = 1;
+		if (word[i] == '?')
+		{
+			env_variable = malloc(sizeof(t_envlst));
+			env_variable->var = ft_strdup("?");
+			env_variable->value = ft_itoa(ms->exit_status);
+			return (env_variable);
+		}
 		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
 			i++;
 		v_name = ft_substr(word, 1, i - 1);
-		env_variable = ft_getenv(v_name, env);
+		env_variable = ft_getenv(v_name, ms->envlst);
 		free(v_name);
-		if (!env_variable)
-			return (0);
 	}
 	return (env_variable);
 }
