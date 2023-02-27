@@ -15,7 +15,7 @@ void	expand_tokens(t_lexer *lexer)
 	}
 }
 
-char	*get_variable_value(char *str, t_envlst *env)
+t_envlst	*get_variable_value(char *str, t_envlst *env)
 {
 	int			i;
 	char		*word;
@@ -23,17 +23,17 @@ char	*get_variable_value(char *str, t_envlst *env)
 	t_envlst	*env_variable;
 
 	word = ft_strchr(str, '$');
+	env_variable = 0;
 	if (word)
 	{
 		i = 1;
 		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
 			i++;
-		v_name = ft_substr(word, 1, i);
+		v_name = ft_substr(word, 1, i - 1);
 		env_variable = ft_getenv(v_name, env);
+		free(v_name);
 		if (!env_variable)
 			return (0);
-		ft_printf("Variable value: %s\n", env_variable->value);
-		ft_printf("Variable name: %s\n", env_variable->var);
 	}
-	return (env_variable->value);
+	return (env_variable);
 }

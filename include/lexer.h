@@ -97,6 +97,6 @@ void	remove_empty_tokens(t_token	*token);
 void	trim_quotes_token(t_token *token);
 
 /* parser/expander.c */
-char	*get_variable_value(char *str, t_envlst *env);
+t_envlst	*get_variable_value(char *str, t_envlst *env);
 
 #endif
