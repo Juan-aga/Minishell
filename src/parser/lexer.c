@@ -21,6 +21,7 @@ t_lexer	*debug_tokenize(char *input, t_ms *ms)
 		return (0);
 	token = lexer->token_list;
 	lexer->n_tokens = 0;
+	expand_tokens(lexer, ms);
 	while (token)
 	{
 		ft_printf("str: %s\n", token->str);
@@ -28,7 +29,6 @@ t_lexer	*debug_tokenize(char *input, t_ms *ms)
 		ft_printf("status: %d\n", token->status);
 		ft_printf("escaped: %d\n", token->escaped);
 		ft_printf("next: %p\n", token->next);
-		get_variable_value(token->str, ms->envlst);
 		ft_printf("----------------------------\n");
 		lexer->n_tokens++;
 		token = token->next;

@@ -4,14 +4,28 @@
 #include "fractol_utils.h"
 #include "ft_printf.h"
 
-void	expand_tokens(t_lexer *lexer)
+void	expand_tokens(t_lexer *lexer, t_ms *ms)
 {
-	t_token	*tok;
+	t_token		*token;
+	t_envlst	*env_var;
 
-	tok = lexer->token_list;
-	while (tok)
+	token = lexer->token_list;
+	while (token)
 	{
-		tok = tok->next;
+		if (token->status != SINGLE_QUOTE)
+		{
+			env_var = get_variable_value(token->str, ms->envlst);
+			while (env_var)
+			{
+				token->str = replace_env_var(token->str, \
+					ft_strjoin("$", env_var->var), env_var->value);
+				env_var = get_variable_value(token->str, ms->envlst);
+			}
+			if (!env_var && ft_strchr(token->str, '$'))
+				token->str = replace_env_var(token->str, \
+					get_var_name(token->str), "");
+		}
+		token = token->next;
 	}
 }
 
@@ -36,4 +50,44 @@ t_envlst	*get_variable_value(char *str, t_envlst *env)
 			return (0);
 	}
 	return (env_variable);
+}
+
+char	*replace_env_var(char *og, char *find, char *repl)
+{
+	int		final_len;
+	char	*str;
+	int		i;
+	int		j;
+
+	final_len = ft_strlen(og) + ft_strlen(repl) - ft_strlen(find);
+	str = ft_calloc(final_len + 1, sizeof(char));
+	i = ft_strnstr(og, find, ft_strlen(og)) - og;
+	j = -1;
+	while (++j < i)
+		str[j] = og[j];
+	ft_strlcat(str, repl, final_len + 1);
+	j = i + ft_strlen(repl);
+	i += ft_strlen(find) - 1;
+	while (og[i++] != '\0')
+		str[j++] = og[i];
+	free(og);
+	free(find);
+	return (str);
+}
+
+char	*get_var_name(char *str)
+{
+	char	*word;
+	char	*v_name;
+	int		i;
+
+	word = ft_strchr(str, '$');
+	if (word)
+	{
+		i = 1;
+		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
+			i++;
+		v_name = ft_substr(word, 0, i);
+	}
+	return (v_name);
 }
