@@ -15,6 +15,7 @@ _SRC 		= parser/lexer.c 	\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
 			parser/expander.c	\
+			parser/fill_cmds.c	\
 			cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\

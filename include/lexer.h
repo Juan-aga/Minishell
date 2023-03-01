@@ -103,4 +103,10 @@ t_envlst	*get_variable_value(char *str, t_ms *ms);
 char		*replace_env_var(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
 
+/* parser/fill_cmds.c */
+void	ft_fill_commands(t_ms *ms, t_lexer *lex);
+t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok);
+void	get_all_args(t_cmdlst *cmd, t_token *tok);
+int		count_args(t_token *tok);
+
 #endif
