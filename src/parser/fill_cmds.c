@@ -7,22 +7,26 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 {
 	t_cmdlst	*cmd;
 	t_token		*tok;
+	int			n_cmds;
 
-	ms->cmdlst = ft_cmdlstnew();
-	if (!lex)
+	if (!lex || !lex->token_list)
 		return ;
 	tok = lex->token_list;
+	ms->cmdlst = ft_cmdlstnew();
 	cmd = ms->cmdlst;
+	n_cmds = 1;
 	while (tok)
 	{
 		if (tok && tok->type == CH_PIPE && tok->next)
 		{
 			ft_cmdlstadd_back(&ms->cmdlst, ft_cmdlstnew());
 			cmd = cmd->next;
+			n_cmds++;
 			tok = tok->next;
 		}
 		tok = fill_cmd(cmd, tok);
 	}
+	ms->num_com = n_cmds;
 }
 
 t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
