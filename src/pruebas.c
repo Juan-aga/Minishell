@@ -6,19 +6,19 @@
 void	ft_simpleparser(char *str, t_ms *ms);
 void	ft_check_builtin(t_ms *ms, t_cmdlst *lst);
 int		ft_fill_cmd(char *str, t_cmdlst *lst);
-//void	ft_run_builtin(t_ms *ms);
+void	ft_run_builtin(t_ms *ms);
 
 void	ft_pruebas(char *str, t_ms *ms)
 {
 	if (!str)
 		return ;
-	ft_simpleparser(str, ms);
+	//ft_simpleparser(str, ms);
 	if (!ms->num_com)
 		return ;
-//	ft_check_builtin(ms, ms->cmdlst);
-//	ft_run_builtin(ms);
+	ft_check_builtin(ms, ms->cmdlst);
+	ft_run_builtin(ms);
 	ft_exec(ms);
-	ft_free_cmdlst(ms->cmdlst);
+	//ft_free_cmdlst(ms->cmdlst);
 //	printf("status %i\n", ms->exit_status);
 }
 
@@ -46,11 +46,11 @@ void	ft_check_builtin(t_ms *ms, t_cmdlst *lst)
 		tmp = tmp->next;
 	}
 }
-/*
+
 void	ft_run_builtin(t_ms *ms)
 {
 	t_cmdlst	*tmp;
-	char		*env;
+	t_envlst	*env;
 
 	tmp = ms->cmdlst;
 	while (tmp)
@@ -63,13 +63,13 @@ void	ft_run_builtin(t_ms *ms)
 		else if (!ft_strncmp("export", tmp->arg[0], 7))
 			ft_export(&tmp->arg[1], ms);
 		else if (!ft_strncmp("unset", tmp->arg[0], 6))
-			ft_unset(tmp->arg[1], ms);
+			ft_unset(&tmp->arg[1], ms);
 		else if (!ft_strncmp("exit", tmp->arg[0], 5))
 			ft_exit(ms);
 		else if (!ft_strncmp("getenv", tmp->arg[0], 7))
 		{
-			env = ft_getenv(tmp->arg[1], ms);
-			printf("%s value is: %s\n", tmp->arg[1], env);
+			env = ft_getenv(tmp->arg[1], env);
+			printf("%s value is: %s\n", tmp->arg[1], env->value);
 		}
 		else if (!ft_strncmp("pwd", tmp->arg[0], 4))
 			ft_pwd(ms);
@@ -82,11 +82,11 @@ void	ft_run_builtin(t_ms *ms)
 			}
 			else
 			ft_cd(tmp->arg[1], ms);
-		}	
+		}
 		tmp = tmp->next;
 	}
 }
-*/
+
 void	ft_simpleparser(char *str, t_ms *ms)
 {
 	char		**split;
