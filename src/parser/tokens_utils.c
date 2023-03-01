@@ -51,11 +51,21 @@ void	token_free(t_token *token)
 	free(token);
 }
 
-void	remove_empty_tokens(t_token	*token)
+void	remove_empty_tokens(t_lexer	*lexer)
 {
 	t_token	*next;
 	t_token	*prev;
+	t_token	*token;
 
+	token = lexer->token_list;
+	if (token && token->next == NULL)
+	{
+		if (token->str[0] == '\0')
+		{
+			token_free(token);
+			lexer->token_list = NULL;
+		}
+	}
 	while (token != NULL && token->next != NULL)
 	{
 		prev = token;

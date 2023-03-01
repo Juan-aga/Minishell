@@ -18,7 +18,7 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 		return (0);
 	}
 	trim_quotes_token(lexer->token_list);
-	remove_empty_tokens(lexer->token_list);
+	remove_empty_tokens(lexer);
 	if (lexer_files(lexer->token_list))
 	{
 		lexer_free(lexer);
