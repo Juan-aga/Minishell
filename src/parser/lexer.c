@@ -3,7 +3,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-t_lexer	*debug_tokenize(char *input, t_ms *ms)
+t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 {
 	t_lexer	*lexer;
 	t_token	*token;
@@ -22,6 +22,12 @@ t_lexer	*debug_tokenize(char *input, t_ms *ms)
 	token = lexer->token_list;
 	lexer->n_tokens = 0;
 	expand_tokens(lexer, ms);
+	count_tokens(lexer);
+	return (lexer);
+}
+
+// add these lines to ft_tokenize_line while debugging
+/*
 	while (token)
 	{
 		ft_printf("str: %s\n", token->str);
@@ -34,5 +40,4 @@ t_lexer	*debug_tokenize(char *input, t_ms *ms)
 		token = token->next;
 	}
 	lexer_free(lexer);
-	return (lexer);
-}
+*/

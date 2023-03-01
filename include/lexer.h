@@ -57,7 +57,7 @@ typedef struct s_lexer
 /* temporary tokenize function, it should be reworked later.
 It receives the readline, creates a token list, checks if quotes
 are correct and removes empty tokens if any */
-t_lexer	*debug_tokenize(char *input, t_ms *ms);
+t_lexer	*ft_tokenize_line(char *input, t_ms *ms);
 
 /* parser/lexer_utils.c */
 
@@ -68,6 +68,7 @@ void	lexer_init(char *input, t_token *token);
 /* frees all tokens in the lexer struct*/
 void	lexer_free(t_lexer *lexer);
 int		lexer_files(t_token *token);
+int		count_tokens(t_lexer *lexer);
 
 /* parser/tokens.c */
 

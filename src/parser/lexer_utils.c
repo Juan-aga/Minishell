@@ -71,3 +71,19 @@ int	lexer_files(t_token *token)
 	}
 	return (0);
 }
+
+int	count_tokens(t_lexer *lexer)
+{
+	t_token	*tok;
+	int		i;
+
+	tok = lexer->token_list;
+	i = 0;
+	while (tok)
+	{
+		i++;
+		tok = tok->next;
+	}
+	lexer->n_tokens = i;
+	return (i);
+}
