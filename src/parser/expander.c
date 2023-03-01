@@ -88,6 +88,7 @@ char	*get_var_name(char *str)
 	char	*v_name;
 	int		i;
 
+	v_name = NULL;
 	word = ft_strchr(str, '$');
 	if (word)
 	{
