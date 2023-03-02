@@ -24,7 +24,7 @@ int	close_quotes(t_token *tok)
 	}
 	if (flag)
 	{
-		ft_printf("minishell: syntax error: unmatched quotes\n");
+		ft_putstr_fd("minishell: syntax error: unmatched quotes\n", 2);
 		return (1);
 	}
 	return (0);

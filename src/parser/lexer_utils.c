@@ -56,7 +56,7 @@ int	lexer_files(t_token *token)
 		if (tok->type > 59 && tok->type < 66 && \
 			(!tok->next || tok->next->type != -1))
 		{
-			ft_printf("No filename given\n");
+			ft_putstr_fd("No filename given\n", 2);
 			return (1);
 		}
 		if (tok->type == CH_LESS)
