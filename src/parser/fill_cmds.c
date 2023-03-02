@@ -34,13 +34,21 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 	if (tok->type == INFILE)
 		cmd->fd_in_file = tok->str;
 	if (tok->type == DELIMITER)
-		cmd->fd_in_file = tok->str;
+		ft_printf("Heredoc not implemented yet! :)\n");
 	if (tok->type == OUTFILE)
 		cmd->fd_out_file = tok->str;
 	if (tok->type == OUTFILE_APPEND)
+	{
 		cmd->fd_out_file = tok->str;
+		cmd->append = 1;
+	}
 	if (tok->type == CH_NORMAL && !cmd->arg)
 		get_all_args(cmd, tok);
+	if (open_files_cmd(cmd) == -1)
+	{
+		ft_putstr_fd("error opening file\n", 2);
+		return (0);
+	}
 	if (tok->next)
 		return (tok->next);
 	return (0);
@@ -75,4 +83,17 @@ int	count_args(t_token *tok)
 		tok = tok->next;
 	}
 	return (i);
+}
+
+int	open_files_cmd(t_cmdlst *cmd)
+{
+	if (cmd->fd_in_file)
+		cmd->fd_in = open(cmd->fd_in_file, O_RDONLY);
+	if (cmd->fd_out_file && cmd->append)
+		cmd->fd_out = open(cmd->fd_out_file, O_CREAT | O_RDWR | O_APPEND, 0644);
+	if (cmd->fd_out_file && !cmd->append)
+		cmd->fd_out = open(cmd->fd_out_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (cmd->fd_in == -1 || cmd->fd_out == -1)
+		return (-1);
+	return (0);
 }

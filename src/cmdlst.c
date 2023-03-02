@@ -14,6 +14,7 @@ t_cmdlst	*ft_cmdlstnew(void)
 	cmdlst->fd_out_file = NULL;
 	cmdlst->fd_in = 0;
 	cmdlst->fd_out = 1;
+	cmdlst->append = 0;
 	cmdlst->next = NULL;
 	cmdlst->prev = NULL;
 	return (cmdlst);

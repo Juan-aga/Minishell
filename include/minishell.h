@@ -18,6 +18,7 @@ typedef struct s_cmdlst
 	char			**arg;
 	char			*fd_in_file;
 	char			*fd_out_file;
+	int				append;
 	int				fd_in;
 	int				fd_out;
 }	t_cmdlst;
