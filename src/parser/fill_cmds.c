@@ -29,6 +29,9 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 	ms->num_com = n_cmds;
 }
 
+/* I think error handling when opening files should be done outside of this
+function, because we left a NULL node in the token list, we only can return an
+empty node */
 t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 {
 	if (tok->type == INFILE)
