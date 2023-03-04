@@ -15,7 +15,7 @@ void	ft_cd(char *str, t_ms *ms)
 	int		i;
 
 	tmp = ft_calloc(sizeof(char *), 3);
-	tmp[0] = getcwd(tmp[0], 1000);
+	tmp[0] = getcwd(tmp[0], 0);
 	i = ft_check_home(str, tmp, ms);
 	if (i > 0)
 		return ;
@@ -62,7 +62,7 @@ static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free)
 				"minishell: cd: %s: No such file or directory\n", str);
 		ft_putstr_fd(tmp, 2);
 		free(tmp);
-	}	
+	}
 	ms->exit_status = 1;
 	ft_free_array(to_free, 0);
 }
@@ -85,7 +85,7 @@ static void	ft_cd_update(t_ms *ms, char **dir)
 	if (pwd)
 	{
 		to_export[3] = NULL;
-		to_export[3] = getcwd(to_export[3], 100);
+		to_export[3] = getcwd(to_export[3], 0);
 		to_export[1] = ft_strjoin_va("PWD=%s", to_export[3]);
 		free(to_export[3]);
 	}

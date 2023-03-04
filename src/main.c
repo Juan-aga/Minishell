@@ -93,7 +93,7 @@ static void	ft_prompt(t_ms *ms)
 	char	*dir;
 
 	dir = NULL;
-	dir = getcwd(dir, 1000);
+	dir = getcwd(dir, 0);
 	if (ms->exit_status)
 		ms->prompt = ft_strjoin_va("minishell > ");
 		//ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
