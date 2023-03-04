@@ -28,7 +28,7 @@ void	print_cmds(t_ms *ms)
 	if (!ms || !ms->cmdlst)
 		return ;
 	cmd = ms->cmdlst;
-	ft_printf("Hay %d comandos\n\n", ms->num_com);
+	//ft_printf("Hay %d comandos\n\n", ms->num_com);
 	while (cmd && cmd->arg)
 	{
 		while (cmd->arg[i])
@@ -36,7 +36,8 @@ void	print_cmds(t_ms *ms)
 			ft_printf("Arg %d: %s\n", i, cmd->arg[i]);
 			i++;
 		}
-		ft_printf("IN %s, OUT %s\n", cmd->fd_in_file, cmd->fd_out_file);
+		if (cmd->fd_in_file ||cmd->fd_out_file)
+			ft_printf("IN %s, OUT %s\n", cmd->fd_in_file, cmd->fd_out_file);
 		i = 0;
 		cmd = cmd->next;
 	}
@@ -58,8 +59,9 @@ int	main(int ac, char **av, char **env)
 		prompt = readline (ms.prompt);
 		lex = ft_tokenize_line(prompt, &ms);
 		ft_fill_commands(&ms, lex);
-		print_cmds(&ms);
-		ft_pruebas(prompt, &ms);
+		//print_cmds(&ms);
+		//ft_pruebas(prompt, &ms);
+		ft_exec(&ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
 		free(prompt);
