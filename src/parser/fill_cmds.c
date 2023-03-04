@@ -48,10 +48,7 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 	if (tok->type == CH_NORMAL && !cmd->arg)
 		get_all_args(cmd, tok);
 	if (open_files_cmd(cmd) == -1)
-	{
 		ft_putstr_fd("error opening file\n", 2);
-		return (0);
-	}
 	if (tok->next)
 		return (tok->next);
 	return (0);
