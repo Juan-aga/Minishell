@@ -12,12 +12,11 @@ static t_ms	ft_init(char **env);
 static void	ft_free(t_ms ms);
 static void	ft_prompt(t_ms *ms);
 
-/*
+
 static void	ft_leaks(void)
 {
 	system("leaks -q minishell");
 }
-*/
 
 void	print_cmds(t_ms *ms)
 {
@@ -50,7 +49,7 @@ int	main(int ac, char **av, char **env)
 	char	*prompt;
 	int		stat;
 
-	//atexit(ft_leaks);
+	atexit(ft_leaks);
 	(void) ac;
 	(void) av;
 	ms = ft_init(env);
