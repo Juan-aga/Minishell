@@ -10,6 +10,8 @@ endif
 
 SRC_DIR 	= src/
 
+OBJ_DIR		= obj/
+
 _SRC 		= parser/lexer.c 	\
 			parser/lexer_utils.c\
 			parser/tokens.c		\
@@ -32,7 +34,7 @@ _SRC 		= parser/lexer.c 	\
 			main.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
-OBJ			= ${SRC:.c=.o}
+OBJ			= ${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
 LIBS		= lib/libft-juan-aga/libft.a -lreadline
 LIBFT_DIR	= lib/libft-juan-aga
@@ -46,8 +48,9 @@ ${NAME}:	 ${OBJ}
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
-%.o: %.c
+${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
+			@mkdir -p ${OBJ_DIR}/parser
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
@@ -56,7 +59,7 @@ clean:
 			@echo "Removing files..."
 			@echo "Removing dependencies..."
 			@$(MAKE) -s clean -C $(LIBFT_DIR)
-			@${RM} ${OBJ}
+			@${RM} ${OBJ_DIR}
 
 fclean: 	clean
 			@${RM} ${NAME}
