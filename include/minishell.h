@@ -116,4 +116,12 @@ void		ft_get_path(t_ms *ms, t_cmdlst *tmp);
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
 
+/*		HERE_DOC					*/
+/*
+ * 		use readline and ft_putstr_fd 
+ * 		to keep in a fd until find limiter.
+ * 		return the fd to use for the next command
+ * 		*/
+int			ft_here_doc(char *limiter);
+
 #endif

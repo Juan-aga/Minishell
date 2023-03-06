@@ -37,7 +37,11 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 	if (tok->type == INFILE)
 		cmd->fd_in_file = tok->str;
 	if (tok->type == DELIMITER)
-		ft_printf("Heredoc not implemented yet! :)\n");
+	{
+		cmd->fd_in_file = tok->str;
+		cmd->append = 1;
+		cmd->fd_in = ft_here_doc(tok->str);
+	}		
 	if (tok->type == OUTFILE)
 		cmd->fd_out_file = tok->str;
 	if (tok->type == OUTFILE_APPEND)
@@ -87,8 +91,10 @@ int	count_args(t_token *tok)
 
 int	open_files_cmd(t_cmdlst *cmd)
 {
-	if (cmd->fd_in_file)
+	if (cmd->fd_in_file && !cmd->append)
 		cmd->fd_in = open(cmd->fd_in_file, O_RDONLY);
+	if (cmd->fd_in_file && cmd->append)
+		;
 	if (cmd->fd_out_file && cmd->append)
 		cmd->fd_out = open(cmd->fd_out_file, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (cmd->fd_out_file && !cmd->append)
