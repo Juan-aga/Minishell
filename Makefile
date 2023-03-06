@@ -42,7 +42,7 @@ LIBFT_DIR	= lib/libft-juan-aga
 
 MEMORY_DIR	= memory-leaks
 
-INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
+INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include -I ./${MEMORY_DIR}/include
 
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
