@@ -19,5 +19,5 @@ void	ft_pwd(t_ms *ms)
 	dir = getcwd(dir, 0);
 	ft_printf("%s\n", dir);
 	free(dir);
-	exit(0);
+	//exit(0);
 }
