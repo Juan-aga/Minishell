@@ -36,9 +36,9 @@ _SRC 		= parser/lexer.c 	\
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ			= ${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
-LIBS		= lib/libft-juan-aga/libft.a -lreadline memory-leaks/memory_leaks.a
+LIBS		= ${LIBFT_DIR}/libft.a -lreadline ${MEMORY_DIR}/memory_leaks.a
 
-LIBFT_DIR	= lib/libft-juan-aga
+LIBFT_DIR	= libft
 
 MEMORY_DIR	= memory-leaks
 
