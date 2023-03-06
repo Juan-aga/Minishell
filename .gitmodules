@@ -1,3 +1,6 @@
 [submodule "lib/libft-juan-aga"]
 	path = lib/libft-juan-aga
 	url = git@github.com:emartinez-dev/libft-juan-aga.git
+[submodule "memory-leaks"]
+	path = memory-leaks
+	url = git@github.com:Juan-aga/memory-leaks.git

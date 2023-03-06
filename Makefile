@@ -36,8 +36,11 @@ _SRC 		= parser/lexer.c 	\
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ			= ${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
-LIBS		= lib/libft-juan-aga/libft.a -lreadline
+LIBS		= lib/libft-juan-aga/libft.a -lreadline memory-leaks/memory_leaks.a
+
 LIBFT_DIR	= lib/libft-juan-aga
+
+MEMORY_DIR	= memory-leaks
 
 INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
 
@@ -45,6 +48,7 @@ ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
 			@$(MAKE) -s all -C $(LIBFT_DIR)
+			@${MAKE} -s all -C ${MEMORY_DIR}
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
@@ -59,11 +63,13 @@ clean:
 			@echo "Removing files..."
 			@echo "Removing dependencies..."
 			@$(MAKE) -s clean -C $(LIBFT_DIR)
+			@$(MAKE) -s clean -C $(MEMORY_DIR)
 			@${RM} ${OBJ_DIR}
 
 fclean: 	clean
 			@${RM} ${NAME}
 			@$(MAKE) -s fclean -C  $(LIBFT_DIR)
+			@$(MAKE) -s fclean -C $(MEMORY_DIR)
 
 re:		fclean all
 
