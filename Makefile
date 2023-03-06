@@ -47,8 +47,8 @@ INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include -I ./${MEMORY_DIR}/include
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
+			@$(MAKE) -s all -C $(MEMORY_DIR)
 			@$(MAKE) -s all -C $(LIBFT_DIR)
-			@${MAKE} -s all -C ${MEMORY_DIR}
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
