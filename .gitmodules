@@ -4,3 +4,5 @@
 [submodule "libft"]
 	path = libft
 	url = git@github.com:Juan-aga/libft.git
+[submodule "libft/"]
+	branch = memory

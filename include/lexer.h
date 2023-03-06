@@ -2,6 +2,7 @@
 # define LEXER_H
 
 # include "minishell.h"
+# include "memory_leaks.h"
 
 enum e_tokens {
 	CH_PIPE = '|',

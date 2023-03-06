@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <fcntl.h>
+# include "memory_leaks.h"
 
 /*		define colors letters		*/
 # define CGREEN "\033[1;34;42m"
