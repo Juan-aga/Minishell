@@ -71,7 +71,7 @@ void		ft_envlst_del(t_envlst **lst);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
-void		ft_exit(t_ms *ms);
+void		ft_exit_ms(t_ms *ms);
 void		ft_pwd(t_ms *ms);
 void		ft_cd(char *str, t_ms *ms);
 /*		enviroment builtin functions						*/

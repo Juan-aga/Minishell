@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void	ft_exit(t_ms *ms)
+void	ft_exit_ms(t_ms *ms)
 {
 	ft_putstr_fd("exit\n", 2);
 	ms->exit = 0;

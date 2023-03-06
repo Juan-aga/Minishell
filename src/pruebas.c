@@ -66,7 +66,7 @@ void	ft_run_builtin(t_ms *ms, t_cmdlst *cmds)
 			else if (!ft_strncmp("unset", cmds->arg[0], 6))
 				ft_unset(&cmds->arg[1], ms);
 			else if (!ft_strncmp("exit", cmds->arg[0], 5))
-				ft_exit(ms);
+				ft_exit_ms(ms);
 			else if (!ft_strncmp("getenv", cmds->arg[0], 7))
 			{
 				env = ft_getenv(cmds->arg[1], env);
