@@ -43,9 +43,9 @@ t_envlst	*get_variable_value(char *str, t_ms *ms)
 	if (word)
 	{
 		i = 1;
-		if (word[i] == '?')
+		if (word[i] && word[i] == '?')
 		{
-			env_variable = malloc(sizeof(t_envlst));
+			env_variable = ft_calloc(1, sizeof(t_envlst));
 			env_variable->var = ft_strdup("?");
 			env_variable->value = ft_itoa(ms->exit_status);
 			return (env_variable);
