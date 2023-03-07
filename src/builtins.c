@@ -38,10 +38,10 @@ void	ft_echo(char **str)
 	}
 	while (str[i])
 	{
-		printf("%s", str[i]);
+		ft_printf("%s", str[i]);
 		if (str[++i])
-			printf(" ");
+			ft_printf(" ");
 	}
 	if (nl)
-		printf("\n");
+		ft_printf("\n");
 }
