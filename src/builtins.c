@@ -19,5 +19,29 @@ void	ft_pwd(t_ms *ms)
 	dir = getcwd(dir, 0);
 	ft_printf("%s\n", dir);
 	free(dir);
-	//exit(0);
+}
+
+void	ft_echo(char **str)
+{
+	int	nl;
+	int	i;
+
+	nl = 1;
+	i = 0;
+	if (str[i])
+	{
+		if (!ft_strncmp("-n", str[i], 4))
+		{
+			nl = 0;
+			i++;
+		}
+	}
+	while (str[i])
+	{
+		ft_printf("%s", str[i]);
+		if (str[++i])
+			ft_printf(" ");
+	}
+	if (nl)
+		ft_printf("\n");
 }

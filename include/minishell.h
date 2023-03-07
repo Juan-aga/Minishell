@@ -75,6 +75,7 @@ void		ft_envlst_del(t_envlst **lst);
 void		ft_exit_ms(t_ms *ms);
 void		ft_pwd(t_ms *ms);
 void		ft_cd(char *str, t_ms *ms);
+void		ft_echo(char **str);
 /*		enviroment builtin functions						*/
 void		ft_export(char **str, t_ms *ms);
 void		ft_env(t_ms *ms);
