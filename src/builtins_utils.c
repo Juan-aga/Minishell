@@ -58,7 +58,7 @@ void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	else if (!ft_strncmp("pwd", tmp->arg[0], 4))
 		ft_pwd(ms);
 	else if (!ft_strncmp("echo", tmp->arg[0], 5))
-		;
+		ft_echo(&tmp->arg[1]);
 	else if (!ft_strncmp("getenv", tmp->arg[0], 7))
 	{
 		if (!tmp->arg[1])

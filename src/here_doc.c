@@ -1,6 +1,7 @@
 #include "minishell.h"
 #include "libft.h"
 #include <readline/readline.h>
+#include <sys/wait.h>
 
 static void	ft_read_here(char *limiter, int	*fd);
 
