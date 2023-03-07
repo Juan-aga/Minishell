@@ -2,29 +2,22 @@
 #include "libft.h"
 #include <readline/readline.h>
 
-static void	ft_read_here(char *limiter, int	*fd);
+//static void	ft_read_here(char *limiter, int	*fd);
 
 int	ft_here_doc(char *limiter)
 {
-	pid_t	pid;
+//	pid_t	pid;
 	int		fd[2];
 
 	pipe(fd);
-	pid = fork();
-	if (pid < 0)
-		return (0);
-	if (pid == 0)
-		ft_read_here(limiter, fd);
-	else
-	{
-		close(fd[1]);
-		waitpid(pid, NULL, 0);
-	}
-	return (fd[0]);
-}
+//	pid = fork();
+//	if (pid < 0)
+//		return (0);
+//	if (pid == 0)
+//		ft_read_here(limiter, fd);
 
-static void	ft_read_here(char *limiter, int	*fd)
-{
+//static void	ft_read_here(char *limiter, int	*fd)
+//{
 	int		size;
 	char	*line;
 
@@ -33,14 +26,22 @@ static void	ft_read_here(char *limiter, int	*fd)
 	{
 		line = readline ("minishell here_doc> ");
 		if (!line)
-			exit(1);
+			break ;
 		if (!ft_strncmp(line, limiter, size))
 		{
 			free(line);
-			exit(0);
+			break ;
 		}
 		ft_putstr_fd(line, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
 		free(line);
 	}
+//}
+		//	else
+//	{
+		close(fd[1]);
+//		waitpid(pid, NULL, 0);
+//	}
+	return (fd[0]);
 }
+
