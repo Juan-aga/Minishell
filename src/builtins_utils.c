@@ -26,7 +26,7 @@ int	ft_is_builtin(t_ms *ms, t_cmdlst *tmp)
 
 static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 {
-	if (!tmp || !tmp->arg || !tmp->arg[0])
+	if (!tmp || !tmp->arg)
 		return (0);
 	if (!ft_strncmp("export", tmp->arg[0], 7))
 	{

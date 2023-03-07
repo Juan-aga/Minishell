@@ -44,6 +44,7 @@ void	lexer_free(t_lexer *lexer)
 		token_free(token);
 		token = next;
 	}
+	free(lexer);
 }
 
 int	lexer_files(t_token *token)

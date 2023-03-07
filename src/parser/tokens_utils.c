@@ -30,13 +30,13 @@ int	get_token_type(char c)
 t_token	*token_init(t_token *token, int size)
 {
 	if (token == NULL)
-		token = ft_calloc(1, sizeof(t_token));
+		token = calloc(1, sizeof(t_token));
 	else
 	{
-		token->next = ft_calloc(1, sizeof(t_token));
+		token->next = calloc(1, sizeof(t_token));
 		token = token->next;
 	}
-	token->str = ft_calloc(size, sizeof(char));
+	token->str = calloc(size, sizeof(char));
 	token->type = CH_NORMAL;
 	token->status = NO_QUOTE;
 	token->escaped = NORMAL;
@@ -48,7 +48,8 @@ void	token_free(t_token *token)
 {
 	if (token->str)
 		free(token->str);
-	free(token);
+	if (token)
+		free(token);
 }
 
 void	remove_empty_tokens(t_lexer	*lexer)

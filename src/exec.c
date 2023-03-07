@@ -25,6 +25,7 @@ void	ft_exec(t_ms *ms)
 	{
 		ms->exit_status = ft_childs_pip(ms, tmp);
 		ms->exe += 1;
+//		free(tmp->arg);
 		tmp = tmp->next;
 		wait(NULL);
 		close(ms->pipe[2 * ms->exe - 2 + 1]);
@@ -33,6 +34,7 @@ void	ft_exec(t_ms *ms)
 	free(ms->pipe);
 	if (ms->path)
 		ft_free_array(ms->path, 0);
+//	ft_free_cmdlst(ms->cmdlst);
 }
 
 static void	ft_exec_init(t_ms *ms)

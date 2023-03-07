@@ -59,7 +59,7 @@ int	main(int ac, char **av, char **env)
 		lex = ft_tokenize_line(prompt, &ms);
 		ft_fill_commands(&ms, lex);
 		//print_cmds(&ms);
-		//ft_pruebas(prompt, &ms);
+//		ft_pruebas(prompt, &ms);
 		ft_exec(&ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
@@ -67,6 +67,8 @@ int	main(int ac, char **av, char **env)
 		free(ms.prompt);
 		if (lex)
 			lexer_free(lex);
+		if (ms.cmdlst)
+			ft_free_cmdlst(ms.cmdlst);
 		ft_prompt(&ms);
 	}
 	stat = ms.exit_status;
