@@ -56,7 +56,7 @@ void		ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlst *add);
 /*	return a pointer to the last nodo of the list	*/
 t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst);
 /*	free the list									*/
-void		ft_free_cmdlst(t_cmdlst	*cmdlst);
+void		ft_free_cmdlst(t_ms	*ms);
 
 /*		envlst functions							*/
 t_envlst	*ft_envlstnew(char *str);

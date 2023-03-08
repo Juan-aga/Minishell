@@ -19,7 +19,7 @@ void	ft_pruebas(char *str, t_ms *ms)
 	//ft_check_builtin(ms, ms->cmdlst);
 	//ft_run_builtin(ms, ms->cmdlst);
 	ft_exec(ms);
-	ft_free_cmdlst(ms->cmdlst);
+	ft_free_cmdlst(ms);
 //	printf("status %i\n", ms->exit_status);
 }
 
@@ -121,7 +121,7 @@ void	ft_simpleparser(char *str, t_ms *ms)
 	ft_free_array(split, 0);
 	if (error)
 	{
-		ft_free_cmdlst(ms->cmdlst);
+		ft_free_cmdlst(ms);
 		return ;
 	}
 	ms->num_com = i;
