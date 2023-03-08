@@ -30,13 +30,13 @@ int	get_token_type(char c)
 t_token	*token_init(t_token *token, int size)
 {
 	if (token == NULL)
-		token = calloc(1, sizeof(t_token));
+		token = ft_calloc(1, sizeof(t_token));
 	else
 	{
-		token->next = calloc(1, sizeof(t_token));
+		token->next = ft_calloc(1, sizeof(t_token));
 		token = token->next;
 	}
-	token->str = calloc(size, sizeof(char));
+	token->str = ft_calloc(size, sizeof(char));
 	token->type = CH_NORMAL;
 	token->status = NO_QUOTE;
 	token->escaped = NORMAL;

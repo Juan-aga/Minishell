@@ -45,7 +45,7 @@ t_envlst	*get_variable_value(char *str, t_ms *ms)
 		i = 1;
 		if (word[i] && word[i] == '?')
 		{
-			env_variable = calloc(1, sizeof(t_envlst));
+			env_variable = ft_calloc(1, sizeof(t_envlst));
 			env_variable->var = ft_strdup("?");
 			env_variable->value = ft_itoa(ms->exit_status);
 			return (env_variable);
@@ -67,7 +67,7 @@ char	*replace_env_var(char *og, char *find, char *repl)
 	int		j;
 
 	final_len = ft_strlen(og) + ft_strlen(repl) - ft_strlen(find);
-	str = calloc(final_len + 1, sizeof(char));
+	str = ft_calloc(final_len + 1, sizeof(char));
 	i = ft_strnstr(og, find, ft_strlen(og)) - og;
 	j = -1;
 	while (++j < i)

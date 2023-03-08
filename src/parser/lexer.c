@@ -9,7 +9,7 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 
 	if (input == NULL)
 		return (0);
-	lexer = calloc(1, sizeof(t_lexer));
+	lexer = ft_calloc(1, sizeof(t_lexer));
 	lexer->token_list = token_init(NULL, ft_strlen(input));
 	lexer_init(input, lexer->token_list);
 	if (close_quotes(lexer->token_list))

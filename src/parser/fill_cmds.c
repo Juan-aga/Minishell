@@ -65,7 +65,7 @@ void	get_all_args(t_cmdlst *cmd, t_token *tok)
 
 	i = -1;
 	n_args = count_args(tok);
-	cmd->arg = calloc(n_args + 1, sizeof(char *));
+	cmd->arg = ft_calloc(n_args + 1, sizeof(char *));
 	while (tok && tok->type != CH_PIPE)
 	{
 		if (tok->type == CH_NORMAL)
