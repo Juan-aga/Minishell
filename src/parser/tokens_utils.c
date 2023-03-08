@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include "minishell.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 int	get_token_type(char c)
 {
@@ -52,30 +53,30 @@ void	token_free(t_token *token)
 		free(token);
 }
 
-void	remove_empty_tokens(t_lexer	*lexer)
+void	remove_empty_tokens(t_lexer *lexer)
 {
-	t_token	*next;
+	t_token	*tok;
 	t_token	*prev;
-	t_token	*token;
+	t_token	*tmp;
 
-	token = lexer->token_list;
-	if (token && token->next == NULL)
+	tok = lexer->token_list;
+	prev = NULL;
+	while (tok)
 	{
-		if (token->str[0] == '\0')
+		if (tok->str && tok->str[0] == '\0')
 		{
-			token_free(token);
-			lexer->token_list = NULL;
+			if (prev)
+				prev->next = tok->next;
+			else
+				lexer->token_list = tok->next;
+			tmp = tok->next;
+			token_free(tok);
+			tok = tmp;
 		}
-	}
-	while (token != NULL && token->next != NULL)
-	{
-		prev = token;
-		token = token->next;
-		next = token->next;
-		if (token->str[0] == '\0')
+		else
 		{
-			token_free(token);
-			prev->next = next;
+			prev = tok;
+			tok = tok->next;
 		}
 	}
 }
