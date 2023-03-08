@@ -8,6 +8,20 @@ void	ft_check_builtin(t_ms *ms, t_cmdlst *lst);
 void	ft_run_builtin(t_ms *ms, t_cmdlst *cmds);
 void	ft_simpleparser(char *str, t_ms *ms);
 int		ft_fill_cmd(char *str, t_cmdlst *lst);
+void	ft_prueba_wildcard(char **str);
+
+void	ft_prueba_wildcard(char **str)
+{
+	char	**print;
+	int		i;
+
+	print = ft_wildcard(str);
+	i = -1;
+	if (!print)
+		return ;
+	while (print[++i])
+		printf("%s\n", print[i]);
+}
 
 void	ft_pruebas(char *str, t_ms *ms)
 {
