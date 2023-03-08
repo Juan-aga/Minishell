@@ -2,7 +2,6 @@
 # define LEXER_H
 
 # include "minishell.h"
-# include "memory_leaks.h"
 
 enum e_tokens {
 	CH_PIPE = '|',
@@ -51,6 +50,7 @@ typedef struct s_lexer
 {
 	t_token	*token_list;
 	int		n_tokens;
+	int		error;
 } t_lexer;
 
 /* parser/lexer.c */

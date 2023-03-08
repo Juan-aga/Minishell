@@ -6,24 +6,22 @@
 t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 {
 	t_lexer	*lexer;
+	int		len;
 
-	if (input == NULL)
+	if (input == NULL || ft_strlen(input) == 0)
 		return (0);
 	lexer = ft_calloc(1, sizeof(t_lexer));
+	lexer->error = 0;
+	len = ft_strlen(input);
+	ft_printf("len: %d\n", len);
 	lexer->token_list = token_init(NULL, ft_strlen(input));
 	lexer_init(input, lexer->token_list);
 	if (close_quotes(lexer->token_list))
-	{
-		lexer_free(lexer);
-		return (0);
-	}
+		lexer->error = 1;
 	trim_quotes_token(lexer->token_list);
 	remove_empty_tokens(lexer);
 	if (lexer_files(lexer->token_list))
-	{
-		lexer_free(lexer);
-		return (0);
-	}
+		lexer->error = 1;
 	expand_tokens(lexer, ms);
 	count_tokens(lexer);
 	return (lexer);
