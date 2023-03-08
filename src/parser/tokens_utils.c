@@ -31,16 +31,21 @@ int	get_token_type(char c)
 t_token	*token_init(t_token *token, int size)
 {
 	if (token == NULL)
+	{
 		token = ft_calloc(1, sizeof(t_token));
+		token->prev = NULL;
+	}
 	else
 	{
 		token->next = ft_calloc(1, sizeof(t_token));
+		token->next->prev = token;
 		token = token->next;
 	}
 	token->str = ft_calloc(size + 1, sizeof(char));
 	token->type = CH_NORMAL;
 	token->status = NO_QUOTE;
 	token->escaped = NORMAL;
+	token->join_next = 1;
 	token->next = NULL;
 	return (token);
 }

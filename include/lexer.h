@@ -43,7 +43,9 @@ typedef struct s_token
 	char	*str;
 	int		status;
 	int		escaped;
+	int		join_next;
 	t_token	*next;
+	t_token	*prev;
 } t_token;
 
 typedef struct s_lexer
