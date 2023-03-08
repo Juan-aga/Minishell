@@ -12,7 +12,6 @@ static t_ms	*ft_init(char **env);
 static void	ft_free(t_ms *ms);
 static void	ft_prompt(t_ms *ms);
 
-
 /* static void	ft_leaks(void)
 {
 	system("leaks -q minishell");
@@ -27,7 +26,7 @@ void	print_cmds(t_ms *ms)
 	if (!ms || !ms->cmdlst)
 		return ;
 	cmd = ms->cmdlst;
-	//ft_printf("Hay %d comandos\n\n", ms->num_com);
+	ft_printf("Hay %d comandos\n\n", ms->num_com);
 	while (cmd && cmd->arg)
 	{
 		while (cmd->arg[i])
@@ -35,7 +34,7 @@ void	print_cmds(t_ms *ms)
 			ft_printf("Arg %d: %s\n", i, cmd->arg[i]);
 			i++;
 		}
-		if (cmd->fd_in_file ||cmd->fd_out_file)
+		if (cmd->fd_in_file || cmd->fd_out_file)
 			ft_printf("IN %s, OUT %s\n", cmd->fd_in_file, cmd->fd_out_file);
 		i = 0;
 		cmd = cmd->next;
@@ -47,7 +46,6 @@ int	main(int ac, char **av, char **env)
 	t_ms	*ms;
 	t_lexer	*lex;
 	char	*prompt;
-	int		stat;
 
 	(void) ac;
 	(void) av;
@@ -63,15 +61,13 @@ int	main(int ac, char **av, char **env)
 			add_history(prompt);
 		free(prompt);
 		free(ms->prompt);
-		if (lex)
-			lexer_free(lex);
+		lexer_free(lex);
 		if (ms->cmdlst)
 			ft_free_cmdlst(ms->cmdlst);
 		ft_prompt(ms);
 	}
-	stat = ms->exit_status;
 	ft_free(ms);
-	return (stat);
+	return (ms->exit_status);
 }
 
 static t_ms	*ft_init(char **env)
@@ -98,14 +94,12 @@ static void	ft_prompt(t_ms *ms)
 	dir = NULL;
 	dir = getcwd(dir, 0);
 	if (ms->exit_status)
-		ms->prompt = ft_strjoin_va("minishell > ");
-		//ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				//CRESET, CWHITE, ft_strrchr(dir, '/') + 1, CRESET, CRED, CRESET);
+		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
+				CRESET, CWHITE, ft_strrchr(dir, '/') + 1, CRESET, CRED, CRESET);
 	else
-		ms->prompt = ft_strjoin_va("minishell > ");
-		//ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				//CRESET, CWHITE, ft_strrchr(dir, '/') + 1,
-				//CRESET, CGREEN, CRESET);
+		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
+				CRESET, CWHITE, ft_strrchr(dir, '/') + 1,
+				CRESET, CGREEN, CRESET);
 	free(dir);
 }
 

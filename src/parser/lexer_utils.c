@@ -37,6 +37,8 @@ void	lexer_free(t_lexer *lexer)
 	t_token	*token;
 	t_token	*next;
 
+	if (!lexer)
+		return ;
 	token = lexer->token_list;
 	while (token != NULL)
 	{
