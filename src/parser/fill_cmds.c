@@ -69,7 +69,7 @@ void	get_all_args(t_cmdlst *cmd, t_token *tok)
 	while (tok && tok->type != CH_PIPE)
 	{
 		if (tok->type == CH_NORMAL)
-			cmd->arg[++i] = tok->str;
+			cmd->arg[++i] = ft_strdup(tok->str);
 		tok = tok->next;
 	}
 	cmd->arg[i + 1] = NULL;
