@@ -8,15 +8,15 @@
 #include "lexer.h"
 #include "ft_printf.h"
 
-static t_ms	ft_init(char **env);
-static void	ft_free(t_ms ms);
+static t_ms	*ft_init(char **env);
+static void	ft_free(t_ms *ms);
 static void	ft_prompt(t_ms *ms);
 
 
-static void	ft_leaks(void)
+/* static void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-}
+} */
 
 void	print_cmds(t_ms *ms)
 {
@@ -44,50 +44,50 @@ void	print_cmds(t_ms *ms)
 
 int	main(int ac, char **av, char **env)
 {
-	t_ms	ms;
+	t_ms	*ms;
 	t_lexer	*lex;
 	char	*prompt;
 	int		stat;
 
-	atexit(ft_leaks);
 	(void) ac;
 	(void) av;
 	ms = ft_init(env);
-	while (ms.exit)
+	while (ms->exit)
 	{
-		prompt = readline (ms.prompt);
-		lex = ft_tokenize_line(prompt, &ms);
-		ft_fill_commands(&ms, lex);
-		//print_cmds(&ms);
-//		ft_pruebas(prompt, &ms);
-		ft_exec(&ms);
+		prompt = readline (ms->prompt);
+		lex = ft_tokenize_line(prompt, ms);
+		ft_fill_commands(ms, lex);
+		if (!lex->error)
+			ft_exec(ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
 		free(prompt);
-		free(ms.prompt);
+		free(ms->prompt);
 		if (lex)
 			lexer_free(lex);
-		if (ms.cmdlst)
-			ft_free_cmdlst(ms.cmdlst);
-		ft_prompt(&ms);
+		if (ms->cmdlst)
+			ft_free_cmdlst(ms->cmdlst);
+		ft_prompt(ms);
 	}
-	stat = ms.exit_status;
+	stat = ms->exit_status;
 	ft_free(ms);
 	return (stat);
 }
 
-static t_ms	ft_init(char **env)
+static t_ms	*ft_init(char **env)
 {
-	t_ms	ms;
+	t_ms	*ms;
 
-	ms.num_com = 0;
-	ms.exit = 1;
-	ms.exit_status = 0;
-	ft_prompt(&ms);
-	ms.env = ft_copy_array(env, 0);
-	ms.envlst = ft_copy_env(env);
-	ms.exp = ft_copy_env(env);
-	ft_shlvl_update(&ms);
+	ms = ft_calloc(1, sizeof(t_ms));
+	ms->num_com = 0;
+	ms->exit = 1;
+	ms->exit_status = 0;
+	ft_prompt(ms);
+	ms->env = ft_copy_array(env, 0);
+	ms->envlst = ft_copy_env(env);
+	ms->cmdlst = 0;
+	ms->exp = ft_copy_env(env);
+	ft_shlvl_update(ms);
 	return (ms);
 }
 
@@ -109,10 +109,11 @@ static void	ft_prompt(t_ms *ms)
 	free(dir);
 }
 
-static void	ft_free(t_ms ms)
+static void	ft_free(t_ms *ms)
 {
-	free(ms.prompt);
-	ft_free_array(ms.env, 0);
-	ft_free_envlst(ms.envlst);
-	ft_free_envlst(ms.exp);
+	free(ms->prompt);
+	ft_free_array(ms->env, 0);
+	ft_free_envlst(ms->envlst);
+	ft_free_envlst(ms->exp);
+	free(ms);
 }
