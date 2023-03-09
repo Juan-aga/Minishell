@@ -26,6 +26,7 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 		}
 		tok = fill_cmd(cmd, tok);
 	}
+	ms->lexer = lex;
 	ms->num_com = n_cmds;
 }
 

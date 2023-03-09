@@ -44,3 +44,13 @@ void	ft_get_path(t_ms *ms, t_cmdlst *tmp)
 	}
 	tmp->path = NULL;
 }
+
+void	ft_free_fork(t_ms *ms)
+{
+	lexer_free(ms->lexer);
+	free(ms->pipe);
+	if (ms->path)
+		ft_free_array(ms->path, 0);
+	ft_free_cmdlst(ms);
+	ft_free(ms);
+}
