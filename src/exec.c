@@ -55,7 +55,10 @@ static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
 	status = ft_is_builtin(ms, tmp);
 	if (status)
 		return (ms->exit_status);
+	signal(SIGINT, ft_sigint_proc);
 	pros = fork();
+	ms->pid = pros;
+	signal(SIGQUIT, ft_sigint_proc);
 	if (!pros)
 	{
 		ft_child_redir_file(ms, tmp);
