@@ -139,6 +139,6 @@ char		**ft_wildcard(char **ls);
 /*
 		ERRORS MSG					*/
 void		ft_error_exe(char **arg, char *msg, t_ms *ms);
-void		ft_error_file(char *file, char *msg, t_ms *ms);
+void		ft_error_file(char *file, t_ms *ms);
 
 #endif
