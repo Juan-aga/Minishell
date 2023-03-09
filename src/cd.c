@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "fractol_utils.h"
 #include "ft_printf.h"
+#include <sys/stat.h>
 
 static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free);
 static void	ft_cd_update(t_ms *ms, char **dir);
@@ -52,14 +53,23 @@ static int	ft_check_home(char *str, char **tmp, t_ms *ms)
 
 static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free)
 {
-	char	*tmp;
+	char		*tmp;
+	struct stat	st;
 
 	if (!err)
 		ft_putstr_fd("minishell: cd: HOME: not set\n", 2);
 	else
 	{
-		tmp = ft_strjoin_va(
-				"minishell: cd: %s: No such file or directory\n", str);
+		stat(str, &st);
+		if (!S_ISREG(st.st_mode) && S_ISDIR(st.st_mode))
+			tmp = ft_strjoin_va(
+					"minishell: cd: %s: Permission denied\n", str);
+		else if (!S_ISDIR(st.st_mode) && !access(str, F_OK))
+			tmp = ft_strjoin_va(
+					"minishell: cd: %s: Not a directory\n", str);
+		else
+			tmp = ft_strjoin_va(
+					"minishell: cd: %s: No such file or directory\n", str);
 		ft_putstr_fd(tmp, 2);
 		free(tmp);
 	}

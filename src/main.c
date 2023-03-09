@@ -106,7 +106,7 @@ void	ft_prompt(t_ms *ms)
 	free(dir);
 }
 
-static void	ft_free(t_ms *ms)
+void	ft_free(t_ms *ms)
 {
 	free(ms->prompt);
 	ft_free_array(ms->env, 0);
