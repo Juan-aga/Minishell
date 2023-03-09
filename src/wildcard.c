@@ -52,9 +52,9 @@ static char	*ft_check_dir(char **ls, struct dirent *dir, char *wild)
 			{
 				tmp = wild;
 				wild = ft_strjoin_va("%s\n%s", tmp, file);
-				free(file);
 				free(tmp);
 			}
+			free(file);
 		}
 	}
 	return (wild);
