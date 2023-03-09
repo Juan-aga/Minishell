@@ -9,7 +9,8 @@
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
-t_ms	*ms;
+
+t_ms		*ms;
 
 /* static void	ft_leaks(void)
 {
