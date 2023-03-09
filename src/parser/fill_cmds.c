@@ -25,6 +25,7 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 			tok = tok->next;
 		}
 		tok = fill_cmd(cmd, tok);
+		open_files_cmd(cmd);
 	}
 	ms->lexer = lex;
 	ms->num_com = n_cmds;
@@ -92,9 +93,6 @@ int	open_files_cmd(t_cmdlst *cmd)
 {
 	if (cmd->fd_in_file && !cmd->append)
 		cmd->fd_in = open(cmd->fd_in_file, O_RDONLY);
-	if (cmd->fd_in_file && cmd->append)
-	{
-	}
 	if (cmd->fd_out_file && cmd->append)
 		cmd->fd_out = open(cmd->fd_out_file, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (cmd->fd_out_file && !cmd->append)
