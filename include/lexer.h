@@ -24,6 +24,7 @@ enum e_tokens {
 	INFILE,
 	OUTFILE,
 	OUTFILE_APPEND,
+	EXPANDED,
 	CH_NORMAL = -1,
 	CH_NULL = 0,
 };
@@ -111,6 +112,10 @@ void		expand_tokens(t_lexer *lexer, t_ms *ms);
 t_envlst	*get_variable_value(char *str, t_ms *ms);
 char		*replace_env_var(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
+
+/* parser/wildcard_expander.c */
+void		expand_wildcards(t_lexer *lex);
+t_token		*expand_wildcard(t_token *tok, char **wildcards);
 
 /* parser/fill_cmds.c */
 void		ft_fill_commands(t_ms *ms, t_lexer *lex);

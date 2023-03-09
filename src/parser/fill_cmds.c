@@ -42,7 +42,7 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 		cmd->fd_in_file = tok->str;
 		cmd->append = 1;
 		cmd->fd_in = ft_here_doc(tok->str);
-	}		
+	}
 	if (tok->type == OUTFILE)
 		cmd->fd_out_file = tok->str;
 	if (tok->type == OUTFILE_APPEND)
@@ -50,10 +50,8 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 		cmd->fd_out_file = tok->str;
 		cmd->append = 1;
 	}
-	if (tok->type == CH_NORMAL && !cmd->arg)
+	if ((tok->type == CH_NORMAL || tok->type == EXPANDED) && !cmd->arg)
 		get_all_args(cmd, tok);
-	if (open_files_cmd(cmd) == -1)
-		ft_putstr_fd("error opening file\n", 2);
 	if (tok->next)
 		return (tok->next);
 	return (0);
@@ -69,7 +67,7 @@ void	get_all_args(t_cmdlst *cmd, t_token *tok)
 	cmd->arg = ft_calloc(n_args + 1, sizeof(char *));
 	while (tok && tok->type != CH_PIPE)
 	{
-		if (tok->type == CH_NORMAL)
+		if (tok->type == CH_NORMAL || tok->type == EXPANDED)
 			cmd->arg[++i] = ft_strdup(tok->str);
 		tok = tok->next;
 	}
@@ -83,7 +81,7 @@ int	count_args(t_token *tok)
 	i = 0;
 	while (tok && tok->type != CH_PIPE)
 	{
-		if (tok->type == CH_NORMAL)
+		if (tok->type == CH_NORMAL || tok->type == EXPANDED)
 			i++;
 		tok = tok->next;
 	}

@@ -19,6 +19,7 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	remove_empty_tokens(lexer);
 	if (lexer_files(lexer->token_list))
 		lexer->error = 1;
+	expand_wildcards(lexer);
 	expand_tokens(lexer, ms);
 	join_tokens(lexer->token_list);
 	count_tokens(lexer);
