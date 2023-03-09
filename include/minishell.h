@@ -116,7 +116,7 @@ void		ft_close_pipe(t_ms *ms);
 void		ft_get_path(t_ms *ms, t_cmdlst *tmp);
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
-
+void		ft_prueba_wildcard(char **str);
 /*		HERE_DOC					*/
 /*
  * 		use readline and ft_putstr_fd 
@@ -124,5 +124,9 @@ void		ft_pruebas(char *str, t_ms *ms);
  * 		return the fd to use for the next command
  * 		*/
 int			ft_here_doc(char *limiter);
+/*		WILDCARD					*/
+/*
+		return a char** with the result of use ls */
+char		**ft_wildcard(char **ls);
 
 #endif
