@@ -33,7 +33,11 @@ int	close_quotes(t_token *tok)
 t_token	*other_tokens(t_token *tok, int type, int *j, int len)
 {
 	if (type == CH_SPACE && *j == 0 && tok->status == NO_QUOTE)
+	{
+		if (tok->prev && tok->prev->status != NO_QUOTE)
+			tok->prev->join_next = 0;
 		return (tok);
+	}
 	else if (type == CH_DQUOTE || type == CH_SQUOTE)
 		return (quote_token(tok, type, j, len));
 	else if (*j > 0 && tok->status == NO_QUOTE)

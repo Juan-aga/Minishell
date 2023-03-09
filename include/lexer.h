@@ -43,7 +43,9 @@ typedef struct s_token
 	char	*str;
 	int		status;
 	int		escaped;
+	int		join_next;
 	t_token	*next;
+	t_token	*prev;
 } t_token;
 
 typedef struct s_lexer
@@ -59,6 +61,7 @@ typedef struct s_lexer
 It receives the readline, creates a token list, checks if quotes
 are correct and removes empty tokens if any */
 t_lexer	*ft_tokenize_line(char *input, t_ms *ms);
+void	join_tokens(t_token *token);
 
 /* parser/lexer_utils.c */
 
