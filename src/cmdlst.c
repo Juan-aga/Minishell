@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 #include "libft.h"
 
 t_cmdlst	*ft_cmdlstnew(void)
@@ -14,6 +15,7 @@ t_cmdlst	*ft_cmdlstnew(void)
 	cmdlst->fd_out_file = NULL;
 	cmdlst->fd_in = 0;
 	cmdlst->fd_out = 1;
+	cmdlst->append = 0;
 	cmdlst->next = NULL;
 	cmdlst->prev = NULL;
 	return (cmdlst);
@@ -48,21 +50,21 @@ t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst)
 	return (last);
 }
 
-void	ft_free_cmdlst(t_cmdlst	*cmdlst)
+void	ft_free_cmdlst(t_ms	*ms)
 {
 	t_cmdlst	*tmp;
+	t_cmdlst	*cmdlst;
 
+	cmdlst = ms->cmdlst;
 	while (cmdlst)
 	{
 		tmp = cmdlst->next;
 		if (cmdlst->path)
 			free(cmdlst->path);
-		if (cmdlst->fd_in_file)
-			free(cmdlst->fd_in_file);
-		if (cmdlst->fd_out_file)
-			free(cmdlst->fd_out_file);
-		ft_free_array(cmdlst->arg, 0);
+		if (cmdlst->arg)
+			ft_free_array(cmdlst->arg, 0);
 		free(cmdlst);
 		cmdlst = tmp;
 	}
+	ms->cmdlst = 0;
 }

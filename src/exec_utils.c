@@ -30,6 +30,8 @@ void	ft_get_path(t_ms *ms, t_cmdlst *tmp)
 		tmp->path = tmp->arg[i];
 		return ;
 	}
+	if (!ms->path)
+		return ;
 	while (ms->path[i])
 	{
 		tmp->path = ft_strjoin_va("%s/%s", ms->path[i], tmp->arg[0]);

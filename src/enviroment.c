@@ -2,62 +2,52 @@
 #include "minishell.h"
 #include <stdio.h>
 
-void	ft_export(char *str, t_ms *ms)
+static void	ft_error_unset(char *str, int *err);
+
+void	ft_unset(char **str, t_ms *ms)
 {
-	int		i;
-	char	**tmp;
+	t_envlst	*tmp;
+	int			i;
+	int			err;
 
 	i = 0;
-	i = ft_check_env(str, ms, 'E');
-	if (i < 0)
+	err = 0;
+	if (!str)
 		return ;
-	if (i)
+	while (str[i])
 	{
-		i -= 1;
-		free(ms->env[i]);
-		ms->env[i] = ft_strdup(str);
-		return ;
-	}
-	while (ms->env[i])
+		if (ft_strchr(str[i], '='))
+			ft_error_unset(str[i], &err);
+		else
+		{
+			tmp = ft_getenv(str[i], ms->exp);
+			ft_envlst_del(&tmp);
+			tmp = ft_getenv(str[i], ms->envlst);
+			ft_envlst_del(&tmp);
+		}
 		i++;
-	tmp = ft_copy_array(ms->env, 1);
-	if (!tmp)
-		return ;
-	tmp[i] = ft_strdup(str);
-	tmp[i + 1] = NULL;
-	ft_free_array(ms->env, i - 1);
-	ms->env = tmp;
+	}
+	ms->exit_status = err;
 }
 
-void	ft_unset(char *str, t_ms *ms)
+static void	ft_error_unset(char *str, int *err)
 {
-	int	i;
+	char	*msg;
 
-	i = (ft_check_env(str, ms, 'u'));
-	if (i <= 0)
-		return ;
-	i -= 1;
-	while (ms->env[i + 1])
-	{
-		free(ms->env[i]);
-		ms->env[i] = ft_strdup(ms->env[i + 1]);
-		i++;
-	}
-	free(ms->env[i]);
-	ms->env[i] = ms->env[i + 1];
-	free(ms->env[i + 1]);
-	return ;
+	msg = ft_strjoin("minishell: unset: \"%s\": not a valid identifier", str);
+	ft_putstr_fd(msg, 2);
+	*err = 1;
 }
 
 void	ft_env(t_ms *ms)
 {
-	int	i;
+	t_envlst	*tmp;
 
-	i = 0;
-	while (ms->env[i])
+	tmp = ms->envlst;
+	while (tmp)
 	{
-		printf("%s\n", ms->env[i]);
-		i++;
+		printf("%s=%s\n", tmp->var, tmp->value);
+		tmp = tmp->next;
 	}
 	exit(0);
 }
