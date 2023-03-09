@@ -73,10 +73,8 @@ static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp)
 	if (tmp->fd_in_file)
 	{
 		if (tmp->fd_in < 0)
-		{
-			ft_putstr_fd(" No such file or directory\n", 2);
-			exit(-1);
-		}
+			ft_error_file(tmp->arg, tmp->fd_in_file, \
+				": No such file or directory\n");
 		ms->pipe[2 * ms->exe] = tmp->fd_in;
 	}
 	if (tmp->fd_out_file)
@@ -96,11 +94,7 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 	close(ms->pipe[2 * ms->exe - 2]);
 	ft_get_path(ms, tmp);
 	if (!tmp->path)
-	{
-		ft_putstr_fd(": command not found\n", 2);
-		ft_free_array(tmp->arg, 0);
-		exit(-1);
-	}
+		ft_error_exe(tmp->arg, ": command not found\n");
 	ft_envlst_to_env(ms);
 	execve(tmp->path, tmp->arg, ms->env);
 	ft_free_array(ms->env, 0);
