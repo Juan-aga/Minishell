@@ -35,12 +35,14 @@ t_token	*expand_wildcard(t_token *tok, char **wildcards)
 	token_free(tok);
 	while (wildcards[++i])
 	{
-		tok = token_init(prev, ft_strlen(wildcards[i]));
+		tok = token_init(prev, 0);
+		free(tok->str);
+		tok->str = ft_strdup(wildcards[i]);
 		prev->next = tok;
 		prev = tok;
-		tok->str = ft_strdup(wildcards[i]);
 		tok->type = EXPANDED;
 	}
-	tok->next = next;
+	if (next)
+		tok->next = next;
 	return (tok);
 }
