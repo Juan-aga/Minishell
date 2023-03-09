@@ -58,7 +58,7 @@ ${NAME}:	 ${OBJ}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
-			@mkdir -p ${OBJ_DIR}/parser
+			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
