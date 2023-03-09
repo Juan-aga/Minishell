@@ -13,7 +13,7 @@ void	expand_wildcards(t_lexer *lex)
 	while (token)
 	{
 		if (token->str && token->type == CH_NORMAL && \
-			token->status == NO_QUOTE && ft_strchr(token->str, '*') )
+			token->status == NO_QUOTE && ft_strchr(token->str, '*'))
 		{
 			wildcards = ft_wildcard(&token->str);
 			token = expand_wildcard(token, wildcards);

@@ -75,8 +75,6 @@ void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
 	}
 	else if (!ft_strncmp("export", tmp->arg[0], 7))
 		ft_export(&tmp->arg[1], ms);
-	else if (!ft_strncmp("wildcard", tmp->arg[0], 9))
-		ft_prueba_wildcard(&tmp->arg[1]);
 	else
 		return ;
 	ft_free_fork(ms);

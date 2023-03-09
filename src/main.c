@@ -10,7 +10,7 @@
 
 static t_ms	*ft_init(char **env);
 
-t_ms		*ms;
+t_ms		*g_ms;
 
 /* static void	ft_leaks(void)
 {
@@ -48,29 +48,29 @@ int	main(int ac, char **av, char **env)
 
 	(void) ac;
 	(void) av;
-	ms = ft_init(env);
-	while (ms->exit)
+	g_ms = ft_init(env);
+	while (g_ms->exit)
 	{
 		signal(SIGINT, ft_sigint);
 		signal(SIGQUIT, ft_sigint);
-		prompt = readline (ms->prompt);
+		prompt = readline (g_ms->prompt);
 		if (!prompt)
-			ft_exit_ms(ms);
-		lex = ft_tokenize_line(prompt, ms);
-		ft_fill_commands(ms, lex);
+			ft_exit_ms(g_ms);
+		lex = ft_tokenize_line(prompt, g_ms);
+		ft_fill_commands(g_ms, lex);
 		if (lex && !lex->error)
-			ft_exec(ms);
+			ft_exec(g_ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
 		free(prompt);
-		free(ms->prompt);
+		free(g_ms->prompt);
 		lexer_free(lex);
-		if (ms->cmdlst)
-			ft_free_cmdlst(ms);
-		ft_prompt(ms);
+		if (g_ms->cmdlst)
+			ft_free_cmdlst(g_ms);
+		ft_prompt(g_ms);
 	}
-	ft_free(ms);
-	return (ms->exit_status);
+	ft_free(g_ms);
+	return (g_ms->exit_status);
 }
 
 static t_ms	*ft_init(char **env)
