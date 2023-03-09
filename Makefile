@@ -33,6 +33,7 @@ _SRC 		= parser/lexer.c 	\
 			pruebas.c			\
 			here_doc.c			\
 			wildcard.c			\
+			error.c				\
 			main.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}

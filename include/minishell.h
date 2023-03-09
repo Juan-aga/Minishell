@@ -128,5 +128,9 @@ int			ft_here_doc(char *limiter);
 /*
 		return a char** with the result of use ls */
 char		**ft_wildcard(char **ls);
+/*
+		ERRORS MSG					*/
+void		ft_error_exe(char **arg, char *msg);
+void		ft_error_file(char **arg, char *file, char *msg);
 
 #endif
