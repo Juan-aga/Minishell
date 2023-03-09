@@ -18,6 +18,7 @@ _SRC 		= parser/lexer.c 	\
 			parser/tokens_utils.c\
 			parser/expander.c	\
 			parser/fill_cmds.c	\
+			signals/signals.c	\
 			cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
@@ -67,7 +68,7 @@ clean:
 			@echo "Removing dependencies..."
 			@$(MAKE) -s clean -C $(LIBFT_DIR)
 			@$(MAKE) -s clean -C $(MEMORY_DIR)
-			@${RM} ${OBJ_DIR}
+			@${RM} ${OBJ}
 
 fclean: 	clean
 			@${RM} ${NAME}

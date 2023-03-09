@@ -9,7 +9,8 @@
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
-static void	ft_prompt(t_ms *ms);
+static void	ft_free(t_ms *ms);
+t_ms	*ms;
 
 /* static void	ft_leaks(void)
 {
@@ -42,7 +43,6 @@ void	print_cmds(t_ms *ms)
 
 int	main(int ac, char **av, char **env)
 {
-	t_ms	*ms;
 	t_lexer	*lex;
 	char	*prompt;
 
@@ -51,7 +51,11 @@ int	main(int ac, char **av, char **env)
 	ms = ft_init(env);
 	while (ms->exit)
 	{
+		signal(SIGINT, ft_sigint);
+		signal(SIGQUIT, ft_sigint);
 		prompt = readline (ms->prompt);
+		if (!prompt)
+			ft_exit_ms(ms);
 		lex = ft_tokenize_line(prompt, ms);
 		ft_fill_commands(ms, lex);
 		if (lex && !lex->error)
@@ -86,7 +90,7 @@ static t_ms	*ft_init(char **env)
 	return (ms);
 }
 
-static void	ft_prompt(t_ms *ms)
+void	ft_prompt(t_ms *ms)
 {
 	char	*dir;
 
