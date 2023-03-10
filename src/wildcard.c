@@ -28,7 +28,7 @@ char	**ft_wildcard(char **ls)
 	}
 	closedir(open_dir);
 	if (!tmp)
-		return (ls);
+		return (0);
 	wild = ft_split(tmp, '\n');
 	free(tmp);
 	return (wild);
