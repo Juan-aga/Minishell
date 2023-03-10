@@ -66,8 +66,10 @@ static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
 		exit(-1);
 	}
 	waitpid(pros, &status, 0);
-	if (status)
+	if (status && ms->num_com > 1)
 		return (127);
+	if (status)
+		return (1);
 	return (0);
 }
 
