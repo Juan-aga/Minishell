@@ -143,10 +143,10 @@ char		**ft_wildcard(char **ls);
 void		ft_error_exe(char **arg, char *msg, t_ms *ms);
 void		ft_error_file(char *file, t_ms *ms);
 
-void	ft_prompt(t_ms *ms);
+void		ft_prompt(t_ms *ms);
 
 /* signals */
-void	ft_sigint(int sig);
-void	ft_sigint_proc(int sig);
+void		ft_sigint(int sig);
+void		ft_sigint_proc(int sig);
 
 #endif
