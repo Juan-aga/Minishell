@@ -16,8 +16,11 @@ void	expand_wildcards(t_lexer *lex)
 			token->status == NO_QUOTE && ft_strchr(token->str, '*'))
 		{
 			wildcards = ft_wildcard(&token->str);
-			token = expand_wildcard(token, wildcards);
-			ft_free_array(wildcards, 0);
+			if (wildcards)
+			{
+				token = expand_wildcard(token, wildcards);
+				ft_free_array(wildcards, 0);
+			}
 		}
 		token = token->next;
 	}
