@@ -39,7 +39,7 @@ void	ft_shlvl_update(t_ms *ms)
 	if (!ms->env)
 	{
 		str[0] = "OLDPWD\0";
-		str[2] = getcwd(str[2], 1000);
+		str[2] = getcwd(str[2], 0);
 		str[1] = ft_strjoin_va("%s=%s", "PWD", str[2]);
 		free(str[2]);
 		str[2] = NULL;

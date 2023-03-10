@@ -3,52 +3,28 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	trim_quotes_token(t_token *token)
+int	close_quotes(t_token *tok)
 {
-	char	*tmp;
-
-	while (token)
-	{
-		if (token->status == CHAR_SQUOTE)
-		{
-			tmp = ft_strtrim(token->str, "\'");
-			free(token->str);
-			token->str = tmp;
-		}
-		else if (token->status == CHAR_DQUOTE)
-		{
-			tmp = ft_strtrim(token->str, "\"");
-			free(token->str);
-			token->str = tmp;
-		}
-		token = token->next;
-	}
-}
-
-int	close_quotes(t_token *token, char quote_char)
-{
-	int	flag;
-	int	i;
+	int		flag;
+	int		len;
+	char	open_quote;
 
 	flag = 0;
-	while (token)
+	while (tok)
 	{
-		if (flag % 2 != 0)
-			token->status = quote_char;
-		i = 0;
-		while (token->str[i] != '\0')
+		if (tok->str[0] == CH_SQUOTE || tok->str[0] == CH_DQUOTE)
 		{
-			if (token->str[i] == CHAR_ESCAPE && token->str[i + 1] == quote_char)
-				flag--;
-			if (token->str[i] == quote_char)
-				flag++;
-			i++;
+			open_quote = tok->str[0];
+			len = ft_strlen(tok->str);
+			if ((len > 0 && tok->str[len - 1] != open_quote) || len == 1 || \
+				tok->status == DOUBT_QUOTE)
+				flag = 1;
 		}
-		token = token->next;
+		tok = tok->next;
 	}
-	if (flag % 2 != 0)
+	if (flag)
 	{
-		ft_printf("minishell: syntax error: unmatched quotes\n");
+		ft_putstr_fd("minishell: syntax error: unmatched quotes\n", 2);
 		return (1);
 	}
 	return (0);
@@ -56,14 +32,14 @@ int	close_quotes(t_token *token, char quote_char)
 
 t_token	*other_tokens(t_token *tok, int type, int *j, int len)
 {
-	if (type == CHAR_SPACE && *j == 0 && tok->status == NO_QUOTE)
-		return (tok);
-	else if (((type == CHAR_DQUOTE || type == CHAR_SQUOTE) && !tok->escaped))
+	if (type == CH_SPACE && *j == 0 && tok->status == NO_QUOTE)
 	{
-		tok->str[(*j)++] = type;
-		tok->status = type;
+		if (tok->prev && tok->prev->status != NO_QUOTE)
+			tok->prev->join_next = 0;
 		return (tok);
 	}
+	else if (type == CH_DQUOTE || type == CH_SQUOTE)
+		return (quote_token(tok, type, j, len));
 	else if (*j > 0 && tok->status == NO_QUOTE)
 	{
 		tok = token_init(tok, 2);
@@ -86,5 +62,59 @@ t_token	*escape_token(t_token *token, char *input, int *j, int *i)
 	token->str[(*j)++] = input[(*i)];
 	token->str[(*j)++] = input[++(*i)];
 	token->escaped = ESCAPED;
+	if (token->str[0] == CH_DQUOTE || token->str[0] == CH_SQUOTE)
+		return (token);
+	*j = 0;
+	token = token_init(token, ft_strlen(input) - *i);
 	return (token);
+}
+
+/* I have done a little hack in line 103 to determine the kind of double
+token, because on the token types enum, both GREATGREAT(65) and LESSLESS(63) are
+GREAT(62) + 3 or LESS(60) + 3.
+Norminette makes you make things like this >:(
+*/
+t_token	*redirect_token(t_token *token, char *input, int *j, int *i)
+{
+	if (*j > 0 && token->status == NO_QUOTE)
+	{
+		token = token_init(token, ft_strlen(input) - *i);
+		*j = 0;
+	}
+	if ((input[*i] == CH_GREAT && input[*i + 1] == CH_GREAT) || \
+		(input[*i] == CH_LESS && input[*i + 1] == CH_LESS))
+	{
+		token->type = input[(*i)] + 3;
+		token->str[(*j)++] = input[(*i)++];
+		token->str[(*j)++] = input[(*i)];
+		token->str[*j] = '\0';
+	}
+	else
+	{
+		token->str[(*j)++] = input[(*i)];
+		token->str[*j] = '\0';
+		token->type = input[(*i)];
+		*j = 0;
+	}
+	token = token_init(token, ft_strlen(input) - *i);
+	return (token);
+}
+
+t_token	*quote_token(t_token *tok, int type, int *j, int len)
+{
+	if (*j > 0 && (tok->str[0] != CH_DQUOTE && tok->str[0] != CH_SQUOTE))
+	{
+		tok = token_init(tok, len);
+		*j = 0;
+	}
+	tok->str[(*j)++] = type;
+	tok->status = DOUBT_QUOTE;
+	if (*j > 1 && tok->str[0] == type)
+	{
+		tok->status = type;
+		tok->str[*j] = '\0';
+		*j = 0;
+		tok = token_init(tok, len);
+	}
+	return (tok);
 }

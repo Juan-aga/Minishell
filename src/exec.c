@@ -55,7 +55,10 @@ static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
 	status = ft_is_builtin(ms, tmp);
 	if (status)
 		return (ms->exit_status);
+	signal(SIGINT, ft_sigint_proc);
 	pros = fork();
+	ms->pid = pros;
+	signal(SIGQUIT, ft_sigint_proc);
 	if (!pros)
 	{
 		ft_child_redir_file(ms, tmp);
@@ -63,8 +66,10 @@ static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
 		exit(-1);
 	}
 	waitpid(pros, &status, 0);
-	if (status)
+	if (status && ms->num_com > 1)
 		return (127);
+	if (status)
+		return (1);
 	return (0);
 }
 
@@ -73,14 +78,15 @@ static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp)
 	if (tmp->fd_in_file)
 	{
 		if (tmp->fd_in < 0)
-		{
-			ft_putstr_fd(" No such file or directory\n", 2);
-			exit(-1);
-		}
+			ft_error_file(tmp->fd_in_file, ms);
 		ms->pipe[2 * ms->exe] = tmp->fd_in;
 	}
 	if (tmp->fd_out_file)
+	{
+		if (tmp->fd_out < 0)
+			ft_error_file(tmp->fd_out_file, ms);
 		ms->pipe[2 * ms->exe + 1] = tmp->fd_out;
+	}
 	else if (!tmp->next)
 		ms->pipe[2 * ms->exe + 1] = tmp->fd_out;
 	if (!ms->exe)
@@ -96,11 +102,7 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 	close(ms->pipe[2 * ms->exe - 2]);
 	ft_get_path(ms, tmp);
 	if (!tmp->path)
-	{
-		ft_putstr_fd(": command not found\n", 2);
-		ft_free_array(tmp->arg, 0);
-		exit(-1);
-	}
+		ft_error_exe(tmp->arg, ": command not found\n", ms);
 	ft_envlst_to_env(ms);
 	execve(tmp->path, tmp->arg, ms->env);
 	ft_free_array(ms->env, 0);

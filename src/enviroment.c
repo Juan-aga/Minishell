@@ -49,7 +49,6 @@ void	ft_env(t_ms *ms)
 		printf("%s=%s\n", tmp->var, tmp->value);
 		tmp = tmp->next;
 	}
-	exit(0);
 }
 
 int	ft_check_env(char *str, t_ms *ms, char c)
