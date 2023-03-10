@@ -28,7 +28,7 @@ char	**ft_wildcard(char **ls)
 	}
 	closedir(open_dir);
 	if (!tmp)
-		return (ls);
+		return (0);
 	wild = ft_split(tmp, '\n');
 	free(tmp);
 	return (wild);
@@ -52,9 +52,9 @@ static char	*ft_check_dir(char **ls, struct dirent *dir, char *wild)
 			{
 				tmp = wild;
 				wild = ft_strjoin_va("%s\n%s", tmp, file);
-				free(file);
 				free(tmp);
 			}
+			free(file);
 		}
 	}
 	return (wild);

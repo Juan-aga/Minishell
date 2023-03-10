@@ -9,8 +9,8 @@
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
-static void	ft_free(t_ms *ms);
-static void	ft_prompt(t_ms *ms);
+
+t_ms		*g_ms;
 
 /* static void	ft_leaks(void)
 {
@@ -43,31 +43,34 @@ void	print_cmds(t_ms *ms)
 
 int	main(int ac, char **av, char **env)
 {
-	t_ms	*ms;
 	t_lexer	*lex;
 	char	*prompt;
 
 	(void) ac;
 	(void) av;
-	ms = ft_init(env);
-	while (ms->exit)
+	g_ms = ft_init(env);
+	while (g_ms->exit)
 	{
-		prompt = readline (ms->prompt);
-		lex = ft_tokenize_line(prompt, ms);
-		ft_fill_commands(ms, lex);
+		signal(SIGINT, ft_sigint);
+		signal(SIGQUIT, ft_sigint);
+		prompt = readline (g_ms->prompt);
+		if (!prompt)
+			ft_exit_ms(g_ms);
+		lex = ft_tokenize_line(prompt, g_ms);
+		ft_fill_commands(g_ms, lex);
 		if (lex && !lex->error)
-			ft_exec(ms);
+			ft_exec(g_ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
 		free(prompt);
-		free(ms->prompt);
+		free(g_ms->prompt);
 		lexer_free(lex);
-		if (ms->cmdlst)
-			ft_free_cmdlst(ms);
-		ft_prompt(ms);
+		if (g_ms->cmdlst)
+			ft_free_cmdlst(g_ms);
+		ft_prompt(g_ms);
 	}
-	ft_free(ms);
-	return (ms->exit_status);
+	ft_free(g_ms);
+	return (g_ms->exit_status);
 }
 
 static t_ms	*ft_init(char **env)
@@ -87,23 +90,7 @@ static t_ms	*ft_init(char **env)
 	return (ms);
 }
 
-static void	ft_prompt(t_ms *ms)
-{
-	char	*dir;
-
-	dir = NULL;
-	dir = getcwd(dir, 0);
-	if (ms->exit_status)
-		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				CRESET, CWHITE, ft_strrchr(dir, '/') + 1, CRESET, CRED, CRESET);
-	else
-		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				CRESET, CWHITE, ft_strrchr(dir, '/') + 1,
-				CRESET, CGREEN, CRESET);
-	free(dir);
-}
-
-static void	ft_free(t_ms *ms)
+void	ft_free(t_ms *ms)
 {
 	free(ms->prompt);
 	ft_free_array(ms->env, 0);
