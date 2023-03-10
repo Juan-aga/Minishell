@@ -9,6 +9,7 @@ void	ft_sigint(int sig)
 	if (sig == SIGINT)
 	{
 		ft_printf("\n%s", g_ms->prompt);
+		g_ms->exit_status = 127 + sig;
 		signal(SIGINT, ft_sigint);
 	}
 	else if (sig == SIGQUIT)
@@ -23,12 +24,14 @@ void	ft_sigint_proc(int sig)
 	if (sig == SIGINT)
 	{
 		ft_printf("\n");
+		g_ms->exit_status = 127 + sig;
 		signal(SIGINT, ft_sigint_proc);
 	}
 	else if (sig == SIGQUIT)
 	{
 		if (!kill(g_ms->pid, SIGTERM))
 		{
+			g_ms->exit_status = 127 + sig;
 			ft_printf("\n[%d]+\tStopped\t\t", g_ms->pid);
 			if (g_ms->cmdlst && g_ms->cmdlst->arg)
 				while (g_ms->cmdlst->arg[++i])
