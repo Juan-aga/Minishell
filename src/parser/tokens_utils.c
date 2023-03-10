@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include "minishell.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 int	get_token_type(char c)
 {
@@ -30,16 +31,21 @@ int	get_token_type(char c)
 t_token	*token_init(t_token *token, int size)
 {
 	if (token == NULL)
+	{
 		token = ft_calloc(1, sizeof(t_token));
+		token->prev = NULL;
+	}
 	else
 	{
 		token->next = ft_calloc(1, sizeof(t_token));
+		token->next->prev = token;
 		token = token->next;
 	}
-	token->str = ft_calloc(size, sizeof(char));
+	token->str = ft_calloc(size + 1, sizeof(char));
 	token->type = CH_NORMAL;
 	token->status = NO_QUOTE;
 	token->escaped = NORMAL;
+	token->join_next = 1;
 	token->next = NULL;
 	return (token);
 }
@@ -48,33 +54,34 @@ void	token_free(t_token *token)
 {
 	if (token->str)
 		free(token->str);
-	free(token);
+	if (token)
+		free(token);
 }
 
-void	remove_empty_tokens(t_lexer	*lexer)
+void	remove_empty_tokens(t_lexer *lexer)
 {
-	t_token	*next;
+	t_token	*tok;
 	t_token	*prev;
-	t_token	*token;
+	t_token	*tmp;
 
-	token = lexer->token_list;
-	if (token && token->next == NULL)
+	tok = lexer->token_list;
+	prev = NULL;
+	while (tok)
 	{
-		if (token->str[0] == '\0')
+		if (tok->str && tok->str[0] == '\0')
 		{
-			token_free(token);
-			lexer->token_list = NULL;
+			if (prev)
+				prev->next = tok->next;
+			else
+				lexer->token_list = tok->next;
+			tmp = tok->next;
+			token_free(tok);
+			tok = tmp;
 		}
-	}
-	while (token != NULL && token->next != NULL)
-	{
-		prev = token;
-		token = token->next;
-		next = token->next;
-		if (token->str[0] == '\0')
+		else
 		{
-			token_free(token);
-			prev->next = next;
+			prev = tok;
+			tok = tok->next;
 		}
 	}
 }

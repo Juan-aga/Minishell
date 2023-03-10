@@ -3,6 +3,9 @@
 
 # include <fcntl.h>
 # include "memory_leaks.h"
+# include <signal.h>
+# include <sys/types.h>
+# include "lexer.h"
 
 /*		define colors letters		*/
 # define CGREEN "\033[1;34;42m"
@@ -10,6 +13,8 @@
 # define CBLUE "\033[1;33;44m"
 # define CWHITE "\033[30;47m"
 # define CRESET "\x1B[0m"
+
+typedef struct s_lexer	t_lexer;
 
 typedef struct s_cmdlst
 {
@@ -45,6 +50,7 @@ typedef struct s_ms
 	char			*prompt;
 	char			**path;
 	char			**env;
+	t_lexer			*lexer;
 	pid_t			pid;
 }	t_ms;
 
@@ -56,7 +62,7 @@ void		ft_cmdlstadd_back(t_cmdlst **cmdlst, t_cmdlst *add);
 /*	return a pointer to the last nodo of the list	*/
 t_cmdlst	*ft_cmdlstlast(t_cmdlst *cmdlst);
 /*	free the list									*/
-void		ft_free_cmdlst(t_cmdlst	*cmdlst);
+void		ft_free_cmdlst(t_ms	*ms);
 
 /*		envlst functions							*/
 t_envlst	*ft_envlstnew(char *str);
@@ -69,6 +75,9 @@ t_envlst	*ft_copy_env(char **env);
 void		ft_envlst_short(t_envlst **lst);
 void		ft_envlst_to_env(t_ms *ms);
 void		ft_envlst_del(t_envlst **lst);
+
+/*		free all at exit			*/
+void		ft_free(t_ms *ms);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
@@ -114,9 +123,10 @@ void		ft_exec(t_ms *ms);
 void		ft_dup(int in, int out);
 void		ft_close_pipe(t_ms *ms);
 void		ft_get_path(t_ms *ms, t_cmdlst *tmp);
+void		ft_free_fork(t_ms *ms);
 /*		pruebas, para borar			*/
 void		ft_pruebas(char *str, t_ms *ms);
-
+void		ft_prueba_wildcard(char **str);
 /*		HERE_DOC					*/
 /*
  * 		use readline and ft_putstr_fd 
@@ -124,5 +134,19 @@ void		ft_pruebas(char *str, t_ms *ms);
  * 		return the fd to use for the next command
  * 		*/
 int			ft_here_doc(char *limiter);
+/*		WILDCARD					*/
+/*
+		return a char** with the result of use ls */
+char		**ft_wildcard(char **ls);
+/*
+		ERRORS MSG					*/
+void		ft_error_exe(char **arg, char *msg, t_ms *ms);
+void		ft_error_file(char *file, t_ms *ms);
+
+void	ft_prompt(t_ms *ms);
+
+/* signals */
+void	ft_sigint(int sig);
+void	ft_sigint_proc(int sig);
 
 #endif

@@ -17,7 +17,9 @@ _SRC 		= parser/lexer.c 	\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
 			parser/expander.c	\
+			parser/wildcard_expander.c	\
 			parser/fill_cmds.c	\
+			signals/signals.c	\
 			cmdlst.c			\
 			enviroment.c		\
 			enviroment_utils.c	\
@@ -32,6 +34,8 @@ _SRC 		= parser/lexer.c 	\
 			cd.c				\
 			pruebas.c			\
 			here_doc.c			\
+			wildcard.c			\
+			error.c				\
 			main.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
@@ -55,7 +59,7 @@ ${NAME}:	 ${OBJ}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
-			@mkdir -p ${OBJ_DIR}/parser
+			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
@@ -65,7 +69,7 @@ clean:
 			@echo "Removing dependencies..."
 			@$(MAKE) -s clean -C $(LIBFT_DIR)
 			@$(MAKE) -s clean -C $(MEMORY_DIR)
-			@${RM} ${OBJ_DIR}
+			@${RM} ${OBJ}
 
 fclean: 	clean
 			@${RM} ${NAME}
