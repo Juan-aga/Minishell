@@ -12,12 +12,7 @@ int	ft_is_builtin(t_ms *ms, t_cmdlst *tmp)
 		return (0);
 	if (!ft_strncmp("cd", tmp->arg[0], 3))
 	{
-		if (tmp->arg[2] && tmp->arg[1])
-		{
-			ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-			ms->exit_status = 1;
-		}
-		else if (ms->num_com == 1)
+		if (ms->num_com == 1)
 			ft_cd(tmp->arg[1], ms);
 		return (1);
 	}	
