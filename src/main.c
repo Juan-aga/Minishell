@@ -90,22 +90,6 @@ static t_ms	*ft_init(char **env)
 	return (ms);
 }
 
-void	ft_prompt(t_ms *ms)
-{
-	char	*dir;
-
-	dir = NULL;
-	dir = getcwd(dir, 0);
-	if (ms->exit_status)
-		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				CRESET, CWHITE, ft_strrchr(dir, '/') + 1, CRESET, CRED, CRESET);
-	else
-		ms->prompt = ft_strjoin_va("%s minishell %s%s %s %s%s$>%s ", CBLUE,
-				CRESET, CWHITE, ft_strrchr(dir, '/') + 1,
-				CRESET, CGREEN, CRESET);
-	free(dir);
-}
-
 void	ft_free(t_ms *ms)
 {
 	free(ms->prompt);
