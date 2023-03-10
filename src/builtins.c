@@ -1,12 +1,10 @@
 #include "minishell.h"
-#include <stdio.h>
+#include "ft_printf.h"
 #include <unistd.h>
 #include <stdlib.h>
-#include "fractol_utils.h"
+#include "libft.h"
 
-static void	ft_cd_error(char *str, t_ms *ms);
-
-void	ft_exit(t_ms *ms)
+void	ft_exit_ms(t_ms *ms)
 {
 	ft_putstr_fd("exit\n", 2);
 	ms->exit = 0;
@@ -18,46 +16,32 @@ void	ft_pwd(t_ms *ms)
 
 	(void) ms;
 	dir = NULL;
-	dir = getcwd(dir, 1000);
-	printf("%s\n", dir);
+	dir = getcwd(dir, 0);
+	ft_printf("%s\n", dir);
 	free(dir);
-	exit(0);
 }
 
-void	ft_cd(char *str, t_ms *ms)
+void	ft_echo(char **str)
 {
-	char	*tmp;
-	char	*dir;
-	int		i;
+	int	nl;
+	int	i;
 
-	if (!str)
+	nl = 1;
+	i = 0;
+	if (str[i])
 	{
-		i = chdir(ft_getenv("HOME", ms));
-		if (i)
-			ft_putstr_fd("minishell: cd: HOME: not set\n", 2);
-		return ;
+		if (!ft_strncmp("-n", str[i], 4))
+		{
+			nl = 0;
+			i++;
+		}
 	}
-	tmp = NULL;
-	tmp = getcwd(tmp, 1000);
-	dir = ft_strjoin_va("%s/%s", tmp, str);
-	free(tmp);
-	i = chdir(dir);
-	if (i)
-		i = chdir(str);
-	if (i)
-		ft_cd_error(str, ms);
-	else
-		ms->exit_status = 0;
-	free(dir);
-}
-
-static void	ft_cd_error(char *str, t_ms *ms)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin_va(
-			"minishell: cd: %s: No such file or directory\n", str);
-	ft_putstr_fd(tmp, 2);
-	ms->exit_status = 1;
-	free(tmp);
+	while (str[i])
+	{
+		ft_printf("%s", str[i]);
+		if (str[++i])
+			ft_printf(" ");
+	}
+	if (nl)
+		ft_printf("\n");
 }

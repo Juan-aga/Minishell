@@ -6,16 +6,13 @@
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp);
 static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp);
 static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp);
-static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp);
+static void	ft_exec_init(t_ms *ms);
 
 void	ft_exec(t_ms *ms)
 {
 	t_cmdlst	*tmp;
-	char		*path;
 
-	path = ft_getenv("PATH", ms);
-	ms->path = ft_split(path, ':');
-	ms->exe = 0;
+	ft_exec_init(ms);
 	tmp = ms->cmdlst;
 	ms->pipe = ft_calloc(sizeof(int), ms->num_com * 2 + 1);
 	while (ms->exe < ms->num_com)
@@ -34,7 +31,20 @@ void	ft_exec(t_ms *ms)
 	}
 	ft_close_pipe(ms);
 	free(ms->pipe);
-	ft_free_array(ms->path, 0);
+	if (ms->path)
+		ft_free_array(ms->path, 0);
+}
+
+static void	ft_exec_init(t_ms *ms)
+{
+	t_envlst	*tmp;
+
+	tmp = ft_getenv("PATH", ms->exp);
+	if (tmp)
+		ms->path = ft_split(tmp->value, ':');
+	else
+		ms->path = NULL;
+	ms->exe = 0;
 }
 
 static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
@@ -45,7 +55,10 @@ static int	ft_childs_pip(t_ms *ms, t_cmdlst *tmp)
 	status = ft_is_builtin(ms, tmp);
 	if (status)
 		return (ms->exit_status);
+	signal(SIGINT, ft_sigint_proc);
 	pros = fork();
+	ms->pid = pros;
+	signal(SIGQUIT, ft_sigint_proc);
 	if (!pros)
 	{
 		ft_child_redir_file(ms, tmp);
@@ -63,14 +76,15 @@ static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp)
 	if (tmp->fd_in_file)
 	{
 		if (tmp->fd_in < 0)
-		{
-			ft_putstr_fd(" No such file or directory\n", 2);
-			exit(-1);
-		}
+			ft_error_file(tmp->fd_in_file, ms);
 		ms->pipe[2 * ms->exe] = tmp->fd_in;
 	}
 	if (tmp->fd_out_file)
+	{
+		if (tmp->fd_out < 0)
+			ft_error_file(tmp->fd_out_file, ms);
 		ms->pipe[2 * ms->exe + 1] = tmp->fd_out;
+	}
 	else if (!tmp->next)
 		ms->pipe[2 * ms->exe + 1] = tmp->fd_out;
 	if (!ms->exe)
@@ -86,28 +100,8 @@ static void	ft_childs_exe(t_ms *ms, t_cmdlst *tmp)
 	close(ms->pipe[2 * ms->exe - 2]);
 	ft_get_path(ms, tmp);
 	if (!tmp->path)
-	{
-		ft_putstr_fd(": command not found\n", 2);
-		ft_free_array(tmp->arg, 0);
-		exit(-1);
-	}
+		ft_error_exe(tmp->arg, ": command not found\n", ms);
+	ft_envlst_to_env(ms);
 	execve(tmp->path, tmp->arg, ms->env);
-}
-
-static void	ft_accept_redirections(t_ms *ms, t_cmdlst *tmp)
-{
-	if (!ft_strncmp("env", tmp->arg[0], 4))
-	{
-		ft_env(ms);
-		exit (0);
-	}
-	else if (!ft_strncmp("pwd", tmp->arg[0], 4))
-	{
-		ft_pwd(ms);
-		exit (0);
-	}
-	else if (!ft_strncmp("echo", tmp->arg[0], 5))
-	{	
-		exit (0);
-	}
+	ft_free_array(ms->env, 0);
 }
