@@ -108,8 +108,12 @@ void		trim_quotes_token(t_token *token);
 
 /* parser/expander.c */
 void		expand_tokens(t_lexer *lexer, t_ms *ms);
-void		empty_expansion(t_token *tk);
-t_envlst	*get_variable_value(char *str, t_ms *ms);
+int			replace_next_dollar(char *str, t_ms *ms, t_token *tok);
+int			replace_exit_status(t_token *tok, t_ms *ms, char *free_str);
+int			replace_next_char(t_token *tok, t_ms *ms, char *free_str);
+
+/* parser/expander_utils.c */
+t_envlst	*get_var_value(char *str, t_ms *ms);
 char		*replace_env_var(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
 
