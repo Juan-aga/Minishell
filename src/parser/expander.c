@@ -7,101 +7,80 @@
 void	expand_tokens(t_lexer *lexer, t_ms *ms)
 {
 	t_token		*tk;
-	t_envlst	*env;
+	int			i;
 
 	tk = lexer->token_list;
+	i = 0;
 	while (tk)
 	{
 		if (tk->status != SINGLE_QUOTE && tk->type != DELIMITER && \
-			ft_strlen(tk->str) > 1)
+			ft_strchr(tk->str, '$'))
 		{
-			env = get_variable_value(tk->str, ms);
-			while (env)
+			while (tk->str[i] && tk->str[i] != '\0')
 			{
-				tk->str = replace_env_var(tk->str, ft_strjoin("$", env->var), env->value);
-				if (env->var[0] == '?')
-					ft_free_envlst(env);
-				env = get_variable_value(tk->str, ms);
+				i += replace_next_dollar(&tk->str[i], ms, tk);
+				if (i < 0)
+					i = 0;
 			}
-			if (!env && ft_strchr(tk->str, '$'))
-				empty_expansion(tk);
+			i = 0;
 		}
 		tk = tk->next;
 	}
 }
 
-void	empty_expansion(t_token *tk)
+int	replace_next_dollar(char *str, t_ms *ms, t_token *tok)
 {
-	tk->str = replace_env_var(tk->str, get_var_name(tk->str), "");
-	if (tk->status == NO_QUOTE)
-		token_free(tk);
-}
+	char		*name;
+	int			len;
+	t_envlst	*env;
 
-t_envlst	*get_variable_value(char *str, t_ms *ms)
-{
-	int			i;
-	char		*word;
-	char		*v_name;
-	t_envlst	*env_variable;
-
-	word = ft_strchr(str, '$');
-	env_variable = 0;
-	if (word)
+	name = get_var_name(str);
+	if (!name)
+		return (1);
+	if (ft_strnstr(name, "$?", ft_strlen(name)))
+		return (replace_exit_status(tok, ms, name));
+	if (ft_isdigit(name[1]) || !ft_isalpha(name[1]))
+		return (replace_next_char(tok, ms, name));
+	env = ft_getenv(&name[1], ms->envlst);
+	len = ft_strlen(name);
+	if (!env)
 	{
-		i = 1;
-		if (word[i] && word[i] == '?')
-		{
-			env_variable = ft_calloc(1, sizeof(t_envlst));
-			env_variable->var = ft_strdup("?");
-			env_variable->value = ft_itoa(ms->exit_status);
-			return (env_variable);
-		}
-		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
-			i++;
-		v_name = ft_substr(word, 1, i - 1);
-		env_variable = ft_getenv(v_name, ms->envlst);
-		free(v_name);
+		tok->str = replace_env_var(tok->str, name, "");
+		return (-len);
 	}
-	return (env_variable);
+	tok->str = replace_env_var(tok->str, name, env->value);
+	return (len);
 }
 
-char	*replace_env_var(char *og, char *find, char *repl)
+int	replace_exit_status(t_token *tok, t_ms *ms, char *free_str)
 {
-	int		final_len;
-	char	*str;
-	int		i;
-	int		j;
+	char	*status;
 
-	final_len = ft_strlen(og) + ft_strlen(repl) - ft_strlen(find);
-	str = ft_calloc(final_len + 1, sizeof(char));
-	i = ft_strnstr(og, find, ft_strlen(og)) - og;
-	j = -1;
-	while (++j < i)
-		str[j] = og[j];
-	ft_strlcat(str, repl, final_len + 1);
-	j = i + ft_strlen(repl);
-	i += ft_strlen(find) - 1;
-	while (og[i++] != '\0')
-		str[j++] = og[i];
-	free(og);
-	free(find);
-	return (str);
+	free(free_str);
+	status = ft_itoa(ms->exit_status);
+	tok->str = replace_env_var(tok->str, ft_strdup("$?"), status);
+	free(status);
+	return (1);
 }
 
-char	*get_var_name(char *str)
+int	replace_next_char(t_token *tok, t_ms *ms, char *free_str)
 {
-	char	*word;
-	char	*v_name;
-	int		i;
+	char		*str;
+	t_envlst	*env;
 
-	v_name = NULL;
-	word = ft_strchr(str, '$');
-	if (word)
+	env = ft_getenv(&free_str[1], ms->envlst);
+	if (env)
 	{
-		i = 1;
-		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
-			i++;
-		v_name = ft_substr(word, 0, i);
+		tok->str = replace_env_var(tok->str, free_str, env->value);
+		return (1);
 	}
-	return (v_name);
+	if (!ft_isdigit(free_str[1]))
+	{
+		free(free_str);
+		return (1);
+	}
+	str = ft_substr(free_str, 0, 2);
+	tok->str = replace_env_var(tok->str, str, "");
+	free(free_str);
+	return (-2);
 }
