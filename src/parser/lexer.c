@@ -33,11 +33,12 @@ void	join_tokens(t_token *token)
 
 	while (token)
 	{
-		if (token->next && token->status != NO_QUOTE && token->join_next \
+		while (token->next && token->join_next \
 			&& token->next->type == CH_NORMAL)
 		{
 			tmp_str = ft_strjoin(token->str, token->next->str);
 			free(token->str);
+			token->join_next = token->next->join_next;
 			token->str = tmp_str;
 			tmp = token->next;
 			token->next = token->next->next;

@@ -23,13 +23,13 @@ void	lexer_init(char *input, t_token *token)
 			token->str[j++] = input[i];
 		else if (type == CH_SPACE && j > 0 && token->status == NO_QUOTE)
 		{
+			token->join_next = 0;
 			token = token_init(token, ft_strlen(input) - i);
 			j = 0;
 		}
 		else
 			token = other_tokens(token, type, &j, ft_strlen(input) - i);
 	}
-	token->str[j] = '\0';
 }
 
 void	lexer_free(t_lexer *lexer)
