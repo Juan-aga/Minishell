@@ -33,7 +33,7 @@ void	join_tokens(t_token *token)
 
 	while (token)
 	{
-		while (token->next && token->join_next \
+		while (token->next && token->join_next && token->type == CH_NORMAL \
 			&& token->next->type == CH_NORMAL)
 		{
 			tmp_str = ft_strjoin(token->str, token->next->str);
