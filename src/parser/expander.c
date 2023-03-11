@@ -46,7 +46,7 @@ int	replace_next_dollar(char *str, t_ms *ms, t_token *tok)
 	if (!env)
 	{
 		tok->str = replace_env_var(tok->str, name, "");
-		if (tok->status == NORMAL)
+		if (tok->status == NORMAL && tok->str[0] == '\0')
 			token_free(tok);
 		return (-len);
 	}
