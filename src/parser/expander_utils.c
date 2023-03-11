@@ -61,7 +61,7 @@ char	*get_var_name(char *str)
 	{
 		i = 1;
 		while (word[i] && word[i] != '\0' && \
-			(ft_isalnum(word[i]) || word[i] == '_'))
+			(ft_isalnum(word[i]) || word[i] == '_' || word[i] == '?'))
 			i++;
 		if (i == 1)
 			return (0);
