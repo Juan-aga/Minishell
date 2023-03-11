@@ -10,7 +10,7 @@ void	ft_exit_ms(t_ms *ms, char **num)
 	char	*msg;
 
 	ft_putstr_fd("exit\n", 2);
-	if (num[0])
+	if (num && num[0])
 	{
 		if (!ft_check_exit(ms, num[0]))
 		{
