@@ -26,27 +26,32 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	return (lexer);
 }
 
-void	join_tokens(t_token *token)
+void	join_tokens(t_token *tk)
 {
 	t_token	*tmp;
 	char	*tmp_str;
 
-	while (token)
+	while (tk)
 	{
-		while (token->next && token->join_next \
-			&& token->next->type == CH_NORMAL)
+		if (tk->str[0] == '$' && ft_strlen(tk->str) == 1 && \
+			tk->next && tk->join_next)
 		{
-			tmp_str = ft_strjoin(token->str, token->next->str);
-			free(token->str);
-			token->join_next = token->next->join_next;
-			token->str = tmp_str;
-			tmp = token->next;
-			token->next = token->next->next;
-			if (token->next && token->next->next)
-				token->next->next->prev = token;
+			tmp = tk;
+			tk = tk->next;
+			token_free(tmp);
+			if (!tk)
+				return ;
+		}
+		while (tk->next && tk->join_next \
+			&& tk->next->type == CH_NORMAL)
+		{
+			tmp_str = ft_strjoin(tk->str, tk->next->str);
+			free(tk->str);
+			tk->join_next = tk->next->join_next;
+			tk->str = tmp_str;
 			token_free(tmp);
 		}
-		token = token->next;
+		tk = tk->next;
 	}
 }
 // add these lines to ft_tokenize_line while debugging
