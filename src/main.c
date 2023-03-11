@@ -55,7 +55,7 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, ft_sigint);
 		prompt = readline (g_ms->prompt);
 		if (!prompt)
-			ft_exit_ms(g_ms);
+			ft_exit_ms(g_ms, NULL);
 		lex = ft_tokenize_line(prompt, g_ms);
 		ft_fill_commands(g_ms, lex);
 		if (lex && !lex->error)
