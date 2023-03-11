@@ -16,7 +16,8 @@ t_envlst	*get_var_value(char *str, t_ms *ms)
 	if (word)
 	{
 		i = 1;
-		while ((word[i] != '\0' && ft_isalpha(word[i])) || word[i] == '_')
+		while (word[i] && word[i] != '\0' && \
+			(ft_isalnum(word[i]) || word[i] == '_'))
 			i++;
 		v_name = ft_substr(word, 1, i - 1);
 		env_variable = ft_getenv(v_name, ms->envlst);
@@ -59,7 +60,8 @@ char	*get_var_name(char *str)
 	if (word)
 	{
 		i = 1;
-		while (word[i] && (word[i] != '\0' && word[i] != '$' && word[i] != ' '))
+		while (word[i] && word[i] != '\0' && \
+			(ft_isalnum(word[i]) || word[i] == '_'))
 			i++;
 		if (i == 1)
 			return (0);
