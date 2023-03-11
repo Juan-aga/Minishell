@@ -45,7 +45,7 @@ typedef struct s_ms
 	int				num_com;
 	int				exe;
 	int				exit;
-	int				exit_status;
+	unsigned char	exit_status;
 	int				*pipe;
 	char			*prompt;
 	char			**path;
@@ -81,7 +81,9 @@ void		ft_free(t_ms *ms);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
-void		ft_exit_ms(t_ms *ms);
+void		ft_exit_ms(t_ms *ms, char **num);
+int			ft_check_exit(t_ms *ms, char *str);
+__int128	ft_ato_int128(char *str);
 void		ft_pwd(t_ms *ms);
 void		ft_cd(char *str, t_ms *ms);
 void		ft_echo(char **str);
