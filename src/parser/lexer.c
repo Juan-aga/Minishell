@@ -15,10 +15,10 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	lexer_init(input, lexer->token_list);
 	if (close_quotes(lexer->token_list))
 		lexer->error = 1;
-	trim_quotes_token(lexer->token_list);
 	remove_empty_tokens(lexer);
 	if (lexer_files(lexer->token_list))
 		lexer->error = 1;
+	trim_quotes_token(lexer->token_list);
 	expand_wildcards(lexer);
 	expand_tokens(lexer, ms);
 	join_tokens(lexer->token_list);

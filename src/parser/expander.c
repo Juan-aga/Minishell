@@ -6,30 +6,35 @@
 
 void	expand_tokens(t_lexer *lexer, t_ms *ms)
 {
-	t_token		*token;
-	t_envlst	*env_var;
+	t_token		*tk;
+	t_envlst	*env;
 
-	token = lexer->token_list;
-	while (token)
+	tk = lexer->token_list;
+	while (tk)
 	{
-		if (token->status != SINGLE_QUOTE && token->type != DELIMITER && \
-			ft_strlen(token->str) > 1)
+		if (tk->status != SINGLE_QUOTE && tk->type != DELIMITER && \
+			ft_strlen(tk->str) > 1)
 		{
-			env_var = get_variable_value(token->str, ms);
-			while (env_var)
+			env = get_variable_value(tk->str, ms);
+			while (env)
 			{
-				token->str = replace_env_var(token->str, \
-					ft_strjoin("$", env_var->var), env_var->value);
-				if (env_var->var[0] == '?')
-					ft_free_envlst(env_var);
-				env_var = get_variable_value(token->str, ms);
+				tk->str = replace_env_var(tk->str, ft_strjoin("$", env->var), env->value);
+				if (env->var[0] == '?')
+					ft_free_envlst(env);
+				env = get_variable_value(tk->str, ms);
 			}
-			if (!env_var && ft_strchr(token->str, '$'))
-				token->str = replace_env_var(token->str, \
-					get_var_name(token->str), "");
+			if (!env && ft_strchr(tk->str, '$'))
+				empty_expansion(tk);
 		}
-		token = token->next;
+		tk = tk->next;
 	}
+}
+
+void	empty_expansion(t_token *tk)
+{
+	tk->str = replace_env_var(tk->str, get_var_name(tk->str), "");
+	if (tk->status == NO_QUOTE)
+		token_free(tk);
 }
 
 t_envlst	*get_variable_value(char *str, t_ms *ms)

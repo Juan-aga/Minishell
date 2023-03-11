@@ -2,7 +2,6 @@
 # define LEXER_H
 
 # include "minishell.h"
-# include "memory_leaks.h"
 
 typedef struct s_ms		t_ms;
 typedef struct s_cmdlst	t_cmdlst;
@@ -109,6 +108,7 @@ void		trim_quotes_token(t_token *token);
 
 /* parser/expander.c */
 void		expand_tokens(t_lexer *lexer, t_ms *ms);
+void		empty_expansion(t_token *tk);
 t_envlst	*get_variable_value(char *str, t_ms *ms);
 char		*replace_env_var(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
