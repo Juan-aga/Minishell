@@ -21,37 +21,47 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	trim_quotes_token(lexer->token_list);
 	expand_wildcards(lexer);
 	expand_tokens(lexer, ms);
+	join_dollars(lexer->token_list);
 	join_tokens(lexer->token_list);
 	count_tokens(lexer);
 	return (lexer);
 }
 
-void	join_tokens(t_token *tk)
+void	join_tokens(t_token *token)
 {
-	t_token	*tmp;
 	char	*tmp_str;
 
-	while (tk)
+	while (token)
 	{
-		if (tk->str[0] == '$' && ft_strlen(tk->str) == 1 && \
-			tk->next && tk->join_next)
+		while (token->next && token->join_next \
+			&& token->next->type == CH_NORMAL)
 		{
-			tmp = tk;
-			tk = tk->next;
+			tmp_str = ft_strjoin(token->str, token->next->str);
+			free(token->str);
+			token->join_next = token->next->join_next;
+			token->str = tmp_str;
+			token_free(token->next);
+		}
+		token = token->next;
+	}
+}
+
+void	join_dollars(t_token *token)
+{
+	t_token	*tmp;
+
+	while (token)
+	{
+		if (token->str[0] == '$' && ft_strlen(token->str) == 1 && \
+			token->next && token->join_next)
+		{
+			tmp = token;
+			token = token->next;
 			token_free(tmp);
-			if (!tk)
+			if (!token)
 				return ;
 		}
-		while (tk->next && tk->join_next \
-			&& tk->next->type == CH_NORMAL)
-		{
-			tmp_str = ft_strjoin(tk->str, tk->next->str);
-			free(tk->str);
-			tk->join_next = tk->next->join_next;
-			tk->str = tmp_str;
-			token_free(tmp);
-		}
-		tk = tk->next;
+		token = token->next;
 	}
 }
 // add these lines to ft_tokenize_line while debugging

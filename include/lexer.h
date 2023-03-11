@@ -67,6 +67,8 @@ It receives the readline, creates a token list, checks if quotes
 are correct and removes empty tokens if any */
 t_lexer		*ft_tokenize_line(char *input, t_ms *ms);
 void		join_tokens(t_token *token);
+void		join_dollars(t_token *token);
+
 
 /* parser/lexer_utils.c */
 
