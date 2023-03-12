@@ -2,7 +2,6 @@
 # define LEXER_H
 
 # include "minishell.h"
-# include "memory_leaks.h"
 
 typedef struct s_ms		t_ms;
 typedef struct s_cmdlst	t_cmdlst;
@@ -68,6 +67,8 @@ It receives the readline, creates a token list, checks if quotes
 are correct and removes empty tokens if any */
 t_lexer		*ft_tokenize_line(char *input, t_ms *ms);
 void		join_tokens(t_token *token);
+void		join_dollars(t_token *token);
+
 
 /* parser/lexer_utils.c */
 
@@ -109,7 +110,12 @@ void		trim_quotes_token(t_token *token);
 
 /* parser/expander.c */
 void		expand_tokens(t_lexer *lexer, t_ms *ms);
-t_envlst	*get_variable_value(char *str, t_ms *ms);
+int			replace_next_dollar(char *str, t_ms *ms, t_token *tok);
+int			replace_exit_status(t_token *tok, t_ms *ms, char *free_str);
+int			replace_next_char(t_token *tok, t_ms *ms, char *free_str);
+
+/* parser/expander_utils.c */
+t_envlst	*get_var_value(char *str, t_ms *ms);
 char		*replace_env_var(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
 
