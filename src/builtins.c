@@ -40,7 +40,7 @@ void	ft_pwd(t_ms *ms)
 	ft_printf("%s\n", dir);
 	free(dir);
 }
-
+/*
 void	ft_echo(char **str)
 {
 	int	nl;
@@ -54,6 +54,38 @@ void	ft_echo(char **str)
 		{
 			nl = 0;
 			i++;
+		}
+	}
+	while (str[i])
+	{
+		ft_printf("%s", str[i]);
+		if (str[++i])
+			ft_printf(" ");
+	}
+	if (nl)
+		ft_printf("\n");
+}*/
+
+void	ft_echo(char **str)
+{
+	int	i;
+	int	j;
+	int	nl;
+
+	nl = 1;
+	i = -1;
+	while (str[++i])
+	{
+		j = 0;
+		if (str[i][j] != '-')
+			break ;
+		while (++j && str[i][j] == 'n')
+			nl = 0;
+		if (str[i][j])
+		{
+			if (!i)
+				nl = 1;
+			break ;
 		}
 	}
 	while (str[i])

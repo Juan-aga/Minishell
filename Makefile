@@ -53,6 +53,13 @@ MEMORY_DIR	= memory-leaks
 
 INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include -I ./${MEMORY_DIR}/include
 
+SYS	= $(shell uname -s)
+
+ifeq ($(SYS), Darwin)
+	INCLUDES +=	-I /opt/vagrant/embedded/include
+	LIBS	+= -L/opt/vagrant/embedded/lib
+endif
+
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
