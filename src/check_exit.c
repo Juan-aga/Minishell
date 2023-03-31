@@ -23,7 +23,6 @@ int	ft_check_exit(t_ms *ms, char *str)
 static int	ft_limitsll(t_ms *ms, char *str)
 {
 	__int128	i;
-	long long	min;
 
 	i = ft_ato_int128(str);
 	if (i < LLONG_MIN || i > LLONG_MAX)

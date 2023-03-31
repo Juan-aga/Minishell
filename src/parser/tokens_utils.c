@@ -52,6 +52,15 @@ t_token	*token_init(t_token *token, int size)
 
 void	token_free(t_token *token)
 {
+	if (token->prev && token->next)
+	{
+		token->prev->next = token->next;
+		token->next->prev = token->prev;
+	}
+	else if (token->prev)
+		token->prev->next = NULL;
+	else if (token->next)
+		token->next->prev = NULL;
 	if (token->str)
 		free(token->str);
 	if (token)
@@ -92,7 +101,8 @@ void	trim_quotes_token(t_token *token)
 
 	while (token)
 	{
-		if (token->status == CH_SQUOTE || token->status == CH_DQUOTE)
+		if ((token->status == CH_SQUOTE || token->status == CH_DQUOTE) && \
+			token->type != DELIMITER)
 		{
 			tmp = ft_substr(token->str, 1, ft_strlen(token->str) - 2);
 			free(token->str);

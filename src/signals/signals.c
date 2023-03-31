@@ -1,5 +1,7 @@
 #include "ft_printf.h"
 #include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 extern t_ms	*g_ms;
 
@@ -8,7 +10,10 @@ void	ft_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n%s", g_ms->prompt);
+		ft_printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_ms->exit_status = 127 + sig;
 		signal(SIGINT, ft_sigint);
 	}

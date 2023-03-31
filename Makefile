@@ -17,6 +17,7 @@ _SRC 		= parser/lexer.c 	\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
 			parser/expander.c	\
+			parser/expander_utils.c	\
 			parser/wildcard_expander.c	\
 			parser/fill_cmds.c	\
 			signals/signals.c	\
@@ -51,6 +52,13 @@ LIBFT_DIR	= libft
 MEMORY_DIR	= memory-leaks
 
 INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include -I ./${MEMORY_DIR}/include
+
+SYS	= $(shell uname -s)
+
+ifeq ($(SYS), Darwin)
+	INCLUDES +=	-I /opt/vagrant/embedded/include
+	LIBS	+= -L/opt/vagrant/embedded/lib
+endif
 
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."

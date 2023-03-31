@@ -15,12 +15,13 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	lexer_init(input, lexer->token_list);
 	if (close_quotes(lexer->token_list))
 		lexer->error = 1;
-	trim_quotes_token(lexer->token_list);
 	remove_empty_tokens(lexer);
 	if (lexer_files(lexer->token_list))
 		lexer->error = 1;
+	trim_quotes_token(lexer->token_list);
 	expand_wildcards(lexer);
 	expand_tokens(lexer, ms);
+	join_dollars(lexer->token_list);
 	join_tokens(lexer->token_list);
 	count_tokens(lexer);
 	return (lexer);
@@ -28,22 +29,37 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 
 void	join_tokens(t_token *token)
 {
-	t_token	*tmp;
 	char	*tmp_str;
 
 	while (token)
 	{
-		if (token->next && token->status != NO_QUOTE && token->join_next \
+		while (token->next && token->join_next && token->type == CH_NORMAL \
 			&& token->next->type == CH_NORMAL)
 		{
 			tmp_str = ft_strjoin(token->str, token->next->str);
 			free(token->str);
+			token->join_next = token->next->join_next;
 			token->str = tmp_str;
-			tmp = token->next;
-			token->next = token->next->next;
-			if (token->next && token->next->next)
-				token->next->next->prev = token;
+			token_free(token->next);
+		}
+		token = token->next;
+	}
+}
+
+void	join_dollars(t_token *token)
+{
+	t_token	*tmp;
+
+	while (token)
+	{
+		if (token->str[0] == '$' && ft_strlen(token->str) == 1 && \
+			token->next && token->join_next)
+		{
+			tmp = token;
+			token = token->next;
 			token_free(tmp);
+			if (!token)
+				return ;
 		}
 		token = token->next;
 	}
