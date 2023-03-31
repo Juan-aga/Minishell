@@ -9,6 +9,7 @@
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
+static void	ft_clean(t_ms *g_ms, char *prompt, t_lexer *lex);
 
 t_ms		*g_ms;
 
@@ -62,11 +63,7 @@ int	main(int ac, char **av, char **env)
 			ft_exec(g_ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
-		free(prompt);
-		free(g_ms->prompt);
-		lexer_free(lex);
-		if (g_ms->cmdlst)
-			ft_free_cmdlst(g_ms);
+		ft_clean(g_ms, prompt, lex);
 		ft_prompt(g_ms);
 	}
 	ft_free(g_ms);
@@ -88,6 +85,15 @@ static t_ms	*ft_init(char **env)
 	ms->exp = ft_copy_env(env);
 	ft_shlvl_update(ms);
 	return (ms);
+}
+
+static void	ft_clean(t_ms *g_ms, char *prompt, t_lexer *lex)
+{
+	free(prompt);
+	free(g_ms->prompt);
+	lexer_free(lex);
+	if (g_ms->cmdlst)
+		ft_free_cmdlst(g_ms);
 }
 
 void	ft_free(t_ms *ms)
