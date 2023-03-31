@@ -5,6 +5,8 @@
 #include "libft.h"
 #include "fractol_utils.h"
 
+static void	ft_echo_n(char **str, int nl);
+
 void	ft_exit_ms(t_ms *ms, char **num)
 {
 	char	*msg;
@@ -88,6 +90,14 @@ void	ft_echo(char **str)
 			break ;
 		}
 	}
+	ft_echo_n(&str[i], nl);
+}
+
+static void	ft_echo_n(char **str, int nl)
+{
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		ft_printf("%s", str[i]);
