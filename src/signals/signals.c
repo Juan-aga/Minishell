@@ -1,7 +1,5 @@
 #include "ft_printf.h"
 #include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
 extern t_ms	*g_ms;
 

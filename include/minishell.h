@@ -5,6 +5,9 @@
 # include <signal.h>
 # include <sys/types.h>
 # include "lexer.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /*		define colors letters		*/
 # define CGREEN "\033[1;34;42m"
