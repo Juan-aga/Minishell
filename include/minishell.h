@@ -2,7 +2,6 @@
 # define MINISHELL_H
 
 # include <fcntl.h>
-# include "memory_leaks.h"
 # include <signal.h>
 # include <sys/types.h>
 # include "lexer.h"
