@@ -92,6 +92,7 @@ void	replace_tilde(t_token *tok, t_ms *ms)
 {
 	t_envlst	*home;
 	t_token		*tk;
+	char		*s;
 
 	tk = tok;
 	while (tk)
@@ -101,7 +102,14 @@ void	replace_tilde(t_token *tok, t_ms *ms)
 		{
 			home = ft_getenv("HOME", ms->envlst);
 			tk->type = EXPANDED;
-			tk->str = replace_env_var(tk->str, ft_strdup("~"), home->value);
+			if (!home)
+			{
+				s = ft_strjoin("/Users/", ft_getenv("USER", ms->envlst)->value);
+				tk->str = replace_env_var(tk->str, ft_strdup("~"), s);
+				free(s);
+			}
+			else
+				tk->str = replace_env_var(tk->str, ft_strdup("~"), home->value);
 		}
 		else if (tk->str && ft_strchr(tk->str, '~'))
 			tk->type = CH_NORMAL;
