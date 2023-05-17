@@ -25,6 +25,8 @@ int	get_token_type(char c)
 		return (CH_LESS);
 	if (c == 0)
 		return (CH_NULL);
+	if (c == '~')
+		return (CH_TILDE);
 	return (CH_NORMAL);
 }
 

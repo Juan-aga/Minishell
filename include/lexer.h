@@ -15,6 +15,7 @@ enum e_tokens {
 	CH_SEMICOL = ';',
 	CH_SPACE = ' ',
 	CH_ESCAPE = '\\',
+	CH_TILDE = '~',
 	CH_LESS = '<',
 	CH_GREAT = '>',
 	CH_LESSLESS = 63,
@@ -113,6 +114,7 @@ void		expand_tokens(t_lexer *lexer, t_ms *ms);
 int			replace_next_dollar(char *str, t_ms *ms, t_token *tok);
 int			replace_exit_status(t_token *tok, t_ms *ms, char *free_str);
 int			replace_next_char(t_token *tok, t_ms *ms, char *free_str);
+void		replace_tilde(t_token *tok, t_ms *ms);
 
 /* parser/expander_utils.c */
 t_envlst	*get_var_value(char *str, t_ms *ms);

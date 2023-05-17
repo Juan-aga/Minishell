@@ -23,26 +23,28 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 	expand_tokens(lexer, ms);
 	join_dollars(lexer->token_list);
 	join_tokens(lexer->token_list);
+	replace_tilde(lexer->token_list, ms);
 	count_tokens(lexer);
 	return (lexer);
 }
 
-void	join_tokens(t_token *token)
+void	join_tokens(t_token *tk)
 {
 	char	*tmp_str;
 
-	while (token)
+	while (tk)
 	{
-		while (token->next && token->join_next && token->type == CH_NORMAL \
-			&& token->next->type == CH_NORMAL)
+		while (tk->next && tk->join_next && \
+			(tk->type == CH_NORMAL || tk->type == CH_TILDE) && \
+			(tk->next->type == CH_NORMAL || tk->next->type == CH_TILDE))
 		{
-			tmp_str = ft_strjoin(token->str, token->next->str);
-			free(token->str);
-			token->join_next = token->next->join_next;
-			token->str = tmp_str;
-			token_free(token->next);
+			tmp_str = ft_strjoin(tk->str, tk->next->str);
+			free(tk->str);
+			tk->join_next = tk->next->join_next;
+			tk->str = tmp_str;
+			token_free(tk->next);
 		}
-		token = token->next;
+		tk = tk->next;
 	}
 }
 

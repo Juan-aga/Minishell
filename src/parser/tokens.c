@@ -45,7 +45,7 @@ t_token	*other_tokens(t_token *tok, int type, int *j, int len)
 		tok = token_init(tok, 2);
 		*j = 0;
 	}
-	else if (*j > 0 && tok->status != NO_QUOTE)
+	else if ((*j > 0 && tok->status != NO_QUOTE) || tok->type == CH_TILDE)
 	{
 		tok->str[(*j)++] = type;
 		return (tok);

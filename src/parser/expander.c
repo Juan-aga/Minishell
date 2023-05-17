@@ -86,3 +86,24 @@ int	replace_next_char(t_token *tok, t_ms *ms, char *free_str)
 	free(free_str);
 	return (-2);
 }
+
+void	replace_tilde(t_token *tok, t_ms *ms)
+{
+	t_envlst	*home;
+	t_token		*tk;
+
+	tk = tok;
+	while (tk)
+	{
+		if (tk->str[0] == '~' && (tk->str[1] == '/' || tk->str[1] == '\0') \
+			&& tk->type == CH_TILDE)
+		{
+			home = ft_getenv("HOME", ms->envlst);
+			tk->type = EXPANDED;
+			tk->str = replace_env_var(tk->str, ft_strdup("~"), home->value);
+		}
+		else if (ft_strchr(tk->str, '~'))
+			tk->type = CH_NORMAL;
+		tk = tk->next;
+	}
+}
