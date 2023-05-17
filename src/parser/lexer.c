@@ -20,7 +20,8 @@ t_lexer	*ft_tokenize_line(char *input, t_ms *ms)
 		lexer->error = 1;
 	trim_quotes_token(lexer->token_list);
 	expand_wildcards(lexer);
-	expand_tokens(lexer, ms);
+	lexer->token_list = expand_tokens(lexer, ms);
+	remove_empty_tokens(lexer);
 	join_dollars(lexer->token_list);
 	join_tokens(lexer->token_list);
 	replace_tilde(lexer->token_list, ms);
@@ -54,8 +55,8 @@ void	join_dollars(t_token *token)
 
 	while (token)
 	{
-		if (token->str[0] == '$' && ft_strlen(token->str) == 1 && \
-			token->next && token->join_next)
+		if (token->str && token->str[0] == '$' && ft_strlen(token->str) == 1 \
+			&& token->next && token->join_next)
 		{
 			tmp = token;
 			token = token->next;

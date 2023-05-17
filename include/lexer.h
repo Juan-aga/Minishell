@@ -70,7 +70,6 @@ t_lexer		*ft_tokenize_line(char *input, t_ms *ms);
 void		join_tokens(t_token *token);
 void		join_dollars(t_token *token);
 
-
 /* parser/lexer_utils.c */
 
 /* the lexer_init function is pretty stacked. It reads every char in
@@ -110,7 +109,9 @@ void		remove_empty_tokens(t_lexer	*lexer);
 void		trim_quotes_token(t_token *token);
 
 /* parser/expander.c */
-void		expand_tokens(t_lexer *lexer, t_ms *ms);
+/* This function has to return a token pointer because it can update the list
+head reference and it can cause leaks or double frees */
+t_token		*expand_tokens(t_lexer *lexer, t_ms *ms);
 int			replace_next_dollar(char *str, t_ms *ms, t_token *tok);
 int			replace_exit_status(t_token *tok, t_ms *ms, char *free_str);
 int			replace_next_char(t_token *tok, t_ms *ms, char *free_str);

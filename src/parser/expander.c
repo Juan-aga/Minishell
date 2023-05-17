@@ -4,7 +4,7 @@
 #include "fractol_utils.h"
 #include "ft_printf.h"
 
-void	expand_tokens(t_lexer *lexer, t_ms *ms)
+t_token	*expand_tokens(t_lexer *lexer, t_ms *ms)
 {
 	t_token		*tk;
 	int			i;
@@ -26,6 +26,7 @@ void	expand_tokens(t_lexer *lexer, t_ms *ms)
 		}
 		tk = tk->next;
 	}
+	return (lexer->token_list);
 }
 
 int	replace_next_dollar(char *str, t_ms *ms, t_token *tok)
@@ -46,7 +47,7 @@ int	replace_next_dollar(char *str, t_ms *ms, t_token *tok)
 	if (!env)
 	{
 		tok->str = replace_env_var(tok->str, name, "");
-		if (tok->status == NORMAL && tok->str[0] == '\0')
+		if (tok->status == 3 && tok->str[0] == '\0')
 			token_free(tok);
 		return (-len);
 	}
@@ -95,14 +96,14 @@ void	replace_tilde(t_token *tok, t_ms *ms)
 	tk = tok;
 	while (tk)
 	{
-		if (tk->str[0] == '~' && (tk->str[1] == '/' || tk->str[1] == '\0') \
-			&& tk->type == CH_TILDE)
+		if (tk->str && tk->str[0] == '~' && (tk->str[1] == '/' || \
+			tk->str[1] == '\0') && tk->type == CH_TILDE)
 		{
 			home = ft_getenv("HOME", ms->envlst);
 			tk->type = EXPANDED;
 			tk->str = replace_env_var(tk->str, ft_strdup("~"), home->value);
 		}
-		else if (ft_strchr(tk->str, '~'))
+		else if (tk->str && ft_strchr(tk->str, '~'))
 			tk->type = CH_NORMAL;
 		tk = tk->next;
 	}
