@@ -31,7 +31,7 @@ void	ft_shlvl_update(t_ms *ms)
 	tmp = ft_getenv("SHLVL", ms->exp);
 	str = ft_calloc(sizeof(char *), 4);
 	lvl = 1;
-	if (ms->exp)
+	if (ms->exp && tmp && tmp->value)
 		lvl = ft_atoi(tmp->value) + 1;
 	str[0] = ft_strjoin_va("SHLVL=%i", lvl);
 	ft_export(str, ms);
