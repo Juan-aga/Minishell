@@ -75,6 +75,7 @@ static t_ms	*ft_init(char **env)
 	ms = ft_calloc(1, sizeof(t_ms));
 	ms->num_com = 0;
 	ms->exit = 1;
+	ms->print_prompt = 1;
 	ms->exit_status = 0;
 	ft_prompt(ms);
 	ms->env = ft_copy_array(env, 0);

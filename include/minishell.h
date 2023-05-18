@@ -15,6 +15,7 @@
 # define CBLUE "\033[1;33;44m"
 # define CWHITE "\033[30;47m"
 # define CRESET "\x1B[0m"
+# define HEREDOC_TEXT "minishell here_doc> "
 
 typedef struct s_lexer	t_lexer;
 
@@ -54,6 +55,7 @@ typedef struct s_ms
 	char			**env;
 	t_lexer			*lexer;
 	pid_t			pid;
+	int				print_prompt;
 }	t_ms;
 
 /*	cmdlst functions								*/
@@ -152,5 +154,6 @@ void		ft_prompt(t_ms *ms);
 /* signals */
 void		ft_sigint(int sig);
 void		ft_sigint_proc(int sig);
+void		ft_sign_heredoc(int sig);
 
 #endif

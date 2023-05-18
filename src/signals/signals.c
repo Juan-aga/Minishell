@@ -6,7 +6,7 @@ extern t_ms	*g_ms;
 /* the strange "\b\b  \b\b" is to delete the \^ token that CTRL+\ prints */
 void	ft_sigint(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && g_ms->print_prompt)
 	{
 		rl_on_new_line();
 		rl_redisplay();
@@ -19,6 +19,7 @@ void	ft_sigint(int sig)
 	}
 	else if (sig == SIGQUIT)
 		ft_printf("\b\b  \b\b");
+	g_ms->print_prompt = 1;
 }
 
 void	ft_sigint_proc(int sig)
@@ -43,5 +44,14 @@ void	ft_sigint_proc(int sig)
 					ft_printf("%s ", g_ms->cmdlst->arg[i]);
 			ft_printf("\n");
 		}
+	}
+}
+
+void	ft_sign_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		ft_printf("%s  \n", HEREDOC_TEXT);
+		exit(1);
 	}
 }

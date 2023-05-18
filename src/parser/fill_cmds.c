@@ -15,6 +15,7 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 	ms->cmdlst = ft_cmdlstnew();
 	cmd = ms->cmdlst;
 	n_cmds = 1;
+	ms->print_prompt = 0;
 	while (tok)
 	{
 		if (tok && tok->type == CH_PIPE && tok->next)
