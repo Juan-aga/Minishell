@@ -8,9 +8,11 @@ void	ft_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n");
 		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \n", 1);
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
 		g_ms->exit_status = 127 + sig;
 		signal(SIGINT, ft_sigint);
