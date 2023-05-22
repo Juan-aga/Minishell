@@ -14,7 +14,6 @@ void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 	ms->cmdlst = ft_cmdlstnew();
 	cmd = ms->cmdlst;
 	n_cmds = 1;
-	ms->print_prompt = 0;
 	while (tok)
 	{
 		if (tok && tok->type == CH_PIPE && tok->next)
@@ -24,7 +23,7 @@ void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 			n_cmds++;
 			tok = tok->next;
 		}
-		tok = fill_cmd(cmd, tok);
+		tok = fill_cmd(cmd, tok, ms);
 		open_files_cmd(cmd);
 	}
 	ms->lexer = lex;
@@ -33,8 +32,9 @@ void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 
 /* This function fills the redirection part of the command and also the args */
 
-t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
+t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok, t_ms *ms)
 {
+	ms->print_prompt = 0;
 	if (tok->type == INFILE)
 		cmd->fd_in_file = tok->str;
 	if (tok->type == DELIMITER)
@@ -50,6 +50,7 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 		cmd->fd_out_file = tok->str;
 		cmd->append = 1;
 	}
+	ms->print_prompt = 1;
 	if ((tok->type == CH_NORMAL || tok->type == EXPANDED) && !cmd->arg)
 		get_all_args(cmd, tok);
 	if (tok->next)
