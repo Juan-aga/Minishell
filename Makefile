@@ -16,9 +16,9 @@ _SRC 		= parser/lexer.c 	\
 			parser/lexer_utils.c\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
-			parser/expander.c	\
-			parser/expander_utils.c	\
-			parser/wildcard_expander.c	\
+			expander/expander.c	\
+			expander/expander_utils.c	\
+			expander/wildcard_expander.c	\
 			parser/fill_cmds.c	\
 			signals/signals.c	\
 			cmdlst.c			\
@@ -67,7 +67,7 @@ ${NAME}:	 ${OBJ}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
-			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals
+			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals ${OBJ_DIR}/expander
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}

@@ -118,8 +118,8 @@ int			replace_next_char(t_token *tok, t_ms *ms, char *free_str);
 void		replace_tilde(t_token *tok, t_ms *ms);
 
 /* parser/expander_utils.c */
-t_envlst	*get_var_value(char *str, t_ms *ms);
-char		*replace_env_var(char *og, char *find, char *repl);
+t_envlst	*get_var_env(char *str, t_ms *ms);
+char		*replace_str(char *og, char *find, char *repl);
 char		*get_var_name(char *str);
 
 /* parser/wildcard_expander.c */

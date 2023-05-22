@@ -46,12 +46,12 @@ int	replace_next_dollar(char *str, t_ms *ms, t_token *tok)
 	len = ft_strlen(name);
 	if (!env)
 	{
-		tok->str = replace_env_var(tok->str, name, "");
+		tok->str = replace_str(tok->str, name, "");
 		if (tok->status == 3 && tok->str[0] == '\0')
 			token_free(tok);
 		return (-len);
 	}
-	tok->str = replace_env_var(tok->str, name, env->value);
+	tok->str = replace_str(tok->str, name, env->value);
 	return (len);
 }
 
@@ -61,7 +61,7 @@ int	replace_exit_status(t_token *tok, t_ms *ms, char *free_str)
 
 	free(free_str);
 	status = ft_itoa(ms->exit_status);
-	tok->str = replace_env_var(tok->str, ft_strdup("$?"), status);
+	tok->str = replace_str(tok->str, ft_strdup("$?"), status);
 	free(status);
 	return (1);
 }
@@ -74,7 +74,7 @@ int	replace_next_char(t_token *tok, t_ms *ms, char *free_str)
 	env = ft_getenv(&free_str[1], ms->envlst);
 	if (env)
 	{
-		tok->str = replace_env_var(tok->str, free_str, env->value);
+		tok->str = replace_str(tok->str, free_str, env->value);
 		return (1);
 	}
 	if (!ft_isdigit(free_str[1]))
@@ -83,7 +83,7 @@ int	replace_next_char(t_token *tok, t_ms *ms, char *free_str)
 		return (1);
 	}
 	str = ft_substr(free_str, 0, 2);
-	tok->str = replace_env_var(tok->str, str, "");
+	tok->str = replace_str(tok->str, str, "");
 	free(free_str);
 	return (-2);
 }
@@ -105,11 +105,11 @@ void	replace_tilde(t_token *tok, t_ms *ms)
 			if (!home)
 			{
 				s = ft_strjoin("/Users/", ft_getenv("USER", ms->envlst)->value);
-				tk->str = replace_env_var(tk->str, ft_strdup("~"), s);
+				tk->str = replace_str(tk->str, ft_strdup("~"), s);
 				free(s);
 			}
 			else
-				tk->str = replace_env_var(tk->str, ft_strdup("~"), home->value);
+				tk->str = replace_str(tk->str, ft_strdup("~"), home->value);
 		}
 		else if (tk->str && ft_strchr(tk->str, '~'))
 			tk->type = CH_NORMAL;

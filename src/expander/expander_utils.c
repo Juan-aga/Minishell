@@ -4,7 +4,7 @@
 #include "fractol_utils.h"
 #include "ft_printf.h"
 
-t_envlst	*get_var_value(char *str, t_ms *ms)
+t_envlst	*get_var_env(char *str, t_ms *ms)
 {
 	int			i;
 	char		*word;
@@ -26,7 +26,7 @@ t_envlst	*get_var_value(char *str, t_ms *ms)
 	return (env_variable);
 }
 
-char	*replace_env_var(char *og, char *find, char *repl)
+char	*replace_str(char *og, char *find, char *repl)
 {
 	int		final_len;
 	char	*str;
