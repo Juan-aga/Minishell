@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* Classifies all tokens that are not redirections or normal chars. It removes

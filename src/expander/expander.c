@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* This function travels all the token list and replaces every $ variable it

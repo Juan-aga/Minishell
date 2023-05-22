@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 int	get_token_type(char c)

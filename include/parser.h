@@ -1,10 +1,5 @@
-#ifndef LEXER_H
-# define LEXER_H
-
-# include "minishell.h"
-# include "libft.h"
-# include "fractol_utils.h"
-# include "ft_printf.h"
+#ifndef PARSER_H
+# define PARSER_H
 
 typedef struct s_ms		t_ms;
 typedef struct s_cmdlst	t_cmdlst;

@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* Transforms tokens into a command list */

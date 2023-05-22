@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* Iterate over all the tokens and replace every * on them with the files that

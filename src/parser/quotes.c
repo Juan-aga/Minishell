@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* Remove start and end quotes from the token string after it has been 

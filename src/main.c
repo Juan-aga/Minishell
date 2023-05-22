@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "fractol_utils.h"
 #include <unistd.h>
-#include "lexer.h"
+#include "parser.h"
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);

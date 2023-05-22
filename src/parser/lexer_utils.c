@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* this function is pretty stacked. It reads every char in input and calls other

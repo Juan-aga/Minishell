@@ -4,7 +4,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <sys/types.h>
-# include "lexer.h"
+# include "parser.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>

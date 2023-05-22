@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* Given a token, searchs for a valid dollar variable and returns its

@@ -1,4 +1,3 @@
-#include "lexer.h"
 #include "minishell.h"
 
 /* This funtion does all the job of parsing the readline input, tokenizing it */
