@@ -56,7 +56,7 @@ int	main(int ac, char **av, char **env)
 		if (!prompt)
 			ft_exit_ms(g_ms, NULL);
 		lex = ft_tokenize_line(prompt, g_ms);
-		ft_fill_commands(g_ms, lex);
+		tokens_to_commands(g_ms, lex);
 		if (lex && !lex->error)
 			ft_exec(g_ms);
 		if (!(!prompt || !*prompt))

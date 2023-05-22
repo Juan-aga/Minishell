@@ -1,10 +1,10 @@
 #include "lexer.h"
 #include "minishell.h"
-#include "libft.h"
-#include "fractol_utils.h"
-#include "ft_printf.h"
 
-t_envlst	*get_var_env(char *str, t_ms *ms)
+/* Given a token, searchs for a valid dollar variable and returns its
+envlst node. Return NULL if can't find it */
+
+t_envlst	*get_env_var(char *str, t_ms *ms)
 {
 	int			i;
 	char		*word;
@@ -25,6 +25,10 @@ t_envlst	*get_var_env(char *str, t_ms *ms)
 	}
 	return (env_variable);
 }
+
+/* Find and replace function. Given a string to find "find" in "og", it replaces
+every coincidence for the "repl" string. For convenience and to reduce function
+lines elsewhere, it frees both original string and the "find" string */
 
 char	*replace_str(char *og, char *find, char *repl)
 {
@@ -49,7 +53,9 @@ char	*replace_str(char *og, char *find, char *repl)
 	return (str);
 }
 
-char	*get_var_name(char *str)
+/* Given a string, return a substring with the dollar variable name */
+
+char	*get_dollar_name(char *str)
 {
 	char	*word;
 	char	*v_name;

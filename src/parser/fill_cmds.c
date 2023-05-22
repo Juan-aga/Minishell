@@ -1,9 +1,9 @@
 #include "lexer.h"
 #include "minishell.h"
-#include "libft.h"
-#include "ft_printf.h"
 
-void	ft_fill_commands(t_ms *ms, t_lexer *lex)
+/* Transforms tokens into a command list */
+
+void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 {
 	t_cmdlst	*cmd;
 	t_token		*tok;
@@ -32,9 +32,8 @@ void	ft_fill_commands(t_ms *ms, t_lexer *lex)
 	ms->num_com = n_cmds;
 }
 
-/* I think error handling when opening files should be done outside of this
-function, because we left a NULL node in the token list, we only can return an
-empty node */
+/* This function fills the redirection part of the command and also the args */
+
 t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 {
 	if (tok->type == INFILE)
@@ -59,6 +58,9 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 	return (0);
 }
 
+/* Find all tokens until the end or until a pipe is encountered and save them
+as arguments for the command in a 2D char array */
+
 void	get_all_args(t_cmdlst *cmd, t_token *tok)
 {
 	int	i;
@@ -76,6 +78,9 @@ void	get_all_args(t_cmdlst *cmd, t_token *tok)
 	cmd->arg[i + 1] = NULL;
 }
 
+/* Count the args previously so the get_all_args function can allocate the
+number of rows for the 2D array */
+
 int	count_args(t_token *tok)
 {
 	int	i;
@@ -89,6 +94,8 @@ int	count_args(t_token *tok)
 	}
 	return (i);
 }
+
+/* Self explanatory, also raises errors if it encounters any */
 
 int	open_files_cmd(t_cmdlst *cmd)
 {

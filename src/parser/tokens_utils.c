@@ -1,24 +1,16 @@
 #include "lexer.h"
 #include "minishell.h"
-#include "libft.h"
-#include "ft_printf.h"
 
 int	get_token_type(char c)
 {
 	if (c == '|')
 		return (CH_PIPE);
-	if (c == '&')
-		return (CH_AMPERSAND);
 	if (c == '\'')
 		return (CH_SQUOTE);
 	if (c == '\"')
 		return (CH_DQUOTE);
-	if (c == ';')
-		return (CH_SEMICOL);
 	if (c == ' ')
 		return (CH_SPACE);
-	if (c == '\\')
-		return (CH_ESCAPE);
 	if (c == '>')
 		return (CH_GREAT);
 	if (c == '<')
@@ -30,7 +22,10 @@ int	get_token_type(char c)
 	return (CH_NORMAL);
 }
 
-t_token	*token_init(t_token *token, int size)
+/* Allocate a new token and insert it after the given "token" var. The "size"
+variable equals the lenght of the new token string */
+
+t_token	*new_token(t_token *token, int size)
 {
 	if (token == NULL)
 	{
@@ -52,7 +47,9 @@ t_token	*token_init(t_token *token, int size)
 	return (token);
 }
 
-void	token_free(t_token *token)
+/* Free the token and update the double linked list */
+
+void	free_token(t_token *token)
 {
 	if (token->prev && token->next)
 	{
@@ -68,6 +65,9 @@ void	token_free(t_token *token)
 	if (token)
 		free(token);
 }
+
+/* Remove empty tokens that can result from transformations like replacing
+$USER when USER is not found on the environment */
 
 void	remove_empty_tokens(t_lexer *lexer)
 {
@@ -86,7 +86,7 @@ void	remove_empty_tokens(t_lexer *lexer)
 			else
 				lexer->token_list = tok->next;
 			tmp = tok->next;
-			token_free(tok);
+			free_token(tok);
 			tok = tmp;
 		}
 		else
@@ -94,22 +94,5 @@ void	remove_empty_tokens(t_lexer *lexer)
 			prev = tok;
 			tok = tok->next;
 		}
-	}
-}
-
-void	trim_quotes_token(t_token *token)
-{
-	char	*tmp;
-
-	while (token)
-	{
-		if ((token->status == CH_SQUOTE || token->status == CH_DQUOTE) && \
-			token->type != DELIMITER)
-		{
-			tmp = ft_substr(token->str, 1, ft_strlen(token->str) - 2);
-			free(token->str);
-			token->str = tmp;
-		}
-		token = token->next;
 	}
 }

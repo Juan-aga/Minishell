@@ -16,10 +16,11 @@ _SRC 		= parser/lexer.c 	\
 			parser/lexer_utils.c\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
+			parser/fill_cmds.c	\
+			parser/quotes.c		\
 			expander/expander.c	\
 			expander/expander_utils.c	\
 			expander/wildcard_expander.c	\
-			parser/fill_cmds.c	\
 			signals/signals.c	\
 			cmdlst.c			\
 			enviroment.c		\
