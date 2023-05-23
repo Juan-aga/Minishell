@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "ft_printf.h"
 # include "libft.h"
 
 /*		define colors letters		*/

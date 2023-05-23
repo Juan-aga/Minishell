@@ -1,9 +1,21 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/22 18:23:38 by franmart          #+#    #+#             */
+/*   Updated: 2023/05/22 18:38:34 by franmart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_ms	*g_ms;
 
 /* the strange "\b\b  \b\b" is to delete the \^ token that CTRL+\ prints */
+
 void	ft_sigint(int sig)
 {
 	if (sig == SIGINT && g_ms->print_prompt)
