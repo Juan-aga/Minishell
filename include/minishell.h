@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft.h"
 
 /*		define colors letters		*/
 # define CGREEN "\001\033[1;34;42m\002"
