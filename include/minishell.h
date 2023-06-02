@@ -57,7 +57,6 @@ typedef struct s_ms
 	char			**env;
 	t_lexer			*lexer;
 	pid_t			pid;
-	int				print_prompt;
 }	t_ms;
 
 /*	cmdlst functions								*/
@@ -156,6 +155,5 @@ void		ft_prompt(t_ms *ms);
 /* signals */
 void		ft_sigint(int sig);
 void		ft_sigint_proc(int sig);
-void		ft_sign_heredoc(int sig);
 
 #endif

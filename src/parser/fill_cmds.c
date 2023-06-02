@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:22:59 by franmart          #+#    #+#             */
-/*   Updated: 2023/05/22 18:32:08 by franmart         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:57:47 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 			n_cmds++;
 			tok = tok->next;
 		}
-		tok = fill_cmd(cmd, tok, ms);
+		tok = fill_cmd(cmd, tok);
 		open_files_cmd(cmd);
 	}
 	ms->lexer = lex;
@@ -44,9 +44,8 @@ void	tokens_to_commands(t_ms *ms, t_lexer *lex)
 
 /* This function fills the redirection part of the command and also the args */
 
-t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok, t_ms *ms)
+t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok)
 {
-	ms->print_prompt = 0;
 	if (tok->type == INFILE)
 		cmd->fd_in_file = tok->str;
 	if (tok->type == DELIMITER)
@@ -62,7 +61,6 @@ t_token	*fill_cmd(t_cmdlst *cmd, t_token *tok, t_ms *ms)
 		cmd->fd_out_file = tok->str;
 		cmd->append = 1;
 	}
-	ms->print_prompt = 1;
 	if ((tok->type == CH_NORMAL || tok->type == EXPANDED) && !cmd->arg)
 		get_all_args(cmd, tok);
 	if (tok->next)

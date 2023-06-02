@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:32:28 by franmart          #+#    #+#             */
-/*   Updated: 2023/05/22 18:32:29 by franmart         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:57:55 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_token		*expand_wildcard(t_token *tok, char **wildcards);
 
 /* parser/fill_cmds.c */
 void		tokens_to_commands(t_ms *ms, t_lexer *lex);
-t_token		*fill_cmd(t_cmdlst *cmd, t_token *tok, t_ms *ms);
+t_token		*fill_cmd(t_cmdlst *cmd, t_token *tok);
 void		get_all_args(t_cmdlst *cmd, t_token *tok);
 int			count_args(t_token *tok);
 int			open_files_cmd(t_cmdlst *cmd);

@@ -32,7 +32,6 @@ static void	ft_read_here(char *limiter, int	*fd)
 	size = ft_strlen(limiter) + 1;
 	while (42)
 	{
-		signal(SIGINT, ft_sign_heredoc);
 		line = readline (HEREDOC_TEXT);
 		if (!line)
 			exit(1);

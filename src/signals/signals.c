@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:23:38 by franmart          #+#    #+#             */
-/*   Updated: 2023/05/22 18:38:34 by franmart         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:06:59 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ extern t_ms	*g_ms;
 
 void	ft_sigint(int sig)
 {
-	if (sig == SIGINT && g_ms->print_prompt)
+	if (sig == SIGINT)
 	{
-		rl_on_new_line();
-		rl_redisplay();
-		ft_putstr_fd("  \n", 1);
+		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -31,7 +29,6 @@ void	ft_sigint(int sig)
 	}
 	else if (sig == SIGQUIT)
 		ft_printf("\b\b  \b\b");
-	g_ms->print_prompt = 1;
 }
 
 void	ft_sigint_proc(int sig)
@@ -56,14 +53,5 @@ void	ft_sigint_proc(int sig)
 					ft_printf("%s ", g_ms->cmdlst->arg[i]);
 			ft_printf("\n");
 		}
-	}
-}
-
-void	ft_sign_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		ft_printf("%s  \n", HEREDOC_TEXT);
-		exit(1);
 	}
 }
