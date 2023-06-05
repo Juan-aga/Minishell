@@ -67,6 +67,9 @@ static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free)
 		else if (!S_ISDIR(st.st_mode) && !access(str, F_OK))
 			tmp = ft_strjoin_va(
 					"minishell: cd: %s: Not a directory\n", str);
+		else if (ft_strlen(str) > 255)
+			tmp = ft_strjoin_va(
+					"minishell: cd: %s: File name too long\n", str);
 		else
 			tmp = ft_strjoin_va(
 					"minishell: cd: %s: No such file or directory\n", str);

@@ -16,10 +16,11 @@ _SRC 		= parser/lexer.c 	\
 			parser/lexer_utils.c\
 			parser/tokens.c		\
 			parser/tokens_utils.c\
-			parser/expander.c	\
-			parser/expander_utils.c	\
-			parser/wildcard_expander.c	\
 			parser/fill_cmds.c	\
+			parser/quotes.c		\
+			expander/expander.c	\
+			expander/expander_utils.c	\
+			expander/wildcard_expander.c	\
 			signals/signals.c	\
 			cmdlst.c			\
 			enviroment.c		\
@@ -45,13 +46,11 @@ _SRC 		= parser/lexer.c 	\
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ			= ${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
 
-LIBS		= ${LIBFT_DIR}/libft.a -lreadline ${MEMORY_DIR}/memory_leaks.a
+LIBS		= ${LIBFT_DIR}/libft.a -lreadline
 
 LIBFT_DIR	= libft
 
-MEMORY_DIR	= memory-leaks
-
-INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include -I ./${MEMORY_DIR}/include
+INCLUDES	= -I ./include -I ./${LIBFT_DIR}/include
 
 SYS	= $(shell uname -s)
 
@@ -63,14 +62,13 @@ endif
 ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
-			@$(MAKE) -s all -C $(MEMORY_DIR)
 			@$(MAKE) -s all -C $(LIBFT_DIR)
 			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
-			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals
+			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals ${OBJ_DIR}/expander
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}
@@ -79,13 +77,11 @@ clean:
 			@echo "Removing files..."
 			@echo "Removing dependencies..."
 			@$(MAKE) -s clean -C $(LIBFT_DIR)
-			@$(MAKE) -s clean -C $(MEMORY_DIR)
 			@${RM} ${OBJ}
 
 fclean: 	clean
 			@${RM} ${NAME}
 			@$(MAKE) -s fclean -C  $(LIBFT_DIR)
-			@$(MAKE) -s fclean -C $(MEMORY_DIR)
 
 re:		fclean all
 
