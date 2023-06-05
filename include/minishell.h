@@ -2,17 +2,22 @@
 # define MINISHELL_H
 
 # include <fcntl.h>
-# include "memory_leaks.h"
 # include <signal.h>
 # include <sys/types.h>
-# include "lexer.h"
+# include "parser.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "ft_printf.h"
+# include "libft.h"
 
 /*		define colors letters		*/
-# define CGREEN "\033[1;34;42m"
-# define CRED "\033[1;37;41m"
-# define CBLUE "\033[1;33;44m"
-# define CWHITE "\033[30;47m"
-# define CRESET "\x1B[0m"
+# define CGREEN "\001\033[1;34;42m\002"
+# define CRED "\001\033[1;37;41m\002"
+# define CBLUE "\001\033[1;33;44m\002"
+# define CWHITE "\001\033[30;47m\002"
+# define CRESET "\001\x1B[0m\002"
+# define HEREDOC_TEXT "minishell here_doc> "
 
 typedef struct s_lexer	t_lexer;
 
@@ -45,7 +50,7 @@ typedef struct s_ms
 	int				num_com;
 	int				exe;
 	int				exit;
-	int				exit_status;
+	unsigned char	exit_status;
 	int				*pipe;
 	char			*prompt;
 	char			**path;
@@ -81,7 +86,9 @@ void		ft_free(t_ms *ms);
 
 /*		exit builtin				*/
 /*		it change exit to 0			*/
-void		ft_exit_ms(t_ms *ms);
+void		ft_exit_ms(t_ms *ms, char **num);
+int			ft_check_exit(t_ms *ms, char *str);
+__int128	ft_ato_int128(char *str);
 void		ft_pwd(t_ms *ms);
 void		ft_cd(char *str, t_ms *ms);
 void		ft_echo(char **str);

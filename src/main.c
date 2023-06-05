@@ -1,14 +1,13 @@
 #include "minishell.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "fractol_utils.h"
 #include <unistd.h>
-#include "lexer.h"
+#include "parser.h"
 #include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
+static void	ft_clean(t_ms *g_ms, char *prompt, t_lexer *lex);
 
 t_ms		*g_ms;
 
@@ -49,24 +48,21 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	(void) av;
 	g_ms = ft_init(env);
+	rl_catch_signals = 0;
 	while (g_ms->exit)
 	{
 		signal(SIGINT, ft_sigint);
 		signal(SIGQUIT, ft_sigint);
 		prompt = readline (g_ms->prompt);
 		if (!prompt)
-			ft_exit_ms(g_ms);
+			ft_exit_ms(g_ms, NULL);
 		lex = ft_tokenize_line(prompt, g_ms);
-		ft_fill_commands(g_ms, lex);
+		tokens_to_commands(g_ms, lex);
 		if (lex && !lex->error)
 			ft_exec(g_ms);
 		if (!(!prompt || !*prompt))
 			add_history(prompt);
-		free(prompt);
-		free(g_ms->prompt);
-		lexer_free(lex);
-		if (g_ms->cmdlst)
-			ft_free_cmdlst(g_ms);
+		ft_clean(g_ms, prompt, lex);
 		ft_prompt(g_ms);
 	}
 	ft_free(g_ms);
@@ -88,6 +84,15 @@ static t_ms	*ft_init(char **env)
 	ms->exp = ft_copy_env(env);
 	ft_shlvl_update(ms);
 	return (ms);
+}
+
+static void	ft_clean(t_ms *g_ms, char *prompt, t_lexer *lex)
+{
+	free(prompt);
+	free(g_ms->prompt);
+	lexer_free(lex);
+	if (g_ms->cmdlst)
+		ft_free_cmdlst(g_ms);
 }
 
 void	ft_free(t_ms *ms)

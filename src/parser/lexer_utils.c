@@ -1,7 +1,20 @@
-#include "lexer.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/22 18:23:07 by franmart          #+#    #+#             */
+/*   Updated: 2023/05/22 18:23:08 by franmart         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-#include "libft.h"
-#include "ft_printf.h"
+
+/* this function is pretty stacked. It reads every char in input and calls other
+functions to classify each type of token, creating new empty tokens when
+necessary */
 
 void	lexer_init(char *input, t_token *token)
 {
@@ -14,22 +27,20 @@ void	lexer_init(char *input, t_token *token)
 	while (input[++i] != '\0')
 	{
 		type = get_token_type(input[i]);
-		if (type == CH_ESCAPE)
-			token = escape_token(token, input, &j, &i);
-		else if ((type == CH_GREAT || type == CH_LESS) && \
+		if ((type == CH_GREAT || type == CH_LESS) && \
 			token->status == NO_QUOTE)
 			token = redirect_token(token, input, &j, &i);
 		else if (type == CH_NORMAL)
 			token->str[j++] = input[i];
 		else if (type == CH_SPACE && j > 0 && token->status == NO_QUOTE)
 		{
-			token = token_init(token, ft_strlen(input) - i);
+			token->join_next = 0;
+			token = new_token(token, ft_strlen(input) - i);
 			j = 0;
 		}
 		else
 			token = other_tokens(token, type, &j, ft_strlen(input) - i);
 	}
-	token->str[j] = '\0';
 }
 
 void	lexer_free(t_lexer *lexer)
@@ -43,11 +54,14 @@ void	lexer_free(t_lexer *lexer)
 	while (token != NULL)
 	{
 		next = token->next;
-		token_free(token);
+		free_token(token);
 		token = next;
 	}
 	free(lexer);
 }
+
+/* It travels the token list and assigns the corresponding file token type
+depending on the token delimiter it found for it */
 
 int	lexer_files(t_token *token)
 {

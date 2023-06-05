@@ -42,7 +42,7 @@ static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp)
 	else if (!ft_strncmp("exit", tmp->arg[0], 5))
 	{
 		if (ms->num_com == 1)
-			ft_exit_ms(ms);
+			ft_exit_ms(ms, &tmp->arg[1]);
 		return (1);
 	}
 	return (0);
