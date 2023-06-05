@@ -22,7 +22,10 @@ void	ft_cd(char *str, t_ms *ms)
 		return ;
 	else if (i < 0)
 	{
-		tmp[1] = ft_strjoin_va("%s/%s", tmp[0], str);
+		if (ft_strlen(str) == 1 && str[0] == '/')
+			tmp[1] = ft_strdup("/\0");
+		else
+			tmp[1] = ft_strjoin_va("%s/%s", tmp[0], str);
 		if (chdir(tmp[1]) && chdir(str))
 		{
 			ft_cd_error(str, ms, 1, tmp);
