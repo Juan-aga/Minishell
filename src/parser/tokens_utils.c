@@ -90,7 +90,7 @@ void	remove_empty_tokens(t_lexer *lexer)
 	prev = NULL;
 	while (tok)
 	{
-		if (tok->str && tok->str[0] == '\0')
+		if (tok->str && tok->str[0] == '\0' && tok->status == NO_QUOTE)
 		{
 			if (prev)
 				prev->next = tok->next;
