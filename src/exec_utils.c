@@ -30,7 +30,7 @@ void	ft_get_path(t_ms *ms, t_cmdlst *tmp)
 		tmp->path = tmp->arg[i];
 		return ;
 	}
-	if (!ms->path)
+	if (!ms->path || tmp->arg[0][0] == '\0')
 		return ;
 	while (ms->path[i])
 	{

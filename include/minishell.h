@@ -155,5 +155,5 @@ void		ft_prompt(t_ms *ms);
 /* signals */
 void		ft_sigint(int sig);
 void		ft_sigint_proc(int sig);
-
+void		ft_signheredoc(int sig);
 #endif

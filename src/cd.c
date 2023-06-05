@@ -18,6 +18,8 @@ void	ft_cd(char *str, t_ms *ms)
 	tmp = ft_calloc(sizeof(char *), 3);
 	tmp[0] = getcwd(tmp[0], 0);
 	i = ft_check_home(str, tmp, ms);
+	if (!tmp[0])
+		tmp[0] = ft_strdup(str);
 	if (i > 0)
 		return ;
 	else if (i < 0)

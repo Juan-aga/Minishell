@@ -77,8 +77,10 @@ static void	ft_child_redir_file(t_ms *ms, t_cmdlst *tmp)
 {
 	if (tmp->fd_in_file)
 	{
-		if (tmp->fd_in < 0)
+		if (tmp->fd_in < 0 && !tmp->append)
 			ft_error_file(tmp->fd_in_file, ms);
+		if (tmp->fd_in < 0 && tmp->append)
+			exit(-1);
 		ms->pipe[2 * ms->exe] = tmp->fd_in;
 	}
 	if (tmp->fd_out_file)

@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:23:38 by franmart          #+#    #+#             */
-/*   Updated: 2023/06/05 10:42:42 by franmart         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:57:18 by juan-aga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,18 @@ void	ft_sigint_proc(int sig)
 					ft_printf("%s ", g_ms->cmdlst->arg[i]);
 			ft_printf("\n");
 		}
+	}
+}
+
+void	ft_signheredoc(int sig)
+{
+	int	i;
+
+	i = -1;
+	if (sig == SIGINT)
+	{
+		ft_printf("\n");
+		g_ms->exit_status = 127 + sig;
+		exit(1);
 	}
 }

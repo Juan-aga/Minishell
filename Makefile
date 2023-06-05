@@ -34,7 +34,6 @@ _SRC 		= parser/lexer.c 	\
 			envlst_utils.c		\
 			export.c			\
 			cd.c				\
-			pruebas.c			\
 			here_doc.c			\
 			wildcard.c			\
 			error.c				\

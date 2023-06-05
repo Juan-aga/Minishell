@@ -5,6 +5,7 @@
 
 static char	*ft_take_path(char *dir);
 static char	*ft_branch(char *file);
+static void	ft_nodir(char **dir, t_ms *ms);
 
 void	ft_prompt(t_ms *ms)
 {
@@ -13,6 +14,8 @@ void	ft_prompt(t_ms *ms)
 
 	dir = NULL;
 	dir = getcwd(dir, 0);
+	if (!dir)
+		ft_nodir(&dir, ms);
 	git = ft_take_path(dir);
 	if (git)
 		git = ft_branch(git);
@@ -84,4 +87,10 @@ static char	*ft_branch(char *file)
 	}
 	free(file);
 	return (branch);
+}
+
+static void	ft_nodir(char **dir, t_ms *ms)
+{
+	*dir = ft_strdup(ft_getenv("OLDPWD", ms->envlst)->value);
+	ft_cd(*dir, ms);
 }
