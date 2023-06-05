@@ -5,6 +5,23 @@
 static void	ft_export_check(char **str, t_ms *ms, int i, int j);
 static void	ft_export_add(char *str, t_ms *ms, int diff);
 
+int	valid_export_name(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (0);
+	i++;
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	ft_export(char **str, t_ms *ms)
 {
 	int			i;
@@ -43,14 +60,16 @@ static void	ft_export_check(char **str, t_ms *ms, int i, int j)
 		var = ft_calloc(sizeof(char), j + 2);
 		ft_strlcpy(var, str[i], j + 1);
 		tmp = ft_getenv(var, ms->exp);
-		if (!tmp)
+		if (!tmp && valid_export_name(str[i]))
 			ft_export_add(str[i], ms, str[i][j] - '=');
-		else
+		else if (valid_export_name(str[i]))
 		{
 			free(tmp->value);
 			tmp->value = ft_strdup(&str[i][j + 1]);
 			ft_export_to_env(str[i], ms->envlst);
 		}
+		else
+			printf("minishell: export: `%s': not a valid identifier\n", str[i]);
 		free(var);
 		i++;
 	}
