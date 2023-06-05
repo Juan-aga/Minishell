@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/06/05 16:17:00 by franmart          #+#    #+#              #
+#    Updated: 2023/06/05 16:17:02 by franmart         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= minishell
 
 CC			= gcc
@@ -62,7 +74,7 @@ ${NAME}:	 ${OBJ}
 			@echo "Compiling $(NAME)..."
 			@echo "Compiling dependencies..."
 			@$(MAKE) -s all -C $(LIBFT_DIR)
-			@$(CC) $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
+			@$(CC) ${FLAGS} $(INCLUDES) $(OBJ) -o $(NAME) $(LIBS)
 			@echo "$(NAME) compiled!"
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
