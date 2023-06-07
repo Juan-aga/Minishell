@@ -3,54 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:11:28 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:11:32 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:31:12 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "fractol_utils.h"
-#include <unistd.h>
-#include "parser.h"
-#include "ft_printf.h"
 
 static t_ms	*ft_init(char **env);
 static void	ft_clean(t_ms *g_ms, char *prompt, t_lexer *lex);
 
 t_ms		*g_ms;
-
-/* static void	ft_leaks(void)
-{
-	system("leaks -q minishell");
-} */
-
-void	print_cmds(t_ms *ms)
-{
-	int			i;
-	t_cmdlst	*cmd;
-
-	i = 0;
-	if (!ms || !ms->cmdlst)
-		return ;
-	cmd = ms->cmdlst;
-	ft_printf("Hay %d comandos\n\n", ms->num_com);
-	while (cmd && cmd->arg)
-	{
-		while (cmd->arg[i])
-		{
-			ft_printf("Arg %d: %s\n", i, cmd->arg[i]);
-			i++;
-		}
-		if (cmd->fd_in_file || cmd->fd_out_file)
-			ft_printf("IN %s, OUT %s\n", cmd->fd_in_file, cmd->fd_out_file);
-		i = 0;
-		cmd = cmd->next;
-	}
-}
 
 int	main(int ac, char **av, char **env)
 {

@@ -6,22 +6,35 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:29:36 by franmart          #+#    #+#             */
-/*   Updated: 2023/06/05 16:29:37 by franmart         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:47:07 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <fcntl.h>
-# include <signal.h>
-# include <sys/types.h>
 # include "parser.h"
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+
+/* libft headers */
+# include "fractol_utils.h"
 # include "ft_printf.h"
+# include "get_next_line.h"
 # include "libft.h"
+# include "push_swap_utils.h"
+
+# include <dirent.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 /*		define colors letters		*/
 # define CGREEN "\001\033[1;34;42m\002"

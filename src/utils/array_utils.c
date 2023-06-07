@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   array_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:13:39 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:13:40 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:44:51 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 char	**ft_copy_array(char **src, int add)

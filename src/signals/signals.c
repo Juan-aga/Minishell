@@ -6,20 +6,13 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:23:38 by franmart          #+#    #+#             */
-/*   Updated: 2023/06/05 15:57:18 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:47:48 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
 
 extern t_ms	*g_ms;
-
-/* the strange "\b\b  \b\b" is to delete the \^ token that CTRL+\ prints */
-//	else if (sig == SIGQUIT)
-//		ft_printf("\b\b  \b\b");
 
 /*	fix visual CTRL+ with termios.
  *	&= ~	: it's disable the attribute.

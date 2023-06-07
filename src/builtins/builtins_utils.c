@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:10:16 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:10:17 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:37:46 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
-#include "stdio.h"
 
 static int	ft_no_redirections(t_ms *ms, t_cmdlst *tmp);
 
