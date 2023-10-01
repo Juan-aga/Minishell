@@ -6,7 +6,7 @@
 /*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:23:38 by franmart          #+#    #+#             */
-/*   Updated: 2023/06/07 10:47:48 by franmart         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:02:10 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ void	ft_sigint_proc(int sig)
 
 void	ft_signheredoc(int sig)
 {
-	int	i;
-
-	i = -1;
 	if (sig == SIGINT)
 	{
 		ft_printf("\n");
