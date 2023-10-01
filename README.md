@@ -82,4 +82,4 @@ This project is licensed under The Unlicense - see the [LICENSE.md](LICENSE.md) 
 
 ## Contact
 
-Created by Enrique Martínez (@emartinez-dev) and Juan A. García (@Juan-aga) - feel free to contact us!
+Created by [Enrique Martínez](https://github.com/emartinez-dev/) and [Juan A. García](https://github.com/Juan-aga) - feel free to contact us!
