@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:13:30 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:13:31 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:38:09 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "fractol_utils.h"
-#include "ft_printf.h"
-#include <sys/stat.h>
 
 static void	ft_cd_error(char *str, t_ms *ms, int err, char **to_free);
 static void	ft_cd_update(t_ms *ms, char **dir);

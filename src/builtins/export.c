@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:09:19 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:09:21 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:40:46 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
 static void	ft_export_check(char **str, t_ms *ms, int i, int j);
 static void	ft_export_add(char *str, t_ms *ms, int diff);
