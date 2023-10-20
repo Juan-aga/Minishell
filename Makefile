@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 16:17:00 by franmart          #+#    #+#              #
-#    Updated: 2023/06/05 16:17:02 by franmart         ###   ########.fr        #
+#    Updated: 2023/06/07 11:01:03 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,35 +24,35 @@ SRC_DIR 	= src/
 
 OBJ_DIR		= obj/
 
-_SRC 		= parser/lexer.c 	\
-			parser/lexer_utils.c\
-			parser/tokens.c		\
-			parser/tokens_utils.c\
-			parser/fill_cmds.c	\
-			parser/quotes.c		\
-			expander/expander.c	\
-			expander/expander_utils.c	\
-			expander/wildcard_expander.c	\
-			signals/signals.c	\
-			cmdlst.c			\
-			enviroment.c		\
-			enviroment_utils.c	\
-			builtins.c			\
-			builtins_utils.c	\
-			array_utils.c		\
-			exec.c				\
-			exec_utils.c		\
-			envlst.c			\
-			envlst_utils.c		\
-			export.c			\
-			cd.c				\
-			here_doc.c			\
-			wildcard.c			\
-			error.c				\
-			prompt.c			\
-			ato_int128.c		\
-			check_exit.c		\
-			main.c
+_SRC 		=	builtins/builtins_utils.c\
+				builtins/builtins.c\
+				builtins/cd.c\
+				builtins/check_exit.c\
+				builtins/enviroment_utils.c\
+				builtins/enviroment.c\
+				builtins/error.c\
+				builtins/export.c\
+				builtins/here_doc.c\
+				executor/exec_utils.c\
+				executor/exec.c\
+				expander/expander_utils.c\
+				expander/expander.c\
+				expander/wildcard_expander.c\
+				parser/cmdlst.c\
+				parser/envlst_utils.c\
+				parser/envlst.c\
+				parser/fill_cmds.c\
+				parser/lexer_utils.c\
+				parser/lexer.c\
+				parser/quotes.c\
+				parser/tokens_utils.c\
+				parser/tokens.c\
+				prompt/prompt.c\
+				signals/signals.c\
+				utils/array_utils.c\
+				utils/ato_int128.c\
+				wildcard/wildcard.c\
+				main.c
 
 SRC 		= ${addprefix ${SRC_DIR}, ${_SRC}}
 OBJ			= ${patsubst ${SRC_DIR}%.c, ${OBJ_DIR}%.o, ${SRC}}
@@ -79,7 +79,9 @@ ${NAME}:	 ${OBJ}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 			@git submodule update --init
-			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals ${OBJ_DIR}/expander
+			@mkdir -p ${OBJ_DIR}/parser ${OBJ_DIR}/signals ${OBJ_DIR}/expander\
+				 ${OBJ_DIR}/executor ${OBJ_DIR}/builtins ${OBJ_DIR}/prompt\
+				 ${OBJ_DIR}/utils ${OBJ_DIR}/wildcard
 			@${CC} ${FLAGS} ${INCLUDES} -c $^ -o $@ -g3
 
 all:		${NAME} ${LIBFT}

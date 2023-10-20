@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ato_int128.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:10:37 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:10:38 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:39:45 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "push_swap_utils.h"
 
 __int128	ft_ato_int128(char *str)
 {

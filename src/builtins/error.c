@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:12:22 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:12:23 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:40:32 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 void	ft_error_exe(char **arg, char *msg, t_ms *ms)
 {

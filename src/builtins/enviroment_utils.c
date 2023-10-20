@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   enviroment_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:11:01 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:11:02 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:40:39 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include "fractol_utils.h"
-#include "ft_printf.h"
-#include "ft_printf.h"
 
 t_envlst	*ft_getenv(char *str, t_envlst *lst)
 {

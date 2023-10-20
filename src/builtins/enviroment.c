@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   enviroment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:11:48 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:11:49 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:40:29 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
 static void	ft_error_unset(char *str, int *err);
 

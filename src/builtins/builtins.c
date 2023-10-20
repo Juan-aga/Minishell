@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:13:03 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:13:05 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:48:00 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
-#include "fractol_utils.h"
 
 static void	ft_echo_n(char **str, int nl);
 
@@ -54,31 +49,6 @@ void	ft_pwd(t_ms *ms)
 	ft_printf("%s\n", dir);
 	free(dir);
 }
-/*
-void	ft_echo(char **str)
-{
-	int	nl;
-	int	i;
-
-	nl = 1;
-	i = 0;
-	if (str[i])
-	{
-		if (!ft_strncmp("-n", str[i], 4))
-		{
-			nl = 0;
-			i++;
-		}
-	}
-	while (str[i])
-	{
-		ft_printf("%s", str[i]);
-		if (str[++i])
-			ft_printf(" ");
-	}
-	if (nl)
-		ft_printf("\n");
-}*/
 
 void	ft_echo(char **str)
 {

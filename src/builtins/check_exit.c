@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juan-aga <juan_aga@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:10:48 by juan-aga          #+#    #+#             */
-/*   Updated: 2023/06/05 16:10:51 by juan-aga         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:39:59 by franmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "push_swap_utils.h"
-#include <limits.h>
 
 static int	ft_limitsll(t_ms *ms, char *str);
 
